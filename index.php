@@ -7,9 +7,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 //carregar Constantes
 require_once __DIR__ . '/app/config/settings.php';
 
+echo'asas';
 
-
-// Carregar variáveis de ambiente (se necessário)
+// Carregar variáveis de ambiente (se necessário) asdda
 $dotenv = Dotenv\Dotenv::createImmutable(paths: __DIR__);
 $dotenv->load();
 
