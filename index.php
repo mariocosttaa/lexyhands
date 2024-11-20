@@ -1,17 +1,11 @@
 <?php
 
+use App\Services\Notification;
+
 session_start();
 
-require_once __DIR__ . '/vendor/autoload.php';
-
 //carregar Constantes
-require_once __DIR__ . '/app/config/settings.php';
-
-echo'asas';
-
-// Carregar variáveis de ambiente (se necessário) asdda
-$dotenv = Dotenv\Dotenv::createImmutable(paths: __DIR__);
-$dotenv->load();
+require_once __DIR__ . '/vendor/autoload.php';
 
 //activar reporte de erros
 if (isset($_ENV['APP_DEBUG'])) {
@@ -26,4 +20,9 @@ if (isset($_ENV['APP_DEBUG'])) {
 // Iniciar o roteador e resolver a requisição
 $router = require __DIR__ . '/app/routes/web.php';
 $router->resolve();
+
+
+//emitir alertas isso aqui é para verifciar na ultima sessao ao redirecionar a pagia se tem alguma notificação
+$notification  = (new \App\Services\Notification())->autoDisplayNotification();
+
 

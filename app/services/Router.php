@@ -28,28 +28,57 @@ class Router
         ];
     }
 
+    public function post($uri, $action, $middlewares = [])
+    {
+        $this->routes['POST'][$uri] = [
+            'action' => $action,
+            'middlewares' => $middlewares,
+        ];
+    }
+
     public function resolve(): bool
     {
-        $uri = $this->currentUri;
+        // Obtém a URI sem a query string
+        $uri = strtok($this->currentUri, '?');
         $method = $_SERVER['REQUEST_METHOD'];
-
-        if (isset($this->routes[$method][$uri])) {
-            $route = $this->routes[$method][$uri];
-
-            // Executa cada middleware antes de chamar a ação principal
-            foreach ($route['middlewares'] as $middleware) {
-                $middlewareInstance = new $middleware;
-                $middlewareInstance->handle();
+    
+        foreach ($this->routes[$method] as $routeUri => $route) {
+            // Cria um padrão para capturar parâmetros dinâmicos
+            $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_-]+)', $routeUri);
+            $pattern = "#^" . $pattern . "$#";
+    
+            if (preg_match($pattern, $uri, $matches)) {
+                // Filtra os parâmetros dinâmicos (somente grupos nomeados)
+                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+    
+                // Executa cada middleware
+                foreach ($route['middlewares'] as $middleware) {
+                    $middlewareClass = $middleware[0];
+                    $middlewareMethod = $middleware[1];
+    
+                    // Instancia a classe do middleware e chama o método especificado
+                    $middlewareInstance = new $middlewareClass;
+                    $middlewareInstance->$middlewareMethod($params);  // Passa os parâmetros se necessário
+                }
+    
+                // Chama a ação e passa os parâmetros diretamente como argumentos
+                if (is_array($route['action'])) {
+                    [$class, $method] = $route['action'];
+                    call_user_func_array([new $class, $method], $params);
+                } else {
+                    call_user_func_array($route['action'], $params);
+                }
+    
+                return true;
             }
-
-            call_user_func(callback: $route['action']);
-
-            return true;
-        } else {
-            echo "Página não encontrada";
-            return false;
         }
+    
+        echo "Página não encontrada";
+        return false;
     }
+    
+    
+    
 
     public function getCurrentUri()
     {

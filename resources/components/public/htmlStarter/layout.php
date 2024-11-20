@@ -1,11 +1,13 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
-<title>Purerelax | Spa &amp; Beauty HTML Template | Home Page 05</title>
+<meta name="keywords" content="lexyhands, massagem, massagista, massoterapia, massagem lisboa, massagista lisboa, massoterapia lisboa, massagem terapeutica, massagem terapeutica lisboa">
+<meta name="description" content="LexyHands - Massagem e Massoterapia em Lisboa. Massagista qualificada em Lisboa, com experiencia em massagem terapeutica">
+<meta name="author" content="LexyHands - Massagem e Massoterapia em Lisboa">
+<title> {{ pageName }} </title>
 <!-- Stylesheets -->
-<link href="public/assets/css/bootstrap.min.css" rel="stylesheet">
-<link href="public/assets/css/style.css" rel="stylesheet">
-
-<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+<link href="/projects/lexyhands/public/assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="/projects/lexyhands/public/assets/css/style.css" rel="stylesheet">
+<link rel="shortcut icon" href="/projects/lexyhands/public/assets/images/favicon.png" type="image/x-icon">
 <link rel="icon" href="images/favicon.png" type="image/x-icon">
 
 <!-- Responsive -->
@@ -21,3 +23,4 @@
     
   <!-- Preloader -->
   <div class="preloader"></div>
+

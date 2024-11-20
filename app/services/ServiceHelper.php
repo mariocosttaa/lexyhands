@@ -1,12 +1,20 @@
 <?php
 
 namespace App\Services;
+use App\Config\Database;
 
 class ServiceHelper {
 
     public function __construct()
     {
          //
+    }
+
+    
+
+    public static function conn(): \PDO|null {
+        $db = new Database();
+        return $db->conn();
     }
 
     public static function ROOT_PATH(): string {

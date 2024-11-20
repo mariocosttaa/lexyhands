@@ -4,24 +4,6 @@ var THEMEMASCOT = {};
 	"use strict";
 
 
-  /* ---------------------------------------------------------------------- */
-  /* --------------------------- Start Demo Switcher  --------------------- */
-  /* ---------------------------------------------------------------------- */
-  var showSwitcher = true;
-  var $body = $('body');
-  var $style_switcher = $('#style-switcher');
-  if( !$style_switcher.length && showSwitcher ) {
-      $.ajax({
-          url: "color-switcher/style-switcher.html",
-          success: function (data) { $body.append(data); },
-          dataType: 'html'
-      });
-  }
-  /* ---------------------------------------------------------------------- */
-  /* ----------------------------- En Demo Switcher  ---------------------- */
-  /* ---------------------------------------------------------------------- */
-	
-
   THEMEMASCOT.isRTL = {
     check: function() {
       if( $( "html" ).attr("dir") === "rtl" ) {
