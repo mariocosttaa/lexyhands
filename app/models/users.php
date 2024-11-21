@@ -1,6 +1,7 @@
 <?php 
 
 namespace App\Models;
+use App\Models\roles as Roles;
 
 class users extends ModelHelper {
 
@@ -31,20 +32,9 @@ class users extends ModelHelper {
     public static function getByUserId(int $user_id, ?bool $forceHave = true): mixed {
         if(empty($user_id)) return false;
         $result =  parent::SQL_EASY_SELECT(table: 'users', where: ['user_id' => $user_id], limit: null, order: null, object: true);
-        if($result) {
-            $result->names = $result->name . ' ' . $result->surname;
-        } else if($forceHave && !$result) {
-            $result = [];
-            $result = (object) $result;
-            $result->name = 'Usuário Apagado';
-            $result->names = 'Usuário Apagado';
-            $result->user_id = '00000';
-            $result->id = '0';
-        }
-
+        $result = self::addToUserObject(result: $result, forceHave: $forceHave);
         return $result;
     }
-
 
     public static function getByEmail($email): mixed {
         if(empty($email)) return false;
@@ -52,6 +42,21 @@ class users extends ModelHelper {
     }
 
     
+    private static function addToUserObject($result, ?bool $forceHave = true): object|false {
+        if($result) {
+            $result->names = $result->name . ' ' . $result->surname;
+            $result->role = Roles::getbyId(id: $result->role);
+        } else if($forceHave && !$result) {
+            $result = [];
+            $result = (object) $result;
+            $result->name = 'Usuário Apagado';
+            $result->names = 'Usuário Apagado';
+            $result->user_id = '00000';
+            $result->id = '0';
+        } 
+
+        return $result ?? false;
+    }
 
 
 }

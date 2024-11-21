@@ -149,7 +149,10 @@ class Layout  extends ServiceHelper
             <script src="/projects/lexyhands/public/default/services/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
             <script src="/projects/lexyhands/public/default/system-dinamicAlerts.js"></script>
+            
+            <!---
             <script src="/projects/lexyhands/public/default/system.form.filter.js"></script>
+            --->
             
             <!--- System Helps --->
             <script src="public/assets/default/js/helpers/modal-url-param.js"></script>

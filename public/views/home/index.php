@@ -62,7 +62,7 @@
                                                                                       echo $i;
                                                                                     } ?>.png" alt="Image"></figure>
                             <h4 class="title"><a
-                                    href="../service/<?php echo $service->id ?>"><?php echo $service->name ?></a></h4>
+                                    href="/projects/lexyhands/service/<?php echo $service->id ?>"><?php echo $service->name ?></a></h4>
                             <div class="text"><?php echo $service->description ?></div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
             </div>
             <br>
             <div class="text-center">
-                <a href="../services" target="_blank" class="theme-btn btn-style-transparent mt-25">Ver Todos
+                <a href="/projects/lexyhands/services" target="_blank" class="theme-btn btn-style-transparent mt-25">Ver Todos
                     Serviços</a>
             </div>
         </div>

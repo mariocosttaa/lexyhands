@@ -14,6 +14,7 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         '9516b8ef8ad64239e43cb4c67fa40817' => __DIR__ . '/../..' . '/app/helpers/general/errorReporting.php',
         '6dc83fee78b3ecb81561290076361e74' => __DIR__ . '/../..' . '/app/helpers/general/getComponent.php',
         '03ae90ddfe36887bcb38643e333b4743' => __DIR__ . '/../..' . '/app/helpers/general/CurrencyOrganizer.php',
+        'ac3487463ec3579ad0236e44d4546d87' => __DIR__ . '/../..' . '/app/helpers/general/url.php',
         'feaacb47e3ce3ecf41e4d98d3f25649c' => __DIR__ . '/../..' . '/app/helpers/services/UserDateTime.php',
         'c88cf269f3cd3e13e7c738da2207081e' => __DIR__ . '/../..' . '/app/helpers/services/SlugGenerator.php',
         '51dbcfd670f593edf6baafb6aa9641e1' => __DIR__ . '/../..' . '/app/helpers/models/Users.php',

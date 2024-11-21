@@ -28,7 +28,7 @@ class ServicesController extends ControllerHelper
 
         //id n encontrado
         if(Service::getById($id) == null){
-            parent::notification(tittle: 'O serviço não foi encontrado', message: 'Verifique se o serviço existe', level: 'error', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '../services');
+            parent::notification( title: 'O serviço não foi encontrado', message: 'Verifique se o serviço existe', level: 'error', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '../services');
             exit();
         }
 
