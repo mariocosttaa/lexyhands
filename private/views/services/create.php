@@ -9,7 +9,7 @@
                 <i class="bi bi-house-door me-1" w-tid="106"></i>Menu
             </a>
         </li>
-        <li class="breadcrumb-item"><a href="/projects/lexyhands/services">Serviços</a></li>
+        <li class="breadcrumb-item"><a href="/projects/lexyhands/admin/services">Serviços</a></li>
         <li class="breadcrumb-item active" aria-current="page">Criar Serviço</li>
     </ol>
 </nav>
