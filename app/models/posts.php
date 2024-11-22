@@ -6,9 +6,9 @@ use App\Models\posts_comments as PostsComments;
 use App\Models\posts_categorys as PostsCategory;
 class posts extends ModelHelper {
 
-    public static function create($data): void {
-        if(empty($data)) return;
-        parent::SQL_EASY_INSERT(table: 'posts', data: $data);
+    public static function create($data): bool|object {
+        if(empty($data)) return false;
+        return parent::SQL_EASY_INSERT(table: 'posts', data: $data);
     }
     
     public static function delete($id): void {
@@ -16,9 +16,9 @@ class posts extends ModelHelper {
         parent::SQL_EASY_DELETE(table: 'posts', where: ['id' => $id]);
     }
 
-    public static  function update($id, $data): void {
-        if(empty($id) || empty($data)) return;
-        parent::SQL_EASY_UPDATE(table: 'posts', data: $data, where: ['id' => $id]);
+    public static  function update($id, $data): bool|object {
+        if(empty($id) || empty($data)) return false;
+        return parent::SQL_EASY_UPDATE(table: 'posts', data: $data, where: ['id' => $id]);
     }
 
     public static function getAll($order = null, $limit = null): mixed {
@@ -43,6 +43,16 @@ class posts extends ModelHelper {
         if($result): $result = self::addKeys(result: $result); endif; 
         return $result;
 
+    }
+
+    public static function checkTittleExist(string $tittle):bool|object {
+        if(empty($name)) return false;
+        return parent::SQL_EASY_SELECT(table: 'posts', where: ['tittle' => $tittle], limit: null, order: null, object: true);
+    }
+
+    public static function getFromIdetificatorOnly(string $identificator):bool|object{
+        if(empty($identificator)) return false;
+        return parent::SQL_EASY_SELECT(table: 'posts', where: ['identificator' => $identificator], limit: null, order: null, object: true);
     }
 
     public static function getAllFromCategory(int $category = null, ?string $order = null, ?int $limit = null):bool|array {

@@ -24,7 +24,7 @@ $router->get(uri: '/services', action: [
     App\Controllers\ServicesController::class, 'index'
 ]);      
 
-$router->get(uri: '/service/{id}', action: [
+$router->get(uri: '/service/{slugName}', action: [
     App\Controllers\ServicesController::class, 'view'
 ]);
 
@@ -69,6 +69,9 @@ $router->get(uri: '/about', action: [
 
 
 $router->get(uri: '/test', action: [
+    \App\Controllers\TestController::class, 'index'
+]);
+$router->post(uri: '/test', action: [
     \App\Controllers\TestController::class, 'index'
 ]);
 

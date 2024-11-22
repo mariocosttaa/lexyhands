@@ -4,14 +4,14 @@ namespace App\Models;
 
 class services extends ModelHelper {
 
-    public static function create($data): void {
-        if(empty($data)) return;
-        parent::SQL_EASY_INSERT(table: 'services', data: $data);
+    public static function create(array $data = []): bool {
+        if(empty($data)) return false;
+        return parent::SQL_EASY_INSERT(table: 'services', data: $data);
     }
     
-    public static function delete($id): void {
-        if(empty($id)) return;
-        parent::SQL_EASY_DELETE(table: 'services', where: ['id' => $id]);
+    public static function delete($id): bool|object {
+        if(empty($id)) return false;
+        return parent::SQL_EASY_DELETE(table: 'services', where: ['id' => $id]) ?: false;
     }
 
     public static  function update($id, $data): void {
@@ -33,5 +33,14 @@ class services extends ModelHelper {
         return parent::SQL_EASY_SELECT(table: 'services', where: ['id' => [ '!=', $id]], limit: $limit, order: $order, object: false);
     }
 
+    public static function checkNameExist(string $name):bool|object {
+        if(empty($name)) return false;
+        return parent::SQL_EASY_SELECT(table: 'services', where: ['name' => $name], limit: null, order: null, object: true);
+    }
+
+    public static function getBySlugName(string $name):bool|object {
+        if(empty($name)) return false;
+        return parent::SQL_EASY_SELECT(table: 'services', where: ['slug_name' => $name], limit: null, order: null, object: true);
+    }
 
 }

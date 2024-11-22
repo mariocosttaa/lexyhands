@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "simplemde": "^1.11.2"
+    "choices.js": "^11.0.2"
   }
 }

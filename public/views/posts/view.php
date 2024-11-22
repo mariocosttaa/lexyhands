@@ -20,11 +20,18 @@
         <div class="row">
             <div class="col-xl-8 col-lg-7">
                 <div class="blog-details__left">
-
                     <?php if (!empty($post->images)) {
                         $post->images = json_decode($post->images); ?>
                         <div class="blog-details__img">
-                            <img src="/projects/lexyhands/<?php echo reset(array: $post->images) ?>" alt="">
+                            <?php if($post->video) { ?>
+                                <video width="100%" height="400" controls>
+                                    <source src="http://localhost/<?php echo $post->video ?>" type="video/mp4">
+                                    Ocorreu um erro ao reproduzir o video.
+                                </video>
+                                <br><br><br>
+                            <?php } else { ?>
+                            <img src="/<?php echo reset(array: $post->images) ?>" alt="">
+                            <?php } ?>
                             <div class="blog-details__date">
                                 <span class="day"><?php echo getUserDateTime(date: $post->date, format: 'd') ?></span>
                                 <span class="month"><?php echo strtoupper(string: substr(string: getUserDateTime($post->date, format: 'M'), offset: 0, length: 3)) ?></span>
@@ -48,22 +55,17 @@
                         <p class="blog-details__text-2">
                             <?php echo $post->content ?>
                         </p>
-
-                        <p class="blog-details__text-2">Mauris non dignissim purus, ac commodo diam. Donec sit
-                            amet lacinia nulla. Aliquam quis purus in justo pulvinar tempor. Aliquam tellus
-                            nulla, sollicitudin at euismod nec, feugiat at nisi. Quisque vitae odio nec lacus
-                            interdum tempus. Phasellus a rhoncus erat. Vivamus vel eros vitae est aliquet
-                            pellentesque vitae et nunc. Sed vitae leo vitae nisl pellentesque semper.
-                        </p>
                     </div>
+
+                    <?php if (!empty($post->tags)) { ?>
                     <div class="blog-details__bottom">
                         <p class="blog-details__tags"> <span>Tags</span>
-                            <?php if (!empty($post->tags)) {
-                                foreach ($post->tags as $tag) {  ?>
+                            <?php foreach ($post->tags as $tag) {  ?>
                                     <a href="/projects/lexyhands/posts/tags"><?php echo $tag ?></a> <a href="/projects/lexyhands/posts/tags"><?php echo $tag ?></a>
+                            <?php } ?>
                         </p>
-                        <?php }} ?>
                     </div>
+                    <?php } ?>
 
                     <?php if (!empty(getUser(id: $post->user_id)->twitter) || !empty(getUser(id: $post->user_id)->facebook) || !empty(getUser(id: $post->user_id)->pinterest) || !empty(getUser(id: $post->user_id)->instagram)) { ?>
                     <div class="blog-details__social-list mb-4"> 
@@ -205,7 +207,7 @@
                                 <li>
                                     <?php if(!empty($lastPost->images)) { ?>
                                         <div class="sidebar__post-image"> 
-                                            <img src="/projects/lexyhands/<?php echo reset(array: $lastPost->images) ?>" alt=""> 
+                                            <img src="/<?php echo reset(array: $lastPost->images) ?>" alt=""> 
                                         </div>
                                     <?php } ?>
                                     <div class="sidebar__post-content">

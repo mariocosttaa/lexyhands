@@ -11,7 +11,7 @@ class ControllerHelper {
     
     public static function notification(
         string $title,
-        string $message,
+        ?string $message = null,
         ?string $level = 'info',
         ?string $type = 'sweetalert',
         ?string $position = 'top-end',
@@ -41,6 +41,12 @@ class ControllerHelper {
         exit();
     }
 
+    public static function renderAdmin404(): void {
+        echo 'A Pagina não foi encontrada ou nao existe..';
+        exit();
+    }
+
+
     public static function renderErrorPage(?string $message = null): void {
         echo $message ?: 'A Pagina não foi encontrada';
         exit();
@@ -51,6 +57,11 @@ class ControllerHelper {
         return $userDate->userDateTime(utcDate: $date, format: $order);
     }
 
+
+    public static function User(): mixed {
+        return self::getUserLoggin();
+    }
+    
     private static function globalStrings(?array $strings = []): array {
 
         $strings['main'] = (object) [

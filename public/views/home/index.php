@@ -53,7 +53,7 @@
                 <div class="service-block-three col-lg-3 col-md-6 col-sm-6">
                     <div class="inner-box">
                         <div class="image-box">
-                            <div class="bg-image" style="background-image:url(<?php echo $service->image ?>);"></div>
+                            <div class="bg-image" style="background-image:url(/<?php echo $service->image ?>);"></div>
                         </div>
                         <div class="content-box">
                             <figure class="icon mb-0"><img src="public/assets/images/icon-leaf<?php if ($i >= 4) {
@@ -62,7 +62,7 @@
                                                                                       echo $i;
                                                                                     } ?>.png" alt="Image"></figure>
                             <h4 class="title"><a
-                                    href="/projects/lexyhands/service/<?php echo $service->id ?>"><?php echo $service->name ?></a></h4>
+                                    href="/projects/lexyhands/service/<?php echo $service->slug_name ?>"><?php echo $service->name ?></a></h4>
                             <div class="text"><?php echo $service->description ?></div>
                         </div>
                     </div>
@@ -640,7 +640,7 @@
                             <a href="<?php echo  $postLink ?>">
                               <?php if(!empty($post->images)) { ?>
                                 <?php foreach($post->images as $image) { ?>
-                                  <img src="<?php echo $image ?>" alt="Image">
+                                  <img src="/<?php echo $image ?>" alt="Image">
                                 <?php } ?>
                                 <?php } ?>
                             </a>
@@ -651,7 +651,7 @@
                             <li class="categories"><a href="<?php echo  $postLink ?>"><?php echo $category->name ?></a></li>
                             <li class="date"><?php echo getUserDateTime(date: $post->date, format: 'd/m/Y'); ?></li>
                         </ul>
-                        <h4 class="title mb-0"><a href="<?php echo  $postLink ?>"><?php echo $post->tittle ?></a></h4>
+                        <h4 class="title mb-0"><a href="<?php echo $postLink ?>"><?php echo $post->tittle ?></a></h4>
                         <p><?php echo $post->subtittle ?></p>
                         <a class="read-more" href="<?php echo  $postLink ?>">Abrir <i
                                 class="icon fa-regular fa-angle-right"></i></a>

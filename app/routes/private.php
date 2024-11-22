@@ -20,13 +20,76 @@ $router->get(uri: '/admin/services/create', action: [
         [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
 ]);
 
-$router->get(uri: '/admin/services/create/post', action: [ 
-    App\Controllers\ServicesAdminController::class, 'create'], middlewares: [
+$router->post(uri: '/admin/services/create', action: [ 
+    App\Controllers\ServicesAdminController::class, 'create_post'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->get(uri: '/admin/services/edit/{slugName}', action: [ 
+    App\Controllers\ServicesAdminController::class, 'edit'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/services/edit/{slugName}', action: [ 
+    App\Controllers\ServicesAdminController::class, 'edit_post'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/services/delete/{slugName}', action: [ 
+    App\Controllers\ServicesAdminController::class, 'delete'], middlewares: [
         [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
 ]);
 
 $router->get(uri: '/admin/services', action: [ 
     App\Controllers\ServicesAdminController::class, 'index'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+//POSTS
+
+$router->get(uri: '/admin/posts/create', action: [ 
+    App\Controllers\PostsAdminController::class, 'create'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/posts/create', action: [ 
+    App\Controllers\PostsAdminController::class, 'create_post'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->get(uri: '/admin/posts/edit/{identificator}', action: [ 
+    App\Controllers\PostsAdminController::class, 'edit'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/posts/edit/{identificator}', action: [ 
+    App\Controllers\PostsAdminController::class, 'edit_post'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+//POSTS - APAGAR ARQUIVOS DE IMAGEM
+$router->get(uri: '/admin/posts/delete/file/{fileKey}/{identificator}', action: [ 
+    App\Controllers\PostsAdminController::class, 'fileDelete'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->get(uri: '/admin/posts/delete/video/{identificator}', action: [ 
+    App\Controllers\PostsAdminController::class, 'videoDelete'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->get(uri: '/admin/posts/delete/{identificator}', action: [ 
+    App\Controllers\PostsAdminController::class, 'delete'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/posts/delete/{identificator}', action: [ 
+    App\Controllers\PostsAdminController::class, 'delete'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->get(uri: '/admin/posts', action: [ 
+    App\Controllers\PostsAdminController::class, 'index'], middlewares: [
         [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
 ]);
     

@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="content-box">
                                         <figure class="icon mb-0"><img src="public/assets/images/icons/theme-icon8.png" alt="Image"></figure>
-                                        <h4 class="title"><a href="./service/<?php echo $service->id ?>"><?php echo $service->name ?></a></h4>
+                                        <h4 class="title"><a href="./service/<?php echo $service->slug_name ?>"><?php echo $service->name ?></a></h4>
                                     </div>
                                 </div>
                             </div>

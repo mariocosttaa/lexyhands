@@ -23,10 +23,11 @@ class FormFilter extends ServiceHelper
     }
 
     // Valida os campos com as regras fornecidas
-    public static function validate(array $data, array $rules, $notifyError = false, $redirectUrl = null)
+    public static function validate(array $data, array $rules, $notifyError = false, $redirectUrl = null): array|object
     {
         $errors = [];
-
+        $validatedData = new \stdClass();
+    
         // Itera pelas regras e valida os dados
         foreach ($rules as $field => $rule) {
             // Divide a regra em tipo e outras validações
@@ -36,7 +37,7 @@ class FormFilter extends ServiceHelper
             $minLength = null;
             $maxLength = null;
             $message = null;
-
+    
             // Verifica se há uma mensagem personalizada
             if (count($ruleParts) > 1) {
                 $message = end($ruleParts);  // A última parte pode ser uma mensagem personalizada
@@ -44,7 +45,7 @@ class FormFilter extends ServiceHelper
                     $message = null;
                 }
             }
-
+    
             // Verifica se existe uma limitação de caracteres
             foreach ($ruleParts as $part) {
                 if (strpos($part, 'min:') === 0) {
@@ -54,13 +55,13 @@ class FormFilter extends ServiceHelper
                     $maxLength = (int) substr($part, 4);  // extrai o número após "max:"
                 }
             }
-
+    
             // 1. Verifica se o campo é obrigatório (Primeira verificação)
             if ($isRequired && (!isset($data[$field]) || empty($data[$field]))) {
                 $errors[$field][] = $message ?: ucfirst($field) . " é obrigatório.";
                 continue;  // Se o campo for obrigatório e vazio, não valida mais outras regras
             }
-
+    
             // 2. Verifica a limitação de caracteres (min e max) caso o campo não esteja vazio
             if (isset($data[$field])) {
                 if ($minLength !== null && strlen($data[$field]) < $minLength) {
@@ -70,19 +71,24 @@ class FormFilter extends ServiceHelper
                     $errors[$field][] = $message ?? ucfirst($field) . " deve ter no máximo $maxLength caracteres.";
                 }
             }
-
+    
             // 3. Valida o tipo do campo (se o valor existir)
             if (isset($data[$field]) && !self::validateType($data[$field], $type)) {
                 $errors[$field][] = $message ?? ucfirst($field) . " não é válido.";
             }
+    
+            // Preenche os dados validados no objeto
+            if (!isset($errors[$field])) {
+                $validatedData->$field = $data[$field];
+            }
         }
-
+    
         // Se houver erros, exibe a notificação
         if ($notifyError && !empty($errors)) {
             $errorMessages = implode('<br>', array_map(function ($fieldErrors) {
                 return implode('<br>', $fieldErrors);
             }, $errors)); // Juntamos os erros de cada campo
-
+    
             // Chama o serviço de notificação
             if ($redirectUrl) {
                 // Redireciona com a notificação de erro
@@ -106,13 +112,15 @@ class FormFilter extends ServiceHelper
                     timeout: 5000
                 );
             }
-
-            return ['errors' => $errors]; // Retorna os erros
+    
+            return ['success' => false, 'errors' => $errors]; // Retorna os erros e success = false
         }
-
-        // Se não houver erros, retorna sucesso
-        return ['success' => true];
+    
+        // Se não houver erros, retorna o objeto com dados validados e success = true
+        return (object) ['success' => true, 'data' => $validatedData];
     }
+    
+    
 
     // Valida o tipo de campo (ex: string, int, email)
     private static function validateType($value, $type)

@@ -5,7 +5,7 @@
     <div class="mb-4">
         <br><br>
     </div>
-    <footer class="footer py-35 card card-body">
+    <footer class="footer py-35 card-body">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">

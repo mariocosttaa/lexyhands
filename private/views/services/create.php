@@ -1,5 +1,9 @@
 <h2 class="page-header-title d-flex align-items-center justify-content-between">
     Criar Serviço
+    <a href="/projects/lexyhands/admin/services" class="btn btn-danger-soft">
+        <i class="bi bi-arrow-left me-1"></i>
+         Voltar
+    </a>
 </h2>
 
 <nav aria-label="breadcrumb" w-tid="102">
@@ -17,7 +21,7 @@
 <!-- Service Form -->
 <div class="card">
     <div class="card-body">
-        <form id="createServiceForm" method="POST" action="/projects/lexyhands/service/create/post">
+        <form id="createServiceForm" method="POST" action="" enctype="multipart/form-data">
             <div class="row g-4">
 
                 <!-- Service Name -->
@@ -39,12 +43,12 @@
                 <!-- Image Upload Section -->
                 <div class="col-12 mb-4">
                     <div class="image-upload-container position-relative" style="min-height: 300px; border: 2px dashed var(--border-dark); border-radius: 12px; overflow: hidden;">
-                        <input type="file" id="serviceImage" class="position-absolute w-100 h-100 opacity-0" style="cursor: pointer" accept="image/*">
+                        <input type="file" id="serviceImage" name="image" class="position-absolute w-100 h-100 opacity-0" style="cursor: pointer" accept="image/*">
                         <div id="imagePreviewContainer" class="w-100 h-100 d-flex align-items-center justify-content-center" style="min-height: 300px; pointer-events: none;">
                             <div id="uploadPrompt" class="text-center p-4">
                                 <i class="bi bi-cloud-upload display-4 mb-3 text-primary"></i>
                                 <h5>Arraste uma imagem ou clique para selecionar</h5>
-                                <p class="text-muted mb-0">PNG, JPG ou JPEG (max. 2MB)</p>
+                                <p class="text-muted mb-0">PNG, JPG ou JPEG (max. 3MB)</p>
                             </div>
                             <img id="imagePreview" class="position-absolute w-100 h-100 object-fit-cover d-none" alt="Preview">
                         </div>
@@ -68,8 +72,7 @@
                 <!-- Editor --->
                  <div class="mb-2">
                     <label class="form-label">Informações do Serviço <b class="text-danger">*</b></label>
-                    <textarea id="editor" nama="content" required>
-                        <p>Escreva seu texto ou HTML aqui...</p>
+                    <textarea id="editor" name="content" placeholder="Escreva o conteúdo do Serviço" required>
                     </textarea>
                  </div>
 

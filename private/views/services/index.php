@@ -2,7 +2,7 @@
     Lista de Serviços
     <a href="/projects/lexyhands/admin/services/create" class="btn btn-primary-soft">
         <i class="bi bi-plus me-1"></i>
-        Adicionar
+        Criar Serviço
     </a>
 </h2>
 <nav aria-label="breadcrumb" w-tid="102">
@@ -23,14 +23,29 @@
             <!-- Web Development Card -->
             <div class="col-12 col-md-6 col-lg-4" w-tid="92">
                 <div class="card h-100 position-relative service-card" w-tid="93">
-                    <img src="/projects/lexyhands/<?php echo $service->image ?>" alt="Web Development illustration showing code and design elements" class="card-img-top" height="200" style="object-fit: cover;" w-tid="94">
+                    <img src="/<?php echo $service->image ?>" alt="Imagem do Serviço" class="card-img-top" height="200" style="object-fit: cover;" w-tid="94">
                     <div class="card-body" w-tid="95">
                         <h5 class="card-title mb-0" w-tid="96"><?php echo $service->name ?></h5>
                         <p class="card-text text-muted" w-tid="97"><?php echo $service->description ?></p>
                     </div>
                     <div class="card-footer mb-2">
-                        <a href="/projects/lexyhands/admin/services/edit/<?php echo $service->id ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
-                        <a href="/projects/lexyhands/admin/services/delete/<?php echo $service->id ?>" class="btn btn-sm btn-danger-soft" w-tid="98">Apagar</a>
+                        <form action="/projects/lexyhands/admin/services/delete/<?php echo $service->slug_name ?>" method="POST">
+                            <a href="/projects/lexyhands/admin/services/edit/<?php echo $service->slug_name ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
+                            <button type="submit" class="btn btn-sm btn-danger-soft" w-tid="98"
+                                data-alert-config='{
+                                        "type": "delete", 
+                                        "title": "Você tem certeza?", 
+                                        "message": "Esta ação é irreversível. Deseja continuar com a exclusão?", 
+                                        "icon": "warning", 
+                                        "confirmButtonText": "Sim, excluir", 
+                                        "cancelButtonText": "Cancelar", 
+                                        "confirmButtonColor": "danger", 
+                                        "cancelButtonColor": "secondary"
+                                    }'>
+                                Excluir
+                            </button> |
+                            <a target="_blank" href="/projects/lexyhands/service/<?php echo $service->slug_name ?>" class="btn btn-sm btn-primary-soft" w-tid="98">Visualizar</a>
+                        </form>
                     </div>
                 </div>
             </div>

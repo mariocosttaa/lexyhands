@@ -23,10 +23,17 @@
     <div class="nav-section mb-4">
         <small class="text-muted text-uppercase fw-bold">GESTÃO</small>
         <div class="nav flex-column mt-2">
-            <a href="/projects/lexyhands/admin/posts" class="nav-link d-flex align-items-center">
+
+
+            <a href="#" class="<?php isActive(dir: '/admin/posts') ?> <?php isActive(dir: '/admin/posts/create') ?> nav-link d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-journal-text me-3"></i>
-                <span>Comunidade</span>
+                <span>Comunidade </span>
             </a>
+            <div class="dropdown-menu dropdown-menu-end">
+                <a class="<?php isActive(dir: '/admin/posts') ?> dropdown-item" href="/projects/lexyhands/admin/posts">Todas Postagens</a>
+                <a class="<?php isActive(dir: '/admin/posts/create') ?> dropdown-item" href="/projects/lexyhands/admin/posts/create">Criar Postagem</a>
+            </div>
+
             <a href="#" class="<?php isActive(dir: '/admin/services') ?> <?php isActive(dir: '/admin/services/create') ?> nav-link d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-wrench me-3"></i>
                 <span>Serviços </span>
@@ -73,7 +80,7 @@
                         <i class="bi bi-sun fs-4 text-white"></i>
                     </div>
 
-
+                    <!-- Indisponível
                     <div class="dropdown header-dropdown">
                         <button class="btn btn-link position-relative" data-bs-toggle="dropdown">
                             <i class="bi bi-bell fs-4" style="color: inherit;"></i>
@@ -102,6 +109,7 @@
                             </li>
                         </ul>
                     </div>
+                    --->
 
                     <!-- User Profile Dropdown -->
                     <div class="dropdown header-dropdown me-3">

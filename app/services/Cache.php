@@ -144,11 +144,11 @@ class Cache  extends ServiceHelper {
 
     // Deletar caches relacionados a um array de parâmetros
     // Deletar caches relacionados a um array de parâmetros
-    public function delete($type, $array = []): void {
+    public function delete($type, $array = []): bool {
 
         //veriricar se está activo
         if(!$this->status) {
-            return;
+            return false;
         }
 
         $cacheDir = $this->ensureDirectory($type);
@@ -160,6 +160,7 @@ class Cache  extends ServiceHelper {
             foreach (glob($cacheDir . $tableKey . '_*.cache') as $cacheFile) {
                 unlink($cacheFile); // Apaga arquivos que correspondem ao prefixo da tabela
                 $this->logReports("Cache removido por actualização para a tabela '{$array['table']}' -> Arquivo: $cacheFile");
+                return true;
             }
         } else {
             // Se não houver 'table', usar o array completo para gerar a chave
@@ -169,8 +170,11 @@ class Cache  extends ServiceHelper {
             foreach (glob($cacheDir . $cacheKeyPrefix . '*.cache') as $cacheFile) {
                 unlink($cacheFile); // Apaga arquivos que correspondem à chave gerada
                 $this->logReports("Cache removido por actualização -> Arquivo: $cacheFile");
+                return true;
             }
         }
+
+        return false;
     }
 
 }

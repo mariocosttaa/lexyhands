@@ -14,29 +14,32 @@ class ServicesController extends ControllerHelper
         ]);
     }
 
-    public static function view($id): void
+    public static function view($slugName): void
     {
 
         // Validando os dados com notificação de erro
-        \App\Services\FormFilter::validate(data: ['id' => $id],
+        \App\Services\FormFilter::validate(data: ['slugName' => $slugName],
             rules: [
-                'id' => 'int|required',
+                'slugName' => 'string|max:255|required',
             ],
             notifyError: true,
             redirectUrl: 'http://localhost/projects/lexyhands/services'
         );
 
+
+        $service = Service::getBySlugName($slugName);
+
         //id n encontrado
-        if(Service::getById($id) == null){
-            parent::notification( title: 'O serviço não foi encontrado', message: 'Verifique se o serviço existe', level: 'error', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '../services');
+        if(!$service){
+            parent::render404();
             exit();
         }
-
+        
         parent::renderView(array: ['type' => 'public', 'view' => 'services/view.php', 'page' => 'Serviços'], strings: [
-            'service' => \App\Models\services::getById($id),
-            'othersServices' => \App\Models\services::getAllExceptThis(id: $id, order: 'id DESC', limit: 6),
+            'service' => $service,
+            'othersServices' => \App\Models\services::getAllExceptThis(id: $service->id, order: 'id DESC', limit: 6),
             'settigns' => parent::settings(),
-            'service_faq' => ServiceFaq::getAllByServiceId(service_id: $id, order: 'id DESC'),
+            'service_faq' => ServiceFaq::getAllByServiceId(service_id: $service->id, order: 'id DESC'),
         ]);
     }
 }

@@ -6,8 +6,8 @@
         <div class="title-outer text-center">
             <h1 class="title">Serviços</h1>
             <ul class="page-breadcrumb">
-                <li><a href="/services">Início</a></li>
-                <li><a href="/services">Serviços</a></li>
+                <li><a href="/projects/lexyhands">Início</a></li>
+                <li><a href="/projects/lexyhands/services">Serviços</a></li>
                 <li><?php echo $service->name ?></li>
             </ul>
         </div>
@@ -31,7 +31,7 @@
                                     <li class="current"><a><span><?php echo $service->name ?></span></a></li>
                                     <?php foreach ($othersServices as $otherService) {
                                         $otherService = (object) $otherService; ?>
-                                        <li><a href="../service/<?php echo $otherService->id ?>"><i class="fas fa-angle-right"></i><span><?php echo $otherService->name ?></span></a></li>
+                                        <li><a href="../service/<?php echo $otherService->slug_name ?>"><i class="fas fa-angle-right"></i><span><?php echo $otherService->name ?></span></a></li>
                                     <?php } ?>
                                 </ul>
                             </div>
@@ -69,12 +69,11 @@
             <div class="col-xl-8 col-lg-8">
                 <div class="services-details__content">
                     <?php if(!empty($service->image)) {?>
-                        <img src="/projects/lexyhands/<?php echo $service->image ?>" alt="" style="object-fit: cover; width: 900px; height: 500px;">
+                        <img src="/<?php echo $service->image ?>" alt="" style="object-fit: cover; width: 900px; height: 500px;">
                     <?php } ?>
                     <h3 class="mt-4">Informações do Serviço</h3>
-                    <p>Lorem ipsum is simply free text used by copytyping refreshing. Neque porro est qui dolorem ipsum quia quaed inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Aelltes port lacus quis enim var sed efficitur turpis gilla sed sit amet finibus eros. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the ndustry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make </p>
-                    <p>When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged Lorem ipsum dolor sit amet consec tetur adipis icing elit </p>
 
+                    <p><?php echo $service->content ?></p>
                     
                     <?php if(!empty($service_faq)) {?>
                     <div class=" mt-25 mb-4">

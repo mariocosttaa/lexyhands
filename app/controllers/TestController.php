@@ -1,10 +1,13 @@
-<?php 
+<?php
 
 namespace App\Controllers;
+use App\Services\FileUpload;
 
 class TestController extends ControllerHelper {
 
-    public static function index(): void {
-        parent::renderView(array: ['type' => 'public', 'components' => false, 'view' => 'tests.php', 'layoutChange' => ['pageName' => 'Lexy Hands']]);
+
+    public function index() {
+        parent::renderView(array: ['type' => 'private', 'components' => false, 'view' => 'test/index.php', 'layoutChange' => ['pageName' => 'Teste']]);
     }
+
 }

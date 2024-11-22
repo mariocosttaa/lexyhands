@@ -38,7 +38,7 @@ class Notification extends ServiceHelper
      */
     public static function notifyAfterRedirect(
         string $title,
-        string $message,
+        ?string $message = null,
         string $level = 'info',
         string $type = 'sweetalert',
         string $position = 'top-end',

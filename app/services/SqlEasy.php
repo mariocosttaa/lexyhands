@@ -88,6 +88,7 @@
 
 namespace App\Services;
 use App\Config\Database;
+use App\Services\Cache;
 
 class SqlEasy {
     private $conn;
@@ -122,12 +123,11 @@ class SqlEasy {
             $stmt->bindValue($counter, $value, \PDO::PARAM_STR);
         }
 
-        if($stmt->execute()) {
-            // Deleta os caches dessa tabela, fazendo com que o novo  cache seja gerado
-            $cache = new Cache();
-            $cache->delete('sqlEasy', ['table' => $table]);
+        // Deleta os caches dessa tabela, fazendo com que o novo  cache seja gerado
+        $cache = (new Cache())->delete('sqlEasy', ['table' => $table]);
 
-          return $this->conn()->lastInsertId();
+        if($stmt->execute()) {
+            return $this->conn()->lastInsertId();
         } else {
            return false;
         }

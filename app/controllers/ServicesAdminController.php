@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Services\FileUpload;
+use App\Models\services as Services;
+use App\Services\SlugGenerator;
 
 class ServicesAdminController extends ServicesController
 {
@@ -12,7 +15,125 @@ class ServicesAdminController extends ServicesController
         ]);
     }
 
-    public static function create(): void {
-        parent::renderView(array: ['type' => 'private', 'view' => 'services/create.php', 'layoutChange' => ['pageName' => 'Serviços']]);
+    public static function create(): void
+    {
+        parent::renderView(array: ['type' => 'private', 'view' => 'services/create.php', 'layoutChange' => ['pageName' => 'Criar Serviço']]);
     }
+
+    public static function create_post(): void
+    {
+        // Validando os dados com notificação de erro
+        $result = self::validate_post(data: $_POST);
+        $image = self::validate_image();
+
+        if(Services::checkNameExist($result->data->name)) {
+            parent::notification(title: 'Erro ao Criar Serviço !', message: 'Já existe um Serviço com este Nome.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '../services/create');
+            exit();
+        }
+
+        $slug_name = slug(string: $result->data->name);
+
+        $send = Services::create(data: ['name' => $result->data->name, 'slug_name' => $slug_name, 'description' => $result->data->description, 'content' => $result->data->content, 'image' => $image]);
+        if ($send) {
+            parent::notification(title: 'O serviço foi Criado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '../services');
+            exit();
+        }
+    }
+
+    public static function edit($slugName):void {
+
+        $service = Services::getBySlugName($slugName);
+        if(!$service) {
+            parent::renderAdmin404();
+            exit();
+        }
+
+        parent::renderView(array: ['type' => 'private', 'view' => 'services/edit.php', 'layoutChange' => ['pageName' => 'Editar Serviço']], strings: [
+            'service' => $service
+        ]);
+    }
+
+    public static function edit_post($slugName):void {
+
+        $result = self::validate_post(data: $_POST);
+        $service = Services::getBySlugName(name: $slugName);
+        if(!$service) {
+            parent::notification(title: 'Erro ao Editar Serviço !', message: 'Não conseguimos Editar o Serviço especificado !', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/services');
+            exit();
+        }
+        
+        //se o nome existir retorna erro
+        if(Services::checkNameExist($result->data->name) && $result->data->name != $service->name) {
+            parent::notification(title: 'Erro ao Editar Serviço !', message: 'Já existe um Serviço com este Nome.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/services/edit/'.$slugName.'');
+            exit();
+        }
+
+        $image = self::validate_image() ?: $service->image;
+        $slug_name = slug(string: $result->data->name);
+
+
+        Services::update($service->id, data: ['name' => $result->data->name, 'slug_name' => $slug_name, 'description' => $result->data->description, 'content' => $result->data->content, 'image' => $image]);
+
+        parent::notification(title: 'O serviço foi Actualizado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/services/');
+        exit();
+    }
+
+
+    public static function delete($slugName):void {
+        
+        $service = Services::getBySlugName(name: $slugName);
+        if(!$service) {
+            parent::notification(title: 'Erro ao Excluir Serviço !', message: 'Não conseguimos Excluir o Serviço específicado !', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/services');
+            exit();
+        }
+
+        Services::delete(id: $service->id);
+        parent::notification(title: 'O serviço foi Excluido !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/services/');
+
+    }
+
+
+
+
+
+
+    private static function validate_post(array $data, ): mixed {
+        // Validando os dados com notificação de erro
+        $result = \App\Services\FormFilter::validate(
+            data: $data,
+            rules: [
+                'name' => 'string|max:200|required',
+                'description' => 'string|max:200',
+                'content' => 'string',
+            ],
+            notifyError: true,
+            redirectUrl: '/projects/lexyhands/admin/services/create'
+        );
+        return $result;
+    }
+
+    private static function validate_image(): array|bool|string|null {
+        // tratamento da imagem
+        if (!empty($_FILES['image']['size'] > 0)) {
+            $uploadService = new FileUpload(uploadDir: 'projects/lexyhands/public/assets/images/services');
+            $image = $uploadService->upload(files: $_FILES['image'], params: [
+                'rename' => true,
+                'multiple' => false,
+                'maxSize' => 2, // em MB
+                'overwrite' => false,
+                'allowedExtensions' => ['jpg', 'png', 'gif'],
+                'convert' => 'png', // Converte para PNG
+                'alert' => true,
+                'url' => '/projects/lexyhands/admin/services/create',
+                'returnJson' => false
+            ]);
+        } else {
+            $image = null;
+        }
+
+        return $image;
+    }
+
+
+
 }
