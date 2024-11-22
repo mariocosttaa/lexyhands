@@ -25,16 +25,18 @@
         <div class="nav flex-column mt-2">
 
 
-            <a href="#" class="<?php isActive(dir: '/admin/posts') ?> <?php isActive(dir: '/admin/posts/create') ?> nav-link d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <a href="#" class="<?php isActive(dir: '/admin/posts') ?> <?php isActive(dir: '/admin/posts/create') ?> <?php isActive(dir: '/admin/posts/categories') ?> <?php isActive(dir: '/admin/posts/categories/create') ?>  nav-link d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-journal-text me-3"></i>
                 <span>Comunidade </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-                <a class="<?php isActive(dir: '/admin/posts') ?> dropdown-item" href="/projects/lexyhands/admin/posts">Todas Postagens</a>
+                <a class="<?php isActive(dir: '/admin/posts') ?> dropdown-item" href="/projects/lexyhands/admin/posts">Postagens</a>
+                <a class="<?php isActive(dir: '/admin/posts/categories') ?> dropdown-item" href="/projects/lexyhands/admin/posts/categories">Categorias</a>
                 <a class="<?php isActive(dir: '/admin/posts/create') ?> dropdown-item" href="/projects/lexyhands/admin/posts/create">Criar Postagem</a>
             </div>
 
-            <a href="#" class="<?php isActive(dir: '/admin/services') ?> <?php isActive(dir: '/admin/services/create') ?> nav-link d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <a href="#" class="
+            <?php isActive(dir: '/admin/services') ?> <?php isActive(dir: '/admin/services/create') ?> nav-link d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-wrench me-3"></i>
                 <span>Serviços </span>
             </a>
@@ -42,10 +44,17 @@
                 <a class="<?php isActive(dir: '/admin/services') ?> dropdown-item" href="/projects/lexyhands/admin/services">Listar Serviços</a>
                 <a class="<?php isActive(dir: '/admin/services/create') ?> dropdown-item" href="/projects/lexyhands/admin/services/create">Criar Serviço</a>
             </div>
-            <a href="/projects/lexyhands/admin/products" class="nav-link d-flex align-items-center">
-               <i class="bi bi-shop me-3"></i>
-                <span>Productos</span>
+
+            <a href="#" class="
+            <?php isActive(dir: '/admin/products') ?> <?php isActive(dir: '/admin/products/create') ?> nav-link d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-shop me-3"></i>
+                <span>Productos </span>
             </a>
+            <div class="dropdown-menu dropdown-menu-end">
+                <a class="<?php isActive(dir: '/admin/products') ?> dropdown-item" href="/projects/lexyhands/admin/products">Listar Productos</a>
+                <a class="<?php isActive(dir: '/admin/products/create') ?> dropdown-item" href="/projects/lexyhands/admin/products/create">Criar Producto</a>
+            </div>
+
         </div>
     </div>
 

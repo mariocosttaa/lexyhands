@@ -20,6 +20,7 @@ class PostsController extends ControllerHelper
 
     public static function view($identificator, $date, $id): void
     {
+
         $post = Posts::getFromIdentificator(id: $id, identificator: $identificator, date: $date);
         if (!$post) {
             parent::render404(); //página 404
@@ -53,20 +54,20 @@ class PostsController extends ControllerHelper
         ]);
     }
 
-    public function categorysView($name, $id): void
-    {
-        $name = deslug(string: $name); //ajustar para chamar a função ideal o objecto
-        $posts = Posts::getAllFromCategory($id, order: 'id DESC');
-
-        if ($posts) {
-            parent::renderView(array: ['type' => 'public', 'view' => 'posts/categories/view.php', 'layoutChange' => ['pageName' => 'Comunidade']], strings: [
-                'posts' => $posts,
-                'category' => $name,
-            ]);
+    public function categorysView(string $identificator): void { 
+        
+        $category = PostsCategorys::getByidentificator(identificator: $identificator);
+        if(!$category) {
+            parent::render404(); //página 404
+            exit();
         }
 
-        parent::render404(); //página 404
-        exit();
+         parent::renderView(array: ['type' => 'public', 'view' => 'posts/categories/view.php', 'layoutChange' => ['pageName' => 'Comunidade']], strings: [
+            'posts' => Posts::getAllFromCategory($category->id, order: 'id DESC'),
+            'category' => $category->name,
+        ]);
+    
+
     }
 
     public function tags(): void

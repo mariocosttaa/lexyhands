@@ -25,7 +25,7 @@
                     <div class="sidebar__tags-list">
                         <?php foreach ($categories as $category) { 
                             $category = (object) $category; 
-                            $categoryLink = '/projects/lexyhands/posts/categories/' . slug(string: $category->name) . '/' . $category->id;
+                            $categoryLink = '/projects/lexyhands/posts/categories/'.$category->identificator.'';
                             ?>
                             <a href="<?php echo $categoryLink ?>"><?php echo $category->name ?></a> 
                         <?php } ?>

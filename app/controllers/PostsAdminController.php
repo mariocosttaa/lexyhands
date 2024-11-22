@@ -232,7 +232,7 @@ class PostsAdminController extends ControllerHelper
     {
         foreach ($tags as $key => $tag) {
             $tag = preg_replace('/\s+/', '', $tag);
-            if (!preg_match('/^[\p{L}0-9_]+$/u', $tag)) {
+            if (!preg_match('/^[a-zA-Z0-9_]+$/', $tag)) {
                 parent::notification(
                     title: 'Erro ao Criar Postagem !',
                     message: 'As tags devem conter apenas letras, números e underline (_).',

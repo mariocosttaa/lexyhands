@@ -19,6 +19,7 @@
 	<!-- News Section -->
     <section class="blog-section-two">
     <div class="auto-container">
+      <?php if (!empty($posts)) { ?>
       <div class="row">
         <?php foreach($posts as $post) { 
             $post = (object) $post;
@@ -44,7 +45,7 @@
                             <a href="<?php echo  $postLink ?>">
                               <?php if(!empty($post->images)) { ?>
                                 <?php foreach($post->images as $image) { ?>
-                                  <img src="/projects/lexyhands/<?php echo $image ?>" alt="Image">
+                                  <img src="/<?php echo $image ?>" alt="Image">
                                 <?php } ?>
                                 <?php } ?>
                             </a>
@@ -65,6 +66,9 @@
         <?php } ?>
     
       </div>
+      <?php } else { ?> 
+        <div class="alert alert-info" role="alert">Não existe ainda nenhuma Postagem nesta Categoria</div> 
+      <?php } ?>
     </div>
   </section>
 	<!--End News Section -->

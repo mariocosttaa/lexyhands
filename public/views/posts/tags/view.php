@@ -44,7 +44,7 @@
                             <a href="<?php echo  $postLink ?>">
                               <?php if(!empty($post->images)) { ?>
                                 <?php foreach($post->images as $image) { ?>
-                                  <img src="/projects/lexyhands/<?php echo $image ?>" alt="Image">
+                                  <img src="/<?php echo $image ?>" alt="Image">
                                 <?php } ?>
                                 <?php } ?>
                             </a>

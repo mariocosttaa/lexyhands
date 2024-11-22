@@ -44,7 +44,7 @@ $router->get(uri: '/posts/categories', action: [
     App\Controllers\PostsController::class, 'categories'
 ]);
 
-$router->get(uri: '/posts/categories/{name}/{id}', action: [
+$router->get(uri: '/posts/categories/{identificator}', action: [
     App\Controllers\PostsController::class, 'categorysView'
 ]);
 

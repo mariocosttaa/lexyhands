@@ -13,6 +13,12 @@ $router->get(uri: '/admin', action: [
 ]);
 
 
+
+
+
+
+
+
 //SERVIÇOS
     
 $router->get(uri: '/admin/services/create', action: [ 
@@ -45,6 +51,11 @@ $router->get(uri: '/admin/services', action: [
         [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
 ]);
 
+
+
+
+
+
 //POSTS
 
 $router->get(uri: '/admin/posts/create', action: [ 
@@ -67,7 +78,6 @@ $router->post(uri: '/admin/posts/edit/{identificator}', action: [
         [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
 ]);
 
-//POSTS - APAGAR ARQUIVOS DE IMAGEM
 $router->get(uri: '/admin/posts/delete/file/{fileKey}/{identificator}', action: [ 
     App\Controllers\PostsAdminController::class, 'fileDelete'], middlewares: [
         [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
@@ -93,6 +103,68 @@ $router->get(uri: '/admin/posts', action: [
         [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
 ]);
     
+
+
+
+
+
+//CATEGORIAS
+
+$router->get(uri: '/admin/posts/categories/create', action: [ 
+    App\Controllers\CategoriesAdminController::class, 'create'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/posts/categories/create', action: [ 
+    App\Controllers\CategoriesAdminController::class, 'create_post'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->get(uri: '/admin/posts/categories/edit/{identificator}', action: [ 
+    App\Controllers\CategoriesAdminController::class, 'edit'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/posts/categories/edit/{identificator}', action: [ 
+    App\Controllers\CategoriesAdminController::class, 'edit_post'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/posts/categories/delete/{id}', action: [ 
+    App\Controllers\CategoriesAdminController::class, 'delete'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->get(uri: '/admin/posts/categories', action: [ 
+    App\Controllers\CategoriesAdminController::class, 'index'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+
+
+
+//PRODUCTOS
+
+$router->get(uri: '/admin/products', action: [ 
+    App\Controllers\ProductsAdminController::class, 'index'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->get(uri: '/admin/products/create', action: [ 
+    App\Controllers\ProductsAdminController::class, 'create'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/products/create', action: [ 
+    App\Controllers\ProductsAdminController::class, 'create_post'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+
+
+
+
+
 
 
 return $router;
