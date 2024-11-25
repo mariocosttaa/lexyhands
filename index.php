@@ -1,11 +1,6 @@
 <?php
 
-use App\Services\Notification;
-
 session_start();
-
-//carregar Constantes
-require_once __DIR__ . '/vendor/autoload.php';
 
 //activar reporte de erros
 if (isset($_ENV['APP_DEBUG'])) {
@@ -16,6 +11,9 @@ if (isset($_ENV['APP_DEBUG'])) {
         error_reporting(error_level: E_ALL);
     }
 }
+
+//carregar Constantes
+require_once __DIR__ . '/vendor/autoload.php';
 
 // Iniciar o roteador e resolver a requisição
 $router = require __DIR__ . '/app/routes/web.php';

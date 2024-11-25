@@ -79,7 +79,7 @@ class FormFilter extends ServiceHelper
     
             // Preenche os dados validados no objeto
             if (!isset($errors[$field])) {
-                $validatedData->$field = $data[$field];
+                $validatedData->$field = $data[$field] ?? null;
             }
         }
     
@@ -117,11 +117,16 @@ class FormFilter extends ServiceHelper
         }
     
         // Se não houver erros, retorna o objeto com dados validados e success = true
+        // Mant m a key, mesmo que esteja vazia
+        foreach ($rules as $field => $rule) {
+            if (!isset($validatedData->$field)) {
+                $validatedData->$field = null;
+            }
+        }
+
         return (object) ['success' => true, 'data' => $validatedData];
     }
     
-    
-
     // Valida o tipo de campo (ex: string, int, email)
     private static function validateType($value, $type)
     {
@@ -139,7 +144,7 @@ class FormFilter extends ServiceHelper
             case 'float':
                 return is_float($value);
             case 'bool':
-                return is_bool($value);
+                return is_bool($value) || ($value === null) || ($value === '1' || $value === '0');
             case 'array':
                 return is_array($value);
             case 'object':
@@ -151,3 +156,5 @@ class FormFilter extends ServiceHelper
         }
     }
 }
+
+

@@ -61,7 +61,7 @@
                     <div class="blog-details__bottom">
                         <p class="blog-details__tags"> <span>Tags</span>
                             <?php foreach ($post->tags as $tag) {  ?>
-                                    <a href="/projects/lexyhands/posts/tags"><?php echo $tag ?></a> <a href="/projects/lexyhands/posts/tags"><?php echo $tag ?></a>
+                                    <a href="/projects/lexyhands/posts/tags/<?php echo $tag ?>"><?php echo $tag ?></a>
                             <?php } ?>
                         </p>
                     </div>

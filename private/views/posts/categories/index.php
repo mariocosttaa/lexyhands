@@ -43,7 +43,7 @@
                                     }'>
                                 Excluir
                             </button> |
-                            <a target="_blank" href="/projects/lexyhands/posts/categories/<?php echo $category->name ?>/<?php echo $category->id ?>" class="btn btn-sm btn-primary-soft" w-tid="98">Visualizar</a>
+                            <a target="_blank" href="/projects/lexyhands/posts/categories/<?php echo $category->identificator ?>" class="btn btn-sm btn-primary-soft" w-tid="98">Visualizar</a>
                         </form>
                     </div>
                 </div>

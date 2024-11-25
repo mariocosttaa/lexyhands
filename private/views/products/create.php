@@ -23,66 +23,116 @@
     <div class="card-body">
         <h6 class="card-title mb-4">Criar Productos</h6>
 
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data" >
             <div class="row">
                 <!-- Nome e Descrição -->
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="mb-2">
                         <label for="" class="form-label">Nome do Producto <b class="text-danger">*</b></label>
                         <input type="text" class="form-control" name="name" placeholder="Coloque o Nome do Produto" required>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="mb-2">
                         <label for="" class="form-label">Descrição Curta (Opcional)</label>
                         <input type="text" class="form-control" name="short_description" placeholder="Coloque a descrição do produto">
                     </div>
                 </div>
 
+
             </div>
 
-            <!-- Collapsible Sections -->
-            <div class="accordion" id="productDetailsAccordion">
-                <h6 class="mb-4"><strong>Informações do producto</strong></h6>
-                <!-- Especificações -->
+            <div class="accordion" id="productDescription">
+                <!-- Definição de Preço -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="productDescription">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDescription" aria-expanded="true" aria-controls="collapseDescription">
+                            Descrição do Producto (Opcional)
+                        </button>
+                    </h2>
+                    <div id="collapseDescription" class="accordion-collapse collapse show" aria-labelledby="productDescription" data-bs-parent="#productDescription">
+                        <div class="accordion-body">
+                            <div id="">
+                                <div class="col-12 mb-2">
+                                    <!-- Editor --->
+                                        <script src="http://localhost/projects/lexyhands/private/assets/js/tinymce/tinymce.min.js"></script>
+                                        <script>
+                                            // Inicializa o editor TinyMCE
+                                            tinymce.init({
+                                                selector: '#editor', // Seleciona o textarea pelo ID
+                                                menubar: false, // Remove a barra de menus
+                                                language: 'pt_BR', // Configura o idioma para português do Brasil
+                                                plugins: 'lists link table', // Ativa apenas plugins básicos
+                                                toolbar: 'undo redo | bold italic underline | bullist numlist | link table', // Configura a barra de ferramentas
+                                                branding: false, // Remove a marca do TinyMCE
+                                                height: 300, // Altura do editor
+                                            });
+                                        </script>
+                                        <textarea id="editor" name="description" placeholder="Escreva o conteúdo do Serviço" required>
+                                        </textarea>
+                                    </div>
+                                </div>
+
+                            <button id="addPrice" type="button" class="btn btn-sm btn-primary-soft">Adicionar Preço</button>
+                            <button id="removePrice" type="button" class="btn btn-sm btn-danger-soft d-none">Remover Preço</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="accordion" id="price">
                 <!-- Definição de Preço -->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingPrice">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrice" aria-expanded="true" aria-controls="collapsePrice">
-                            Definição de Preço
+                            Definição de Preço &nbsp;<b class="text-danger">*</b>
                         </button>
                     </h2>
-                    <div id="collapsePrice" class="accordion-collapse collapse show" aria-labelledby="headingPrice" data-bs-parent="#productDetailsAccordion">
+                    <div id="collapsePrice" class="accordion-collapse collapse show" aria-labelledby="headingPrice" data-bs-parent="#price">
                         <div class="accordion-body">
-                            <div class="row">
-                                <div class="col-md-6 mb-2">
-                                    <label for="totalPrice" class="form-label">Preço Total</label>
-                                    <input type="text" id="totalPrice" name="total_price" class="form-control currency-input" placeholder="Digite o preço total">
-                                </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="fakePrice" class="form-label">Preço Fake</label>
-                                    <input type="text" id="fakePrice" name="fake_price" class="form-control currency-input" placeholder="Digite o preço fake">
+                            <div id="priceContainer">
+                                <div class="row price-row" data-row-id="1">
+                                    <div class="col-md-4 mb-2">
+                                        <label for="totalPrice1" class="form-label">Preço Total</label>
+                                        <input type="text" id="totalPrice1" name="price[]" class="form-control currency-input" placeholder="Digite o preço total">
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <label for="fakePrice1" class="form-label">Preço Fake</label>
+                                        <input type="text" id="fakePrice1" name="fake_price[]" class="form-control currency-input" placeholder="Digite o preço fake">
+                                    </div>
+                                    <div class="col-md-2 mb-2">
+                                        <label for="fakePrice1" class="form-label">Descrição (Opcinal)</label>
+                                        <input type="text" name="prices_description[]" class="form-control" placeholder="Descrição (opcionao)">
+                                    </div>
+                                    <div class="col-md-2 mb-8">
+                                        <label for="currency1" class="form-label">Moeda</label>
+                                        <select id="currency1" name="currency[]" class="form-select currency-select">
+                                            <option value="USD">USD - Dólar</option>
+                                            <option value="EUR">EUR - Euro</option>
+                                            <option value="BRL">BRL - Real</option>
+                                            <option value="AOA">AOA - Kwanza</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-
-
-                            <div class="mb-2">
-                                <label for="currency" class="form-label">Moeda</label>
-                                <select id="currency" class="form-select">
-                                    <option value="USD">USD - Dólar</option>
-                                    <option value="EUR">EUR - Euro</option>
-                                    <option value="BRL">BRL - Real</option>
-                                    <option value="AOA">AOA - Kwanza</option>
-                                </select>
-                            </div>
-
+                            <button id="addPrice" type="button" class="btn btn-sm btn-primary-soft">Adicionar Preço</button>
+                            <button id="removePrice" type="button" class="btn btn-sm btn-danger-soft d-none">Remover Preço</button>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <br>
+
+            <!-- Collapsible Sections -->
+            <div class="accordion mb-4" id="productDetailsAccordion">
+                <!-- Especificações -->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingSpecifications">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpecifications" aria-expanded="false" aria-controls="collapseSpecifications">
-                            Especificações do Produto
+                            Especificações do Produto (Opcinal)
                         </button>
                     </h2>
                     <div id="collapseSpecifications" class="accordion-collapse collapse" aria-labelledby="headingSpecifications" data-bs-parent="#productDetailsAccordion">
@@ -124,7 +174,7 @@
                             <!-- Cor -->
                             <div class="mb-2">
                                 <label for="product_color" class="form-label">Cor</label>
-                                <input type="text" class="form-control" name="product_color" placeholder="Cor do produto">
+                                <input type="text" class="form-control" placeholder="Adicione a(s) cor(es)..." id="choices-color" name="product_color[]" placeholder="Cor do produto">
                             </div>
 
                             <!-- Outras Características Opcionais -->
@@ -141,42 +191,128 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingStock">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStock" aria-expanded="false" aria-controls="collapseStock">
-                            Definição de Estoque
+                            Definição de Estoque &nbsp;<b class="text-danger">*</b>
                         </button>
                     </h2>
                     <div id="collapseStock" class="accordion-collapse collapse" aria-labelledby="headingStock" data-bs-parent="#productDetailsAccordion">
                         <div class="accordion-body">
                             <div class="mb-2">
                                 <div class="form-check">
+                                    <input type="hidden" name="unlimited_stock" value="0">
                                     <input class="form-check-input" type="checkbox" id="unlimitedStock" name="unlimited_stock" value="1">
                                     <label class="form-check-label" for="unlimitedStock">Estoque Ilimitado</label>
                                 </div>
                             </div>
 
-                            <div id="stockDetails">
-                                <div class="mb-2">
-                                    <label for="stock_quantity" class="form-label">Quantidade Total de Estoque</label>
-                                    <input type="number" class="form-control" name="stock_quantity" placeholder="Digite a quantidade em estoque">
-                                </div>
 
-                                <div id="variantStock" class="mb-2">
-                                    <label class="form-label">Definir Estoque por Variações</label>
-                                    <div id="variantStockContainer">
-                                        <div class="row g-2 mb-2">
-                                            <div class="col-4">
-                                                <input type="text" class="form-control" name="variant_size[]" placeholder="Tamanho (Ex: P, M, G)">
-                                            </div>
-                                            <div class="col-4">
-                                                <input type="text" class="form-control" name="variant_color[]" placeholder="Cor (Ex: Azul, Vermelho)">
-                                            </div>
-                                            <div class="col-4">
-                                                <input type="number" class="form-control" name="variant_stock[]" placeholder="Quantidade">
+                            <div id="stockDetails">
+                                <!-- Estoque por Tamanho -->
+                                <div class="accordion" id="stocks">
+
+                                    <div class="accordion-item mb-3">
+                                        <h2 class="accordion-header" id="headingSizeStock">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneralStock" aria-expanded="false" aria-controls="collapseGeneralStock">
+                                                Estoque Geral
+                                            </button>
+                                        </h2>
+                                        <div id="collapseGeneralStock" class="accordion-collapse collapse" aria-labelledby="headingSizeStock" data-bs-parent="#stocks">
+                                            <div class="accordion-body">
+                                                <div id="">
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-12">
+                                                            <input type="number" class="form-control" name="general_stock" placeholder="Quantidade">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" id="addVariant" class="btn btn-sm btn-secondary">Adicionar Variação</button>
+
+                                    <div class="accordion-item mb-3">
+                                        <h2 class="accordion-header" id="headingSizeStock">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSizeStock" aria-expanded="false" aria-controls="collapseSizeStock">
+                                                Estoque por Tamanho
+                                            </button>
+                                        </h2>
+                                        <div id="collapseSizeStock" class="accordion-collapse collapse" aria-labelledby="headingSizeStock" data-bs-parent="#stocks">
+                                            <div class="accordion-body">
+                                                <div id="sizeStockContainer">
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-6">
+                                                            <input type="text" class="form-control" name="size[]" placeholder="Tamanho (Ex: P, M, G)">
+                                                        </div>
+                                                        <div class="col-5">
+                                                            <input type="number" class="form-control" name="size_stock[]" placeholder="Quantidade">
+                                                        </div>
+                                                        <div class="col-1">
+                                                            <button type="button" class="btn btn-danger btn-sm remove-size-stock">X</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="button" id="addSizeStock" class="btn btn-sm btn-secondary">Adicionar Estoque por Tamanho</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Estoque por Cor -->
+                                    <div class="accordion-item mb-3">
+                                        <h2 class="accordion-header" id="headingColorStock">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseColorStock" aria-expanded="false" aria-controls="collapseColorStock">
+                                                Estoque por Cor
+                                            </button>
+                                        </h2>
+                                        <div id="collapseColorStock" class="accordion-collapse collapse" aria-labelledby="headingColorStock" data-bs-parent="#stocks">
+                                            <div class="accordion-body">
+                                                <div id="colorStockContainer">
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-6">
+                                                            <input type="text" class="form-control" name="color[]" placeholder="Cor (Ex: Azul, Vermelho)">
+                                                        </div>
+                                                        <div class="col-5">
+                                                            <input type="number" class="form-control" name="color_stock[]" placeholder="Quantidade">
+                                                        </div>
+                                                        <div class="col-1">
+                                                            <button type="button" class="btn btn-danger btn-sm remove-color-stock">X</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="button" id="addColorStock" class="btn btn-sm btn-secondary">Adicionar Estoque por Cor</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Estoque por Tamanho e Cor -->
+                                    <div class="accordion-item mb-3">
+                                        <h2 class="accordion-header" id="headingVariantStock">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVariantStock" aria-expanded="false" aria-controls="collapseVariantStock">
+                                                Estoque por Tamanho e Cor
+                                            </button>
+                                        </h2>
+                                        <div id="collapseVariantStock" class="accordion-collapse collapse" aria-labelledby="headingVariantStock" data-bs-parent="#stocks">
+                                            <div class="accordion-body">
+                                                <div id="variantStockContainer">
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-4">
+                                                            <input type="text" class="form-control" name="variant_size[]" placeholder="Tamanho (Ex: P, M, G)">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" class="form-control" name="variant_color[]" placeholder="Cor (Ex: Azul, Vermelho)">
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <input type="number" class="form-control" name="variant_stock[]" placeholder="Quantidade">
+                                                        </div>
+                                                        <div class="col-1">
+                                                            <button type="button" class="btn btn-danger btn-sm remove-variant">X</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="button" id="addVariant" class="btn btn-sm btn-secondary">Adicionar Estoque por Tamanho e Cor</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -239,73 +375,253 @@
     </div>
 </div>
 
+<!-- Include Choices CSS -->
+<link rel="stylesheet" href="/projects/lexyhands/private/assets/js/choices.js/public/assets/styles/choices.min.css" />
+<!-- Include Choices JavaScript -->
+<script src="/projects/lexyhands/private/assets/js/choices.js/public/assets/scripts/choices.min.js"></script>
 <script>
-    // Formatar número como moeda
-    function formatCurrency(value, currencyCode) {
-        if (!value) return "";
-        const options = {
-            style: 'currency',
-            currency: currencyCode,
-            minimumFractionDigits: currencyCode === 'AOA' ? 3 : 2, // 3 casas para AOA
-            maximumFractionDigits: currencyCode === 'AOA' ? 3 : 2
+    // Inicializando Choices no campo de tags
+    const colorInput = new Choices('#choices-color', {
+        removeItemButton: true, // Botão para remover tags
+        paste: true, // Permite colar múltiplos valores
+        delimiter: ',', // Define o separador para múltiplos valores
+        placeholder: true, // Habilita o suporte a placeholder
+        placeholderValue: 'Adicione a(s) cor(s)...' // Texto do placeholder
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let priceCounter = 1; // Contador de preços
+        const availableCurrencies = ["USD", "EUR", "BRL", "AOA"]; // Moedas disponíveis
+        const priceContainer = document.getElementById('priceContainer');
+        const addButton = document.getElementById('addPrice');
+        const removeButton = document.getElementById('removePrice');
+
+        // Função para formatar moeda
+        const formatCurrency = (value, currencyCode) => {
+            if (!value) return "";
+            const options = {
+                style: 'currency',
+                currency: currencyCode,
+                minimumFractionDigits: currencyCode === 'AOA' ? 3 : 2,
+                maximumFractionDigits: currencyCode === 'AOA' ? 3 : 2
+            };
+            return new Intl.NumberFormat('pt-BR', options).format(value);
         };
 
-        const formatter = new Intl.NumberFormat('pt-BR', options);
-        return formatter.format(value);
-    }
+        // Atualiza os campos de input com base na moeda selecionada
+        const updateCurrencyInputs = () => {
+            document.querySelectorAll('.currency-input').forEach(input => {
+                const rawValue = input.value.replace(/[^\d.,]/g, '').replace(',', '.');
+                const numericValue = parseFloat(rawValue) || 0;
+                const currency = input.closest('.price-row').querySelector('.currency-select').value;
+                input.value = formatCurrency(numericValue, currency);
+            });
+        };
 
-    // Lógica para formatar os campos de entrada
-    document.querySelectorAll('.currency-input').forEach(input => {
-        input.addEventListener('input', function(e) {
-            const currency = document.getElementById('currency').value; // Moeda selecionada
-            const rawValue = this.value.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
-            const numericValue = parseFloat(rawValue) / 1000; // Ajusta para Kwanza (três casas)
-            this.value = formatCurrency(numericValue, currency); // Aplica a formatação
+        // Habilita/Desabilita o botão de adicionar/remover preços
+        const toggleButtons = () => {
+            const activeCurrencies = Array.from(document.querySelectorAll('.currency-select'))
+                .map(select => select.value);
+            addButton.style.display = activeCurrencies.length >= availableCurrencies.length ? 'none' : 'inline-block';
+            removeButton.classList.toggle('d-none', priceCounter <= 1);
+        };
+
+        // Adiciona uma nova linha de preço
+        const addPriceRow = () => {
+            priceCounter++;
+            const newRow = document.createElement('div');
+            newRow.className = 'row price-row';
+            newRow.dataset.rowId = priceCounter;
+
+            const availableOptions = availableCurrencies
+                .filter(currency => !Array.from(document.querySelectorAll('.currency-select')).map(select => select.value).includes(currency))
+                .map(currency => `<option value="${currency}">${currency}</option>`)
+                .join('');
+
+            newRow.innerHTML = `
+
+            <div class="col-12"><hr></div>
+
+            <div class="col-md-4 mb-2">
+                <label for="totalPrice${priceCounter}" class="form-label">Preço Total</label>
+                <input type="text" id="totalPrice${priceCounter}" name="price[]" class="form-control currency-input" placeholder="Digite o preço total">
+            </div>
+            <div class="col-md-4 mb-2">
+                <label for="fakePrice${priceCounter}" class="form-label">Preço Fake</label>
+                <input type="text" id="fakePrice${priceCounter}" name="fake_price[]" class="form-control currency-input" placeholder="Digite o preço fake">
+            </div>
+            <div class="col-md-2 mb-2">
+                <label for="fakePrice${priceCounter}" class="form-label">Descrição (Opcinal) </label>
+                <input type="text" id="description${priceCounter}" name="prices_description[]" class="form-control" placeholder="Digite a Descrição">
+            </div>
+            <div class="col-md-2 mb-2">
+                <label for="currency${priceCounter}" class="form-label">Moeda</label>
+                <select id="currency${priceCounter}" name="currency[]" class="form-select currency-select">${availableOptions}</select>
+            </div>
+        `;
+
+            priceContainer.appendChild(newRow);
+            toggleButtons();
+        };
+
+        // Remove a última linha de preço
+        const removePriceRow = () => {
+            if (priceCounter > 1) {
+                priceContainer.lastElementChild.remove();
+                priceCounter--;
+                toggleButtons();
+            }
+        };
+
+        // Atualiza os campos quando a moeda é alterada
+        priceContainer.addEventListener('change', (e) => {
+            if (e.target.classList.contains('currency-select')) {
+                updateCurrencyInputs();
+                toggleButtons();
+            }
         });
 
-        input.addEventListener('blur', function() {
-            if (!this.value) this.value = formatCurrency(0, document.getElementById('currency').value); // Preenche com 0 caso esteja vazio
+        // Adiciona eventos aos campos de input para formatação
+        priceContainer.addEventListener('input', (e) => {
+            if (e.target.classList.contains('currency-input')) {
+                const row = e.target.closest('.price-row');
+                const currency = row.querySelector('.currency-select').value;
+                const rawValue = e.target.value.replace(/[^\d]/g, '');
+                const numericValue = parseFloat(rawValue) / (currency === 'AOA' ? 1000 : 100);
+                e.target.value = formatCurrency(numericValue, currency);
+            }
         });
-    });
 
-    // Atualizar os preços ao alterar a moeda
-    document.getElementById('currency').addEventListener('change', function() {
-        const currency = this.value;
-        document.querySelectorAll('.currency-input').forEach(input => {
-            const rawValue = input.value.replace(/[^\d.,]/g, '').replace(',', '.'); // Remove símbolos e converte
-            const numericValue = parseFloat(rawValue) || 0; // Converte o valor
-            input.value = formatCurrency(numericValue, currency); // Atualiza com a nova moeda
-        });
+        // Adiciona/Remove linhas ao clicar nos botões
+        addButton.addEventListener('click', addPriceRow);
+        removeButton.addEventListener('click', removePriceRow);
+
+        // Inicializa os botões
+        toggleButtons();
     });
 </script>
 
 
+
+
+
+
+
+
+
+
+
+
 <script>
-    // Lógica para alternar entre estoque ilimitado e detalhado
+    // Lógica para alternar estoque ilimitado
     document.getElementById('unlimitedStock').addEventListener('change', function() {
         const stockDetails = document.getElementById('stockDetails');
         stockDetails.style.display = this.checked ? 'none' : 'block';
     });
 
-    // Lógica para adicionar mais variações de estoque
+    // Adicionar e remover linhas para estoque por Tamanho
+    document.getElementById('addSizeStock').addEventListener('click', function() {
+        const container = document.getElementById('sizeStockContainer');
+        const row = createRow('size', 'Tamanho (Ex: P, M, G)', 'size_stock', 'Quantidade');
+        container.appendChild(row);
+        toggleRemoveButtons('remove-size-stock');
+    });
+
+    document.getElementById('sizeStockContainer').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-size-stock')) {
+            e.target.closest('.row').remove();
+            toggleRemoveButtons('remove-size-stock');
+        }
+    });
+
+    // Adicionar e remover linhas para estoque por Cor
+    document.getElementById('addColorStock').addEventListener('click', function() {
+        const container = document.getElementById('colorStockContainer');
+        const row = createRow('color', 'Cor (Ex: Azul, Vermelho)', 'color_stock', 'Quantidade');
+        container.appendChild(row);
+        toggleRemoveButtons('remove-color-stock');
+    });
+
+    document.getElementById('colorStockContainer').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-color-stock')) {
+            e.target.closest('.row').remove();
+            toggleRemoveButtons('remove-color-stock');
+        }
+    });
+
+    // Adicionar e remover linhas para estoque por Tamanho e Cor
     document.getElementById('addVariant').addEventListener('click', function() {
         const container = document.getElementById('variantStockContainer');
         const row = document.createElement('div');
         row.className = 'row g-2 mb-2';
         row.innerHTML = `
-            <div class="col-4">
-                <input type="text" class="form-control" name="variant_size[]" placeholder="Tamanho (Ex: P, M, G)">
-            </div>
-            <div class="col-4">
-                <input type="text" class="form-control" name="variant_color[]" placeholder="Cor (Ex: Azul, Vermelho)">
-            </div>
-            <div class="col-4">
-                <input type="number" class="form-control" name="variant_stock[]" placeholder="Quantidade">
-            </div>
-        `;
+        <div class="col-4">
+            <input type="text" class="form-control" name="variant_size[]" placeholder="Tamanho (Ex: P, M, G)">
+        </div>
+        <div class="col-4">
+            <input type="text" class="form-control" name="variant_color[]" placeholder="Cor (Ex: Azul, Vermelho)">
+        </div>
+        <div class="col-3">
+            <input type="number" class="form-control" name="variant_stock[]" placeholder="Quantidade">
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-danger btn-sm remove-variant">X</button>
+        </div>
+    `;
         container.appendChild(row);
+        toggleRemoveButtons('remove-variant');
     });
+
+    document.getElementById('variantStockContainer').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-variant')) {
+            e.target.closest('.row').remove();
+            toggleRemoveButtons('remove-variant');
+        }
+    });
+
+    // Função utilitária para criar linhas dinâmicas
+    function createRow(name, placeholderName, stockName, placeholderStock) {
+        const row = document.createElement('div');
+        row.className = 'row g-2 mb-2';
+        row.innerHTML = `
+        <div class="col-6">
+            <input type="text" class="form-control" name="${name}[]" placeholder="${placeholderName}">
+        </div>
+        <div class="col-5">
+            <input type="number" class="form-control" name="${stockName}[]" placeholder="${placeholderStock}">
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-danger btn-sm remove-${name}-stock">X</button>
+        </div>
+    `;
+        return row;
+    }
+
+    // Alternar visibilidade do botão de remover
+    function toggleRemoveButtons(className) {
+        const buttons = document.querySelectorAll(`.${className}`);
+        buttons.forEach(button => {
+            button.style.display = buttons.length > 1 ? 'inline-block' : 'none';
+        });
+    }
+
+    // Inicializar os botões de remover
+    toggleRemoveButtons('remove-size-stock');
+    toggleRemoveButtons('remove-color-stock');
+    toggleRemoveButtons('remove-variant');
 </script>
+
+
+
+
+
+
+
+
+
+
 
 <script>
     // Função para verificar se o tipo de arquivo é permitido

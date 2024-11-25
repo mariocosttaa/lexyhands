@@ -63,7 +63,7 @@ class Notification extends ServiceHelper
     /**
      * Verifica automaticamente se há uma notificação na sessão e a exibe na página de destino se válida.
      */
-    public static function autoDisplayNotification(): void
+    public static function autoDisplayNotification(): bool
     {
         if (isset($_SESSION['notification'])) {
             $notification = $_SESSION['notification'];
@@ -71,11 +71,15 @@ class Notification extends ServiceHelper
             // Checa se a notificação ainda está válida (1 minuto de validade)
             if (time() - $notification['timestamp'] <= 60) {
                 echo self::renderScript($notification);
+                
             }
             
             // Remove a notificação da sessão após exibi-la ou se estiver expirada
             unset($_SESSION['notification']);
+            return true;
         }
+
+        return false;
     }
 
     /**

@@ -4,9 +4,9 @@ namespace App\Models;
 
 class products extends ModelHelper {
 
-    public static function create($data): void {
-        if(empty($data)) return;
-        parent::SQL_EASY_INSERT(table: 'products', data: $data);
+    public static function create($data): bool|null {
+        if(empty($data)) return false;
+        return parent::SQL_EASY_INSERT(table: 'products', data: $data);
     }
     
     public static function delete($id): void {
