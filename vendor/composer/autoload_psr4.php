@@ -14,5 +14,5 @@ return array(
     'GrahamCampbell\\ResultType\\' => array($vendorDir . '/graham-campbell/result-type/src'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Detection\\' => array($vendorDir . '/mobiledetect/mobiledetectlib/src'),
-    'App\\' => array($baseDir . '/app'),
+    'App\\' => array($baseDir . '/App'),
 );

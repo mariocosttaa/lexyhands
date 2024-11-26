@@ -6,7 +6,7 @@ $router->post(uri: '/auth/connect', action: [
 ]);   
 
 $router->get(uri: '/auth/login', action: [ App\Controllers\LoginController::class, 'index'], 
-    middlewares: [[[App\Middlewares\TrafficMiddlewar::class, 'set_visitant']]]
+    middlewares: [[App\Middlewares\TrafficMiddlewar::class, 'set_visitant']]
 );      
 
 $router->get(uri: '/auth/logout', action: [ 

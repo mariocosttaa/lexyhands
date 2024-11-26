@@ -10,6 +10,10 @@ class Router
 
     public function __construct()
     {
+
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../'); // Caminho correto para a raiz do projeto
+        $dotenv->load();
+
         $this->currentUri = rtrim($_SERVER['REQUEST_URI'], '/');
 
         if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false && $_ENV['APP_ENV'] === 'local') {

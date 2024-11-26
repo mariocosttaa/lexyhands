@@ -16,7 +16,7 @@ if (isset($_ENV['APP_DEBUG'])) {
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Iniciar o roteador e resolver a requisição
-$router = require __DIR__ . '/app/routes/web.php';
+$router = require __DIR__ . '/App/Routes/web.php';
 $router->resolve();
 
 

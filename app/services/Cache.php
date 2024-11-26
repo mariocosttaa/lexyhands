@@ -22,14 +22,14 @@ class Cache  extends ServiceHelper {
     // Reportar erros
     private function logReports($message): void {
         if ($this->debug) {
-            $logFile = __DIR__ . '/../cache/caches.log'; 
+            $logFile = __DIR__ . '/../Cache/caches.log'; 
             error_log($message . "\n", 3, $logFile);
         }
     }
 
     // Criar diretório se não existir
     private function ensureDirectory($type): string {
-        $dir = __DIR__ . '/../cache/' . $type . '/';
+        $dir = __DIR__ . '/../Cache/' . $type . '/';
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
             $this->logReports("Diretório criado: $dir");
