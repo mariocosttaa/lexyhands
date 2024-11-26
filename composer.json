@@ -4,7 +4,7 @@
         "App\\": "App/"
       },
       "files": [
-            "App/config/Global.php",
+            "App/Config/Global.php",
 
             "App/Helpers/General/errorReporting.php",
             "App/Helpers/General/getComponent.php",
