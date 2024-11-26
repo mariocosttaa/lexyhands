@@ -13,6 +13,24 @@ $router->get(uri: '/admin', action: [
 ]);
 
 
+//DEFINIÇÕES
+
+$router->get(uri: '/admin/settings', action: [ 
+    App\Controllers\SettingsAdminController::class, 'index'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/settings/general', action: [ 
+    App\Controllers\SettingsAdminController::class, 'general'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/settings/logos', action: [ 
+    App\Controllers\SettingsAdminController::class, 'logos'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+
 
 
 

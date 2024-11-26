@@ -122,9 +122,18 @@ class FileUpload
             $extension = $newExtension;
         }
 
-        $fileName = $this->params['rename']
+        if($this->params['rename'] !== false && $this->params['rename'] !== true) {
+            if($this->params['convert']) {
+                $fileName = $this->params['rename'] . '.' . $this->params['convert'];
+            } else {
+                $fileName = $this->params['rename'] . '.' . $extension;
+            }
+        } else {
+            $fileName = $this->params['rename']
             ? uniqid() . '.' . $extension
             : pathinfo($file['name'], PATHINFO_FILENAME) . '.' . $extension;
+        }
+
 
         $filePath = $this->uploadDir . $fileName;
 

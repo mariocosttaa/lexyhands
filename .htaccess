@@ -1,3 +1,11 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php [QSA,L]
+# Bloquear acesso ao arquivo .env
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
+# Bloquear acesso ao vendor e autoload.php
+RewriteRule ^vendor/ - [F,L]
+RewriteRule ^.*autoload\.php$ - [F,L]

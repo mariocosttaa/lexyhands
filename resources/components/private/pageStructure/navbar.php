@@ -13,7 +13,7 @@
     <div class="nav-section mb-4">
         <small class="text-muted text-uppercase fw-bold">Principal</small>
         <div class="nav flex-column mt-2">
-            <a href="/projects/lexyhands/admin/dashboard" class="<?php  isActive(dir: '/admin/dashboard') ?> nav-link d-flex align-items-center">
+            <a href="/projects/lexyhands/admin/dashboard" class="<?php isActive(dir: '/admin/dashboard') ?> nav-link d-flex align-items-center">
                 <i class="bi bi-speedometer2 me-2"></i>
                 <span>Dashboard </span>
             </a>
@@ -55,6 +55,16 @@
                 <a class="<?php isActive(dir: '/admin/products/create') ?> dropdown-item" href="/projects/lexyhands/admin/products/create">Criar Producto</a>
             </div>
 
+        </div>
+    </div>
+
+    <div class="nav-section mb-4">
+        <small class="text-muted text-uppercase fw-bold">Definições</small>
+        <div class="nav flex-column mt-2">
+            <a href="/projects/lexyhands/admin/settings" class="<?php isActive(dir: '/admin/settings') ?> nav-link d-flex align-items-center">
+                <i class="bi bi-wrench me-3"></i>
+                <span>Configurações </span>
+            </a>
         </div>
     </div>
 

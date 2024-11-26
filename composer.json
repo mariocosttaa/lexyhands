@@ -19,7 +19,7 @@
             "App/Helpers/Models/Products.php",
             "App/Helpers/Models/currencies.php",
 
-            "App/helpers/controllers/Posts.php"
+            "App/Helpers/Controllers/Posts.php"
         ]
     },
     "require": {
