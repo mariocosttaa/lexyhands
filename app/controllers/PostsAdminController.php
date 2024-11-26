@@ -149,13 +149,38 @@ class PostsAdminController extends ControllerHelper
         }
     }
 
+    public static function delete(string $identificator): void
+    {
+        $post = Posts::getFromIdetificatorOnly(identificator: $identificator);
+        if (!$post) {
+            parent::renderAdmin404();
+        }
+
+        //remover imagens
+        if(!empty($post->images)) {
+            $images = json_decode(json: $post->images, associative: true);
+            foreach ($images as $key => $image) {
+                (new FileUpload())->remove(relativePath: '/' . $image);
+            }
+        }
+
+        //remover video
+        if(!empty($post->video)) {
+            (new FileUpload())->remove(relativePath: '/' . $post->video);
+        }
+
+        Posts::delete(id: $post->id);
+        parent::notification(title: 'A Postagem foi Excluída !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts');
+        exit();
+    }
+
+
     public static function fileDelete(string $fileKey, string $identificator):void {
 
         $post = Posts::getFromIdetificatorOnly(identificator: $identificator);
         if (!$post) {
             parent::renderAdmin404();
         }
-
 
         if(!empty($post->images)) {
             $images = json_decode(json: $post->images, associative: true);
@@ -203,30 +228,6 @@ class PostsAdminController extends ControllerHelper
 
     }
 
-    public static function delete(string $identificator): void
-    {
-        $post = Posts::getFromIdetificatorOnly(identificator: $identificator);
-        if (!$post) {
-            parent::renderAdmin404();
-        }
-
-        //remover imagens
-        if(!empty($post->images)) {
-            $images = json_decode(json: $post->images, associative: true);
-            foreach ($images as $key => $image) {
-                (new FileUpload())->remove(relativePath: '/' . $image);
-            }
-        }
-
-        //remover video
-        if(!empty($post->video)) {
-            (new FileUpload())->remove(relativePath: '/' . $post->video);
-        }
-
-        Posts::delete(id: $post->id);
-        parent::notification(title: 'A Postagem foi Excluída !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts');
-        exit();
-    }
 
     private static function validate_tags(array $tags): array|false|null
     {

@@ -6,7 +6,7 @@ namespace App\Services;
 class Money extends ServiceHelper {
 
     // Método para formatar o valor com base nas casas decimais e adicionar a separação de milhar
-    public function formatAmount(float $amount, int $decimalPlaces = 2, ?string $currency = null): string
+    public function formatAmount(float $amount, int $decimalPlaces = 2, ?string $currency = null, ?bool $formatWithSymbol = false): string|null
     {
         // Passo 1: Organiza o número considerando as casas decimais
         $amountAsString = (string) $amount;
@@ -16,6 +16,11 @@ class Money extends ServiceHelper {
 
         // Passo 2: Formata o número com separador de milhar (ponto) e decimal (vírgula)
         $formattedAmount = number_format((float) $amountAsString, $decimalPlaces, ',', '.');
+
+        if($formatWithSymbol == true && !empty($currency) ) {
+            $symbol = \App\Models\currencies::getByCode(code: $currency)->symbol;
+            $formattedAmount = $symbol . ' ' . $formattedAmount;
+        }
 
         return $formattedAmount;
     }

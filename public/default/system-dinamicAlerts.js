@@ -36,10 +36,10 @@ function initializeDynamicAlerts() {
                 icon = 'warning',                        // Ícone do alerta (info, warning, success, etc.)
                 redirect,                                // URL para redirecionamento
                 form = true,                             // Se `true`, tenta enviar o formulário mais próximo
-                confirmButtonText = 'Continuar',         // Texto do botão de confirmação (padrão)
-                cancelButtonText = 'Cancelar',           // Texto do botão de cancelamento (padrão)
-                confirmButtonColor = 'danger',           // Cor do botão de confirmação (pode ser Bootstrap ou hexadecimal)
-                cancelButtonColor = 'secondary'          // Cor do botão de cancelamento (pode ser Bootstrap ou hexadecimal)
+                confirmButtonText = 'Ok',         // Texto do botão de confirmação (padrão)
+                cancelButtonText = '',           // Texto do botão de cancelamento (padrão)
+                confirmButtonColor = 'secondary',           // Cor do botão de confirmação (pode ser Bootstrap ou hexadecimal)
+                cancelButtonColor = null,         // Cor do botão de cancelamento (pode ser Bootstrap ou hexadecimal)
             } = alertConfig;
 
             const formElement = alertElement.closest('form'); // Formulário mais próximo (se aplicável)

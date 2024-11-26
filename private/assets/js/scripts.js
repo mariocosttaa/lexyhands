@@ -102,7 +102,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Traffic Chart
+
+
+
+    // Traffic Chart
 const trafficChart = new Chart(document.getElementById('trafficChart'), {
     type: 'line',
     data: {
@@ -126,6 +129,8 @@ const trafficChart = new Chart(document.getElementById('trafficChart'), {
         }
     }
 });
+
+
 
 // User Distribution Chart
 const userChart = new Chart(document.getElementById('userChart'), {

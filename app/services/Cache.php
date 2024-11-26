@@ -144,7 +144,7 @@ class Cache  extends ServiceHelper {
 
     // Deletar caches relacionados a um array de parâmetros
     // Deletar caches relacionados a um array de parâmetros
-    public function delete($type, $array = []): bool {
+    public function delete($type, $array = []): mixed {
 
         //veriricar se está activo
         if(!$this->status) {

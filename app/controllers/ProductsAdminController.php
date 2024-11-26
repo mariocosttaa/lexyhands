@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Services\Money;
 use App\Services\FileUpload;
+use App\Services\SlugGenerator;
 
 use App\Models\products as Products;
 use App\Models\product_prices as ProductPrices;
@@ -15,7 +16,9 @@ class ProductsAdminController extends ControllerHelper
 
     public static function index(): void
     {
-        parent::renderView(array: ['type' => 'private', 'view' => 'products/index.php', 'layoutChange' => ['pageName' => 'Productos']]);
+        parent::renderView(array: ['type' => 'private', 'view' => 'products/index.php', 'layoutChange' => ['pageName' => 'Productos']], strings: [
+            'products' => Products::getAll(order: 'id DESC'),
+        ]);
     }
 
     public static function create(): void
@@ -26,12 +29,205 @@ class ProductsAdminController extends ControllerHelper
     public static function create_post(): void
     {
 
+        $result = self::sanitazeValues();
+
+        //tratamento dos preços
+        $product_prices = self::prices_verify(prices: $result->data->price, fake_prices: $result->data->fake_price,  prices_description: $result->data->prices_description, currencies: $result->data->currency);
+
+        //tratamento das informações sobre o producto
+        $specifications = self::specifications(specifications: $result->data->specifications, product_length: $result->data->product_length, product_width: $result->data->product_width, product_height: $result->data->product_height, product_weight: $result->data->product_weight, product_material: $result->data->product_material, product_color: $result->data->product_color, other_features: $result->data->other_features);
+        $result->data->colors = self::colors_verify($result->data->product_color);
+
+        //tratamento dos stocks
+        $products_stocks = self::stockMagement(unlimited_stock: $result->data->unlimited_stock, general_stock: $result->data->general_stock, color: $result->data->color, color_stock: $result->data->color_stock, size: $result->data->size, size_stock: $result->data->size_stock, variant_size: $result->data->variant_size, variant_color: $result->data->variant_color, variant_stock: $result->data->variant_stock);
+        $images = self::validate_images();
+
+        if(Products::getbyName($result->data->name)) {
+            //retorna erro
+            parent::notification(title: 'Já existe um Produto com este Nome', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/create');
+            exit();
+        }
+
+        $identificator = slug($result->data->name);
+
+        //criando o prodcuto
+        $product = Products::create(data: ['name' => $result->data->name, 'identificator' => $identificator, 'description' => $result->data->description, 'short_description' => $result->data->short_description, 'specifications' => $specifications, 'images' => $images, 'status' => true,]);
+
+        if ($product) {
+            //criando os preços
+            foreach ($product_prices as $price) {
+                $price = (object) $price;
+                ProductPrices::create(['product_id' => $product, 'price' => $price->price, 'price_promo' => $price->price_promo, 'description' =>  $price->description, 'currency' => $price->currency, 'status' => true,]);
+            }
+            //criar os stocks
+            ProductStocks::create(data: ['product_id' => $product, 'unlimited_stocks' => $products_stocks->unlimited_stocks, 'stock' => $products_stocks->stock, 'stock_with_size' => $products_stocks->stock_with_size ?: null, 'stock_with_color' => $products_stocks->stock_with_color ?: null, 'stock_with_size_and_color' => $products_stocks->stock_with_size_and_color ?: null,]);
+        }
+
+        parent::notification(title: 'Producto Criado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/products');
+        exit();
+    }
+
+    public static function edit(?string $identificator): void {
+        
+        $product = Products::getByIdentificator(identificator: $identificator);
+        if (!$product) {
+            parent::renderAdmin404();
+        }
+
+        parent::renderView(array: ['type' => 'private', 'view' => 'products/edit.php', 'layoutChange' => ['pageName' => 'Editar Producto']], strings: [
+            'product' => $product,
+            'stocks' => ProductStocks::getByProductId(id: $product->id),
+            'currencies' => Currencies::getAll(),
+        ]);
+    }
+
+    public static function edit_post(?string $identificator): void {
+
+        $product = Products::getByIdentificator(identificator: $identificator);
+        if (!$product) {
+            parent::renderAdmin404();
+        }
+
+        $id = $product->id;
+
+        $result = self::sanitazeValues();
+
+        //pegar os preços antigos
+        $old_prices = ProductPrices::getByProductId(id: $id);
+
+        //tratamento dos preços
+        $product_prices = self::prices_verify(prices: $result->data->price, fake_prices: $result->data->fake_price,  prices_description: $result->data->prices_description, currencies: $result->data->currency);
+
+        //tratamento das informações sobre o producto
+        $specifications = self::specifications(specifications: $result->data->specifications, product_length: $result->data->product_length, product_width: $result->data->product_width, product_height: $result->data->product_height, product_weight: $result->data->product_weight, product_material: $result->data->product_material, product_color: $result->data->product_color, other_features: $result->data->other_features);
+        $result->data->colors = self::colors_verify($result->data->product_color);
+
+        //tratamento dos stocks
+        $products_stocks = self::stockMagement(unlimited_stock: $result->data->unlimited_stock, general_stock: $result->data->general_stock, color: $result->data->color, color_stock: $result->data->color_stock, size: $result->data->size, size_stock: $result->data->size_stock, variant_size: $result->data->variant_size, variant_color: $result->data->variant_color, variant_stock: $result->data->variant_stock);
+        $images = self::validate_images();
+
+        if (!$images) {
+            $images = $product->images;
+        } else {
+            //se tiver sido colcoad uma imagem
+            //verifica se ja tem uma antes
+            if($product->images) {
+                $imagesNew = json_decode(json: $images, associative: true);
+                $imagesOld = json_decode(json: $product->images, associative: true);
+                $images = array_merge($imagesOld, $imagesNew);
+                $images = json_encode(value: $images, flags: JSON_UNESCAPED_UNICODE);
+            } else {
+                $images = $product->images;
+            }
+        }
+
+        $productByName = Products::getbyName(name: $result->data->name);
+        if($productByName !== null && $result->data->name != $productByName->name) {
+            //retorna erro
+            parent::notification(title: 'Já existe um Produto com este Nome', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/edit/'.$id.'');
+            exit();
+        }
+
+        $identificator = slug($result->data->name);
+
+        //sctualizada o prodcuto
+        $product = Products::update(id: $id, data: ['name' => $result->data->name, 'identificator' => $identificator, 'description' => $result->data->description, 'short_description' => $result->data->short_description, 'specifications' => $specifications, 'images' => $images, 'status' => true,]);
+
+        if ($product) {
+            //criando os preços
+            foreach ($product_prices as $key => $price) {
+                $price = (object) $price;
+                $price_id = isset($result->data->price_id[$key]) ? $result->data->price_id[$key] : null;
+                $price_id = ProductPrices::getById($price_id);
+
+                if (!empty(($price_id))) {
+                    ProductPrices::update(id: $price_id->id, data: ['product_id' => $product, 'price' => $price->price, 'price_promo' => $price->price_promo, 'description' =>  $price->description, 'currency' => $price->currency, 'status' => true,]);
+                } else {
+                    ProductPrices::create(data: ['product_id' => $product, 'price' => $price->price, 'price_promo' => $price->price_promo, 'description' =>  $price->description, 'currency' => $price->currency, 'status' => true]);
+                }
+            }
+            //actuaizar os stocks
+            ProductStocks::update(id: $id, data: ['product_id' => $product, 'unlimited_stocks' => $products_stocks->unlimited_stocks, 'stock' => $products_stocks->stock, 'stock_with_size' => $products_stocks->stock_with_size ?: null, 'stock_with_color' => $products_stocks->stock_with_color ?: null, 'stock_with_size_and_color' => $products_stocks->stock_with_size_and_color ?: null]);
+        }
+
+        parent::notification(title: 'Producto Actualizado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/products');
+        exit();
+    }
+
+    public static function delete(?string $identificator): void {
+        $product = Products::getByIdentificator(identificator: $identificator);
+        $id = $product->id;
+        if (!$product) {
+            parent::renderAdmin404();
+        }
+
+        //remover imagens
+        if(!empty($product->images)) {
+            $images = json_decode(json: $product->images, associative: true);
+            foreach ($images as $image) {
+                (new FileUpload())->remove(relativePath: '/' . $image);
+            }
+        }
+
+        //apagando producto
+        $product = Products::delete(id: $id);
+        if($product) {
+            //apagando os preços
+            ProductPrices::deleteByProductId(id: $id);
+            //apagando os stocks
+            ProductStocks::deleteByProductId(id: $id);
+        }
+
+        parent::notification(title: 'Producto Apagado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/products');
+        exit();
+    }
+
+    public static function filesDelete(?int $fileKey, string $identificator): void {
+        
+        $product = Products::getByIdentificator(identificator: $identificator);
+        if (!$product) {
+            parent::renderAdmin404();
+        }
+
+        if(!empty($product->images)) {
+            $images = json_decode(json: $product->images, associative: true);
+
+            if(count($images) < 2) {
+                parent::notification(title: 'Erro ao Excluir Imagem !', message: 'Você não pode excluir a única imagem do Producto.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/products/create');
+                exit();
+            }
+
+            if(isset($images[$fileKey])) {
+               //apagar imagem
+               (new FileUpload())->remove(relativePath: '/' . $images[$fileKey]);
+               unset($images[$fileKey]);
+            }
+           // Reindex the array keys
+           $images = array_values($images);
+           $images = json_encode(value: $images, flags: JSON_UNESCAPED_UNICODE);  
+        } else {
+            parent::renderAdmin404(); // não foi encontrado..
+            exit();
+        }
+
+        Products::update(id: $product->id, data: ['images' => $images]);
+
+        parent::notification(title: 'A Imagem foi Excluida !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/products/edit/'.$identificator.'');
+        exit();
+    }
+
+    private static function sanitazeValues(): array|object
+    {
         // Validação dos dados do formulário
         $result = \App\Services\FormFilter::validate($_POST, [
+
+            //edit
+            'price_id' => 'array',
+
             // Nome do produto
             'name' => 'string|max:255|required',
-            'short_description' => 'string|max:255|required',
-            'description' => 'string|max:4000|required',
+            'short_description' => 'string|max:255',
+            'description' => 'string|max:4000',
 
             //preço do producto
             'price' => 'array|required',
@@ -65,82 +261,10 @@ class ProductsAdminController extends ControllerHelper
             'variant_size' => 'array',
             'variant_color' => 'array',
             'variant_stock' => 'array',
+        ], notifyError: true, redirectUrl: '/projects/lexyhands/admin/products7create');
 
-        ], notifyError: true, redirectUrl: '/projects/lexyhands/admin/products');
-
-
-        //tratamento dos preços
-        $product_prices = self::prices_verify(prices: $result->data->price, fake_prices: $result->data->fake_price,  prices_description: $result->data->prices_description, currencies: $result->data->currency);
-        
-        //tratamento das informações sobre o producto
-        $specifications = self::specifications(
-            specifications: $result->data->specifications,
-            product_length: $result->data->product_length,
-            product_width: $result->data->product_width,
-            product_height: $result->data->product_height,
-            product_weight: $result->data->product_weight,
-            product_material: $result->data->product_material,
-            product_color: $result->data->product_color,
-            other_features: $result->data->other_features
-        );
-
-        $result->data->colors = self::colors_verify($result->data->product_color);
-
-        //tratamento dos stocks
-        $products_stocks = self::stockMagement(
-            unlimited_stock: $result->data->unlimited_stock,
-            general_stock: $result->data->general_stock,
-            color: $result->data->color,
-            color_stock: $result->data->color_stock,
-            size: $result->data->size,
-            size_stock: $result->data->size_stock,
-            variant_size: $result->data->variant_size,
-            variant_color: $result->data->variant_color,
-            variant_stock: $result->data->variant_stock
-        );
-        $images = self::validate_images();
-
-        //criando o prodcuto
-        $product =  Products::create(data: [
-            'name' => $result->data->name,
-            'description' => $result->data->description,
-            'short_description' => $result->data->short_description,
-            'specifications' => $specifications,
-            'images' => $images,
-            'status' => true,
-        ]);
-
-        
-        if ($product) {
-            //criando os preços
-            foreach ($product_prices as $price) {
-                $price = (object) $price;
-                ProductPrices::create([
-                    'product_id' => $product,
-                    'price' => $price->price,
-                    'price_promo' => $price->price_promo,
-                    'description' =>  $price->description,
-                    'currency' => $price->currency,
-                    'status' => true,
-                ]);
-            }
-            //criar os stocks
-            ProductStocks::create(data: [
-                'product_id' => $product,
-                'unlimited_stocks' => $products_stocks->unlimited_stocks,
-                'stock' => $products_stocks->stock,
-                'stock_with_size' => $products_stocks->stock_with_size ?: null,
-                'stock_with_color' => $products_stocks->stock_with_color ?: null,
-                'stock_with_size_and_color' => $products_stocks->stock_with_size_and_color ?: null,
-            ]);
-        }
-        
-        parent::notification(title: 'Producto Criado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/products');
-        exit();
-
+        return $result;
     }
-
-
 
     private static function prices_verify($prices, $fake_prices, $prices_description, $currencies): array|null
     {
@@ -148,7 +272,6 @@ class ProductsAdminController extends ControllerHelper
         if (!empty($prices)) {
             //verificar se é array o preço e o da moeda
             if (is_array(value: $prices) && is_array(value: $currencies)) {
-
                 $money = new Money();
                 $prices_formated = [];
                 $error_in_price = [];
@@ -158,31 +281,18 @@ class ProductsAdminController extends ControllerHelper
                     $currency = Currencies::getByCode($currencies[$key]);
                     $price = $money->sanitizeAmount(amount: $value);
                     $fake_price = $money->sanitizeAmount(amount: $fake_prices[$key]);
-                    $prices_description = $prices_description[$key];
+                    $prices_description = isset($prices_description[$key]) ? $prices_description[$key] : null;
 
-                    if (!empty($price) && ($currency)) {
+                    if (!empty($price) && !empty($currency)) {
                         $prices_formated[] = [
                             'currency' => $currency->code,
                             'price' => $price,
+                            'price_promo' => $fake_price ?: null,
+                            'description' => $prices_description
                         ];
-                        //se tiver fake price
-                        if (!empty($fake_price)) {
-                            $prices_formated[$key]['price_promo'] = $fake_price;
-                        }
-                        
-                        //descrição
-                        $prices_formated[$key]['description'] = $prices_description ?: null;
-                        
                     } else {
                         $error_in_price[] =  "Ocorreu algum erro ao processar o preço ou moeda indicado (  Preço: {$prices[$key]}  / Moeda: {$currencies[$key]} )";
                     }
-                }
-
-                //se tiver algum erro
-                if (!empty($error_in_price)) {
-                    //retorna erro
-                    parent::notification(title: 'Erro de Validação', message: implode('<br>', $error_in_price), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/create');
-                    exit();
                 }
             } else {
                 //retorna erro
@@ -195,11 +305,20 @@ class ProductsAdminController extends ControllerHelper
             exit();
         }
 
+
+        //se tiver algum erro
+        if (!empty($error_in_price)) {
+            //retorna erro
+            parent::notification(title: 'Erro de Validação', message: implode('<br>', $error_in_price), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/create');
+            exit();
+        }
+
         return $prices_formated;
     }
 
 
-    private static function specifications($specifications, $product_length, $product_width, $product_height, $product_weight, $product_material, $product_color, $other_features): ? string  {
+    private static function specifications($specifications, $product_length, $product_width, $product_height, $product_weight, $product_material, $product_color, $other_features): ?string
+    {
         $specifications = [
             'specifications' => $specifications ?: null,
             'length' => $product_length ?: null,
@@ -354,7 +473,7 @@ class ProductsAdminController extends ControllerHelper
     private static function validate_images(): ?string
     {
         // tratamento da imagem
-        if (!empty($_FILES['images']['size'][0]) || $_FILES['images']['size'] > 0) {
+        if ($_FILES['images']['size'][0] > 0) {
 
             $uploadService = new FileUpload(uploadDir: 'projects/lexyhands/public/assets/images/products');
             $image = $uploadService->upload(files: $_FILES['images'], params: [

@@ -17,8 +17,10 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         'ac3487463ec3579ad0236e44d4546d87' => __DIR__ . '/../..' . '/app/helpers/general/url.php',
         'feaacb47e3ce3ecf41e4d98d3f25649c' => __DIR__ . '/../..' . '/app/helpers/services/UserDateTime.php',
         'c88cf269f3cd3e13e7c738da2207081e' => __DIR__ . '/../..' . '/app/helpers/services/SlugGenerator.php',
+        '6de4f0e8351564eb3ca3f60580ce8089' => __DIR__ . '/../..' . '/app/helpers/services/Money.php',
         '51dbcfd670f593edf6baafb6aa9641e1' => __DIR__ . '/../..' . '/app/helpers/models/Users.php',
-        'c3d15360d4172af8c83727ebea47b91d' => __DIR__ . '/../..' . '/app/helpers/controllers/Products.php',
+        '2ee6d1f5b71a9f3fc8c4343d1e433768' => __DIR__ . '/../..' . '/app/helpers/models/Products.php',
+        '064b2d6c5b4895d1d1cb131706636d57' => __DIR__ . '/../..' . '/app/helpers/models/currencies.php',
         '1ff4808921719c7b01303fb13c4aa401' => __DIR__ . '/../..' . '/app/helpers/controllers/Posts.php',
     );
 
@@ -31,6 +33,7 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         ),
         'P' => 
         array (
+            'Psr\\SimpleCache\\' => 16,
             'PhpOption\\' => 10,
         ),
         'G' => 
@@ -40,6 +43,7 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         'D' => 
         array (
             'Dotenv\\' => 7,
+            'Detection\\' => 10,
         ),
         'A' => 
         array (
@@ -60,6 +64,10 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
         'PhpOption\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
@@ -71,6 +79,10 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Detection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/src',
         ),
         'App\\' => 
         array (

@@ -88,7 +88,7 @@
                                                         <button type="submit" class="btn btn-sm btn-danger" w-tid="98"
                                                             data-alert-config='{
                                                             "type": "action", 
-                                                            "redirect": "/projects/lexyhands/admin/posts/delete/file/<?php echo $key ?>/<?php echo $post->identificator ?>",
+                                                            "redirect": "/projects/lexyhands/admin/products/delete/images/<?php echo $key ?>/<?php echo $post->identificator ?>",
                                                             "title": "Você tem certeza?", 
                                                             "message": "Esta ação é irreversível. Deseja continuar com a exclusão?", 
                                                             "icon": "warning", 

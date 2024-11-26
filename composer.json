@@ -13,14 +13,17 @@
             
             "app/helpers/services/UserDateTime.php",
             "app/helpers/services/SlugGenerator.php",
+            "app/helpers/services/Money.php",
 
             "app/helpers/models/Users.php",
+            "app/helpers/models/Products.php",
+            "app/helpers/models/currencies.php",
 
-            "app/helpers/controllers/Products.php",
             "app/helpers/controllers/Posts.php"
         ]
     },
     "require": {
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "mobiledetect/mobiledetectlib": "^4.8"
     }
 }

@@ -32,6 +32,9 @@ class posts extends ModelHelper {
         return $result;
     }
    
+    public static function countAll(): ?int {
+        return parent::SQL_EASY_COUNT(table: 'posts', where: null);
+    }
 
     public static function getFromIdentificator($id, $identificator, $date) {
         if(empty($id) || empty($identificator) || empty($date)) return false;

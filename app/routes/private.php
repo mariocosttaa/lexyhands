@@ -160,7 +160,25 @@ $router->post(uri: '/admin/products/create', action: [
         [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
 ]);
 
+$router->get(uri: '/admin/products/edit/{identificator}', action: [ 
+    App\Controllers\ProductsAdminController::class, 'edit'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
 
+$router->post(uri: '/admin/products/edit/{identificator}', action: [ 
+    App\Controllers\ProductsAdminController::class, 'edit_post'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->post(uri: '/admin/products/delete/{identificator}', action: [ 
+    App\Controllers\ProductsAdminController::class, 'delete'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
+$router->get(uri: '/admin/products/delete/file/{fileKey}/{identificator}', action: [ 
+    App\Controllers\ProductsAdminController::class, 'filesDelete'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
 
 
 

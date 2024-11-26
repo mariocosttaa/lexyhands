@@ -56,6 +56,11 @@ class FormFilter extends ServiceHelper
                 }
             }
     
+            // Se o campo for nulo e n o tiver o required, ignora a validação
+            if (!isset($data[$field]) && !$isRequired) {
+                continue;
+            }
+    
             // 1. Verifica se o campo é obrigatório (Primeira verificação)
             if ($isRequired && (!isset($data[$field]) || empty($data[$field]))) {
                 $errors[$field][] = $message ?: ucfirst($field) . " é obrigatório.";
@@ -74,7 +79,12 @@ class FormFilter extends ServiceHelper
     
             // 3. Valida o tipo do campo (se o valor existir)
             if (isset($data[$field]) && !self::validateType($data[$field], $type)) {
-                $errors[$field][] = $message ?? ucfirst($field) . " não é válido.";
+                //verificar se o campo não é required e se esta null/vazio
+                if (!$isRequired && empty($data[$field])) {
+                    continue;
+                } else {
+                    $errors[$field][] = $message ?? ucfirst($field) . " não é válido.";
+                }
             }
     
             // Preenche os dados validados no objeto
@@ -98,7 +108,7 @@ class FormFilter extends ServiceHelper
                     level: 'error',
                     type: 'sweetalert', // Usando SweetAlert por padrão
                     position: 'center',
-                    timeout: 5000,
+                    timeout: 9000,
                     redirectUrl: $redirectUrl
                 );
             } else {
@@ -109,7 +119,7 @@ class FormFilter extends ServiceHelper
                     level: 'error',
                     type: 'sweetalert', // Usando SweetAlert por padrão
                     position: 'top-end',
-                    timeout: 5000
+                    timeout: 9000
                 );
             }
     
@@ -156,5 +166,4 @@ class FormFilter extends ServiceHelper
         }
     }
 }
-
 

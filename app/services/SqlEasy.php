@@ -123,11 +123,8 @@ class SqlEasy {
             $stmt->bindValue($counter, $value, \PDO::PARAM_STR);
         }
 
-        // Deleta os caches dessa tabela, fazendo com que o novo  cache seja gerado
-        $cache = (new Cache())->delete('sqlEasy', ['table' => $table]);
-
         if($stmt->execute()) {
-            return $this->conn()->lastInsertId();
+            return $this->conn()->lastInsertId() . (new Cache())->delete('sqlEasy', ['table' => $table]);
         } else {
            return false;
         }
@@ -453,7 +450,7 @@ class SqlEasy {
     
 
 
-    public function update($table, $data = array(), $where = array()): bool {
+    public function update($table, $data = array(), $where = array()): bool|int|string {
       
         $array_colum = null;
         $counter = 0; 
@@ -499,11 +496,14 @@ class SqlEasy {
 
         if($stmt->execute()) {
 
-            // Deleta os caches dessa tabela, fazendo com que o novo  cache seja gerado
-            $cache = new Cache();
-            $cache->delete('sqlEasy', ['table' => $table]);
+            (new Cache())->delete('sqlEasy', ['table' => $table]);
 
-            return true;
+            if(isset($where['id'])) {
+                return $where['id'];
+            } else {
+                return true;
+            }
+
         } else {
             return false;
         }

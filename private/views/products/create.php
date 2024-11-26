@@ -23,7 +23,7 @@
     <div class="card-body">
         <h6 class="card-title mb-4">Criar Productos</h6>
 
-        <form action="" method="POST" enctype="multipart/form-data" >
+        <form action="" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <!-- Nome e Descrição -->
                 <div class="col-md-6">
@@ -52,29 +52,24 @@
                     </h2>
                     <div id="collapseDescription" class="accordion-collapse collapse show" aria-labelledby="productDescription" data-bs-parent="#productDescription">
                         <div class="accordion-body">
-                            <div id="">
-                                <div class="col-12 mb-2">
-                                    <!-- Editor --->
-                                        <script src="http://localhost/projects/lexyhands/private/assets/js/tinymce/tinymce.min.js"></script>
-                                        <script>
-                                            // Inicializa o editor TinyMCE
-                                            tinymce.init({
-                                                selector: '#editor', // Seleciona o textarea pelo ID
-                                                menubar: false, // Remove a barra de menus
-                                                language: 'pt_BR', // Configura o idioma para português do Brasil
-                                                plugins: 'lists link table', // Ativa apenas plugins básicos
-                                                toolbar: 'undo redo | bold italic underline | bullist numlist | link table', // Configura a barra de ferramentas
-                                                branding: false, // Remove a marca do TinyMCE
-                                                height: 300, // Altura do editor
-                                            });
-                                        </script>
-                                        <textarea id="editor" name="description" placeholder="Escreva o conteúdo do Serviço" required>
-                                        </textarea>
-                                    </div>
-                                </div>
-
-                            <button id="addPrice" type="button" class="btn btn-sm btn-primary-soft">Adicionar Preço</button>
-                            <button id="removePrice" type="button" class="btn btn-sm btn-danger-soft d-none">Remover Preço</button>
+                            <div class="col-12 mb-2">
+                                <!-- Editor --->
+                                <script src="http://localhost/projects/lexyhands/private/assets/js/tinymce/tinymce.min.js"></script>
+                                <script>
+                                    // Inicializa o editor TinyMCE
+                                    tinymce.init({
+                                        selector: '#editor', // Seleciona o textarea pelo ID
+                                        menubar: false, // Remove a barra de menus
+                                        language: 'pt_BR', // Configura o idioma para português do Brasil
+                                        plugins: 'lists link table', // Ativa apenas plugins básicos
+                                        toolbar: 'undo redo | bold italic underline | bullist numlist | link table', // Configura a barra de ferramentas
+                                        branding: false, // Remove a marca do TinyMCE
+                                        height: 300, // Altura do editor
+                                    });
+                                </script>
+                                <textarea id="editor" name="description" placeholder="Escreva o conteúdo do Serviço">
+                                </textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,8 +98,8 @@
                                         <input type="text" id="fakePrice1" name="fake_price[]" class="form-control currency-input" placeholder="Digite o preço fake">
                                     </div>
                                     <div class="col-md-2 mb-2">
-                                        <label for="fakePrice1" class="form-label">Descrição (Opcinal)</label>
-                                        <input type="text" name="prices_description[]" class="form-control" placeholder="Descrição (opcionao)">
+                                        <label for="prices_description1" class="form-label">Descrição (Opcinal)</label>
+                                        <input type="text" id="prices_description1" name="prices_description[]" class="form-control" placeholder="Descrição (opcionao)">
                                     </div>
                                     <div class="col-md-2 mb-8">
                                         <label for="currency1" class="form-label">Moeda</label>
@@ -393,7 +388,12 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         let priceCounter = 1; // Contador de preços
-        const availableCurrencies = ["USD", "EUR", "BRL", "AOA"]; // Moedas disponíveis
+        const availableCurrencies = {
+            'usd': 'Dólar (USD)',
+            'eur': 'Euro (EUR)',
+            'brl': 'Real (BRL)',
+            'aoa': 'Kwanza Angolano (AOA)',
+        }; // Moedas disponíveis
         const priceContainer = document.getElementById('priceContainer');
         const addButton = document.getElementById('addPrice');
         const removeButton = document.getElementById('removePrice');
@@ -404,8 +404,8 @@
             const options = {
                 style: 'currency',
                 currency: currencyCode,
-                minimumFractionDigits: currencyCode === 'AOA' ? 3 : 2,
-                maximumFractionDigits: currencyCode === 'AOA' ? 3 : 2
+                minimumFractionDigits: currencyCode === 'aoa' ? 3 : 2,
+                maximumFractionDigits: currencyCode === 'aoa' ? 3 : 2
             };
             return new Intl.NumberFormat('pt-BR', options).format(value);
         };
@@ -424,7 +424,7 @@
         const toggleButtons = () => {
             const activeCurrencies = Array.from(document.querySelectorAll('.currency-select'))
                 .map(select => select.value);
-            addButton.style.display = activeCurrencies.length >= availableCurrencies.length ? 'none' : 'inline-block';
+            addButton.style.display = activeCurrencies.length >= Object.keys(availableCurrencies).length ? 'none' : 'inline-block';
             removeButton.classList.toggle('d-none', priceCounter <= 1);
         };
 
@@ -435,9 +435,9 @@
             newRow.className = 'row price-row';
             newRow.dataset.rowId = priceCounter;
 
-            const availableOptions = availableCurrencies
+            const availableOptions = Object.keys(availableCurrencies)
                 .filter(currency => !Array.from(document.querySelectorAll('.currency-select')).map(select => select.value).includes(currency))
-                .map(currency => `<option value="${currency}">${currency}</option>`)
+                .map(currency => `<option value="${currency}">${availableCurrencies[currency]}</option>`)
                 .join('');
 
             newRow.innerHTML = `
@@ -446,19 +446,19 @@
 
             <div class="col-md-4 mb-2">
                 <label for="totalPrice${priceCounter}" class="form-label">Preço Total</label>
-                <input type="text" id="totalPrice${priceCounter}" name="price[]" class="form-control currency-input" placeholder="Digite o preço total">
+                <input type="text" id="totalPrice${priceCounter}" name="price[${availableCurrencies[Object.keys(availableCurrencies)[priceCounter-1]]}]" class="form-control currency-input" placeholder="Digite o preço total">
             </div>
             <div class="col-md-4 mb-2">
                 <label for="fakePrice${priceCounter}" class="form-label">Preço Fake</label>
-                <input type="text" id="fakePrice${priceCounter}" name="fake_price[]" class="form-control currency-input" placeholder="Digite o preço fake">
+                <input type="text" id="fakePrice${priceCounter}" name="fake_price[${availableCurrencies[Object.keys(availableCurrencies)[priceCounter-1]]}]" class="form-control currency-input" placeholder="Digite o preço fake">
             </div>
             <div class="col-md-2 mb-2">
-                <label for="fakePrice${priceCounter}" class="form-label">Descrição (Opcinal) </label>
-                <input type="text" id="description${priceCounter}" name="prices_description[]" class="form-control" placeholder="Digite a Descrição">
+                <label for="fakePrice${priceCounter}" class="form-label">Descrição (Opcional) </label>
+                <input type="text" id="description${priceCounter}" name="prices_description[${availableCurrencies[Object.keys(availableCurrencies)[priceCounter-1]]}]" class="form-control" placeholder="Digite a Descrição">
             </div>
             <div class="col-md-2 mb-2">
                 <label for="currency${priceCounter}" class="form-label">Moeda</label>
-                <select id="currency${priceCounter}" name="currency[]" class="form-select currency-select">${availableOptions}</select>
+                <select id="currency${priceCounter}" name="currency[${availableCurrencies[Object.keys(availableCurrencies)[priceCounter-1]]}]" class="form-select currency-select">${availableOptions}</select>
             </div>
         `;
 

@@ -14,7 +14,7 @@ class ModelHelper {
     }
 
 
-    public static function SQL_EASY_INSERT($table, $data = array()) {
+    public static function SQL_EASY_INSERT($table, $data = array()): int|null|bool {
         $sqlEasy = new SqlEasy();
         return $sqlEasy->insert($table, $data);
     }
@@ -24,7 +24,7 @@ class ModelHelper {
         return $sqlEasy->select($table, $where, $limit, $order, $object, operator: $operator);
     }
 
-    public static function SQL_EASY_UPDATE($table, $data = array(), $where = array()) {
+    public static function SQL_EASY_UPDATE($table, $data = array(), $where = array()): bool|int|string {
         $sqlEasy = new SqlEasy();
         return $sqlEasy->update($table, $data, $where);
     }
