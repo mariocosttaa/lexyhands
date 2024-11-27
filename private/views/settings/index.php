@@ -6,7 +6,7 @@
 <nav aria-label="breadcrumb" w-tid="101">
     <ol class="breadcrumb" w-tid="102">
         <li class="breadcrumb-item" w-tid="103">
-            <a href="/projects/lexyhands/" w-tid="104">
+            <a href="/../" w-tid="104">
                 <i class="bi bi-house-door me-1" w-tid="105"></i>Início
             </a>
         </li>
@@ -38,7 +38,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="col-12 mb-2">
-                        <form action="/projects/lexyhands/admin/settings/general" method="POST" enctype="multipart/form-data">
+                        <form action="/../admin/settings/general" method="POST" enctype="multipart/form-data">
                             <div class="mb-2">
                                 <label class="form-label">Nome do Site (Empresa) <b class="text-danger">*</b></label>
                                 <input type="text" name="site_name" value="<?php echo $settings->site_name ?>" class="form-control" placeholder="Escreva o nome do Site" required>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="col-12 mb-2">
-                        <form action="/projects/lexyhands/admin/settings/logos" method="POST" enctype="multipart/form-data">
+                        <form action="/../admin/settings/logos" method="POST" enctype="multipart/form-data">
                             <div class="mb-2">
                                 <label class="form-label">Logotipo <small>(Versão Branca ou Transparente /Recomendado)</small></label>
                                 <small class="text-danger d-block  mb-0">Em caso de alteração, é substituido o logotipo actual, caso exista.</small>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                     <div class="col-12 mb-2">
-                        <form action="/projects/lexyhands/admin/settings/social-media" method="POST" enctype="multipart/form-data">
+                        <form action="/../admin/settings/social-media" method="POST" enctype="multipart/form-data">
                             <div class="mb-2">
                                 <label class="form-label">WhatsApp </label>
                                 <input type="text" name="whatssap" value="<?php echo $settings->whatssap ?>" class="form-control" placeholder="Coloque o número indicado no WhatsApp">

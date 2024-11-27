@@ -28,7 +28,7 @@ class AuthMiddlewar extends MiddlewarHelper
                  level: 'info', 
                  type: 'sweetalert', 
                  position: 'top-end', 
-                 redirectUrl: '/projects/lexyhands/admin/dashboard');  
+                 redirectUrl: '/../admin/dashboard');  
             exit();
         }
     }

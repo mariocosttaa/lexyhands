@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Services\FileUpload;
-use App\Models\services as Services;
+use App\Models\Services as Services;
 use App\Services\SlugGenerator;
 
 class ServicesAdminController extends ServicesController
@@ -11,7 +11,7 @@ class ServicesAdminController extends ServicesController
     public static function index(): void
     {
         parent::renderView(array: ['type' => 'private', 'view' => 'services/index.php', 'layoutChange' => ['pageName' => 'Serviços']], strings: [
-            'services' => \App\Models\services::getAll(order: 'id DESC'),
+            'services' => \App\Models\Services::getAll(order: 'id DESC'),
         ]);
     }
 
@@ -58,13 +58,13 @@ class ServicesAdminController extends ServicesController
         $result = self::validate_post(data: $_POST);
         $service = Services::getBySlugName(name: $slugName);
         if(!$service) {
-            parent::notification(title: 'Erro ao Editar Serviço !', message: 'Não conseguimos Editar o Serviço especificado !', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/services');
+            parent::notification(title: 'Erro ao Editar Serviço !', message: 'Não conseguimos Editar o Serviço especificado !', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/services');
             exit();
         }
         
         //se o nome existir retorna erro
         if(Services::checkNameExist($result->data->name) && $result->data->name != $service->name) {
-            parent::notification(title: 'Erro ao Editar Serviço !', message: 'Já existe um Serviço com este Nome.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/services/edit/'.$slugName.'');
+            parent::notification(title: 'Erro ao Editar Serviço !', message: 'Já existe um Serviço com este Nome.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/services/edit/'.$slugName.'');
             exit();
         }
 
@@ -74,7 +74,7 @@ class ServicesAdminController extends ServicesController
 
         Services::update($service->id, data: ['name' => $result->data->name, 'slug_name' => $slug_name, 'description' => $result->data->description, 'content' => $result->data->content, 'image' => $image]);
 
-        parent::notification(title: 'O serviço foi Actualizado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/services/');
+        parent::notification(title: 'O serviço foi Actualizado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/services/');
         exit();
     }
 
@@ -83,12 +83,12 @@ class ServicesAdminController extends ServicesController
         
         $service = Services::getBySlugName(name: $slugName);
         if(!$service) {
-            parent::notification(title: 'Erro ao Excluir Serviço !', message: 'Não conseguimos Excluir o Serviço específicado !', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/services');
+            parent::notification(title: 'Erro ao Excluir Serviço !', message: 'Não conseguimos Excluir o Serviço específicado !', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/services');
             exit();
         }
 
         Services::delete(id: $service->id);
-        parent::notification(title: 'O serviço foi Excluido !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/services/');
+        parent::notification(title: 'O serviço foi Excluido !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/services/');
 
     }
 
@@ -107,7 +107,7 @@ class ServicesAdminController extends ServicesController
                 'content' => 'string',
             ],
             notifyError: true,
-            redirectUrl: '/projects/lexyhands/admin/services/create'
+            redirectUrl: '/../admin/services/create'
         );
         return $result;
     }
@@ -124,7 +124,7 @@ class ServicesAdminController extends ServicesController
                 'allowedExtensions' => ['jpg', 'png', 'gif'],
                 'convert' => 'png', // Converte para PNG
                 'alert' => true,
-                'url' => '/projects/lexyhands/admin/services/create',
+                'url' => '/../admin/services/create',
                 'returnJson' => false
             ]);
         } else {

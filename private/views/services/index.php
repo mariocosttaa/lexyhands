@@ -1,6 +1,6 @@
 <h2 class="page-header-title d-flex align-items-center justify-content-between">
     Lista de Serviços
-    <a href="/projects/lexyhands/admin/services/create" class="btn btn-primary-soft">
+    <a href="/../admin/services/create" class="btn btn-primary-soft">
         <i class="bi bi-plus me-1"></i>
         Criar Serviço
     </a>
@@ -29,8 +29,8 @@
                         <p class="card-text text-muted" w-tid="97"><?php echo $service->description ?></p>
                     </div>
                     <div class="card-footer mb-2">
-                        <form action="/projects/lexyhands/admin/services/delete/<?php echo $service->slug_name ?>" method="POST">
-                            <a href="/projects/lexyhands/admin/services/edit/<?php echo $service->slug_name ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
+                        <form action="/../admin/services/delete/<?php echo $service->slug_name ?>" method="POST">
+                            <a href="/../admin/services/edit/<?php echo $service->slug_name ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
                             <button type="submit" class="btn btn-sm btn-danger-soft" w-tid="98"
                                 data-alert-config='{
                                         "type": "delete", 
@@ -44,7 +44,7 @@
                                     }'>
                                 Excluir
                             </button> |
-                            <a target="_blank" href="/projects/lexyhands/service/<?php echo $service->slug_name ?>" class="btn btn-sm btn-primary-soft" w-tid="98">Visualizar</a>
+                            <a target="_blank" href="/../service/<?php echo $service->slug_name ?>" class="btn btn-sm btn-primary-soft" w-tid="98">Visualizar</a>
                         </form>
                     </div>
                 </div>
@@ -57,6 +57,6 @@
     <div class="alert alert-danger" role="alert">
         <h4 class="alert-heading">Ops!</h4>
         <p>Não existem serviços criados.</p>
-        <p>Clique <a href="/projects/lexyhands/admin/services/create">aqui</a> para criar um novo serviço.</p>
+        <p>Clique <a href="/../admin/services/create">aqui</a> para criar um novo serviço.</p>
     </div>
 <?php } ?>

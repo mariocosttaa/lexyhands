@@ -1,8 +1,9 @@
 <?php 
 
 namespace App\Models;
+use App\Models\Products;
 
-class products_reviews extends ModelHelper {
+class ProductReviews extends ModelHelper {
 
     public static function create($data): bool|null {
         if(empty($data)) return false;

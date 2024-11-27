@@ -133,9 +133,9 @@ class Layout  extends ServiceHelper
     private static function defaultCss() {
         $styles = '
             <!-- System Default Cs -->
-            <link rel="stylesheet" media="screen" href="/projects/lexyhands/public/default/boxicons/css/boxicons.min.css">
+            <link rel="stylesheet" media="screen" href="/../public/default/boxicons/css/boxicons.min.css">
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-            <link href="/projects/lexyhands/public/default/icons.min.css" rel="stylesheet" type="text/css" />
+            <link href="/../public/default/icons.min.css" rel="stylesheet" type="text/css" />
         ';
         echo $styles;
     }
@@ -143,15 +143,15 @@ class Layout  extends ServiceHelper
     private static function defaultJs() {
         $scripts = '
             <!-- System Default Js -->
-            <script src="/projects/lexyhands/public/default/jquery-3.6.0.min.js"></script>
+            <script src="/../public/default/jquery-3.6.0.min.js"></script>
 
             <!-- SweetAlert JavaScript e Css -->
-            <script src="/projects/lexyhands/public/default/services/sweetalert2/dist/sweetalert2.all.min.js"></script>
+            <script src="/../public/default/services/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
-            <script src="/projects/lexyhands/public/default/system-dinamicAlerts.js"></script>
+            <script src="/../public/default/system-dinamicAlerts.js"></script>
             
             <!---
-            <script src="/projects/lexyhands/public/default/system.form.filter.js"></script>
+            <script src="/../public/default/system.form.filter.js"></script>
             --->
             
             <!--- System Helps --->

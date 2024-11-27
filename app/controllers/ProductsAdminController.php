@@ -6,10 +6,10 @@ use App\Services\Money;
 use App\Services\FileUpload;
 use App\Services\SlugGenerator;
 
-use App\Models\products as Products;
-use App\Models\product_prices as ProductPrices;
-use App\Models\products_stocks as ProductStocks;
-use App\Models\currencies as Currencies;
+use App\Models\Products as Products;
+use App\Models\Product_prices as ProductPrices;
+use App\Models\Products_stocks as ProductStocks;
+use App\Models\Currencies as Currencies;
 
 class ProductsAdminController extends ControllerHelper
 {
@@ -40,11 +40,12 @@ class ProductsAdminController extends ControllerHelper
 
         //tratamento dos stocks
         $products_stocks = self::stockMagement(unlimited_stock: $result->data->unlimited_stock, general_stock: $result->data->general_stock, color: $result->data->color, color_stock: $result->data->color_stock, size: $result->data->size, size_stock: $result->data->size_stock, variant_size: $result->data->variant_size, variant_color: $result->data->variant_color, variant_stock: $result->data->variant_stock);
-        $images = self::validate_images();
+         $images = self::validate_images();
+        
 
         if(Products::getbyName($result->data->name)) {
             //retorna erro
-            parent::notification(title: 'Já existe um Produto com este Nome', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/create');
+            parent::notification(title: 'Já existe um Produto com este Nome', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
             exit();
         }
 
@@ -63,7 +64,7 @@ class ProductsAdminController extends ControllerHelper
             ProductStocks::create(data: ['product_id' => $product, 'unlimited_stocks' => $products_stocks->unlimited_stocks, 'stock' => $products_stocks->stock, 'stock_with_size' => $products_stocks->stock_with_size ?: null, 'stock_with_color' => $products_stocks->stock_with_color ?: null, 'stock_with_size_and_color' => $products_stocks->stock_with_size_and_color ?: null,]);
         }
 
-        parent::notification(title: 'Producto Criado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/products');
+        parent::notification(title: 'Producto Criado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/products');
         exit();
     }
 
@@ -106,25 +107,23 @@ class ProductsAdminController extends ControllerHelper
         $products_stocks = self::stockMagement(unlimited_stock: $result->data->unlimited_stock, general_stock: $result->data->general_stock, color: $result->data->color, color_stock: $result->data->color_stock, size: $result->data->size, size_stock: $result->data->size_stock, variant_size: $result->data->variant_size, variant_color: $result->data->variant_color, variant_stock: $result->data->variant_stock);
         $images = self::validate_images();
 
+        
+
         if (!$images) {
             $images = $product->images;
-        } else {
-            //se tiver sido colcoad uma imagem
-            //verifica se ja tem uma antes
-            if($product->images) {
-                $imagesNew = json_decode(json: $images, associative: true);
-                $imagesOld = json_decode(json: $product->images, associative: true);
-                $images = array_merge($imagesOld, $imagesNew);
-                $images = json_encode(value: $images, flags: JSON_UNESCAPED_UNICODE);
-            } else {
-                $images = $product->images;
-            }
+        } else if($product->images) {
+            
+            $imagesNew = json_decode(json: $images, associative: true);
+            $imagesOld = json_decode(json: $product->images, associative: true);
+            $images = array_merge($imagesOld, $imagesNew);
+            $images = json_encode(value: $images, flags: JSON_UNESCAPED_UNICODE);
         }
+        
 
         $productByName = Products::getbyName(name: $result->data->name);
         if($productByName !== null && $result->data->name != $productByName->name) {
             //retorna erro
-            parent::notification(title: 'Já existe um Produto com este Nome', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/edit/'.$id.'');
+            parent::notification(title: 'Já existe um Produto com este Nome', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/edit/'.$id.'');
             exit();
         }
 
@@ -150,17 +149,18 @@ class ProductsAdminController extends ControllerHelper
             ProductStocks::update(id: $id, data: ['product_id' => $product, 'unlimited_stocks' => $products_stocks->unlimited_stocks, 'stock' => $products_stocks->stock, 'stock_with_size' => $products_stocks->stock_with_size ?: null, 'stock_with_color' => $products_stocks->stock_with_color ?: null, 'stock_with_size_and_color' => $products_stocks->stock_with_size_and_color ?: null]);
         }
 
-        parent::notification(title: 'Producto Actualizado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/products');
+        parent::notification(title: 'Producto Actualizado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/products');
         exit();
     }
 
     public static function delete(?string $identificator): void {
         $product = Products::getByIdentificator(identificator: $identificator);
-        $id = $product->id;
+       
         if (!$product) {
             parent::renderAdmin404();
         }
-
+        $id = $product->id;
+        
         //remover imagens
         if(!empty($product->images)) {
             $images = json_decode(json: $product->images, associative: true);
@@ -178,7 +178,7 @@ class ProductsAdminController extends ControllerHelper
             ProductStocks::deleteByProductId(id: $id);
         }
 
-        parent::notification(title: 'Producto Apagado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/products');
+        parent::notification(title: 'Producto Apagado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/products');
         exit();
     }
 
@@ -193,7 +193,7 @@ class ProductsAdminController extends ControllerHelper
             $images = json_decode(json: $product->images, associative: true);
 
             if(count($images) < 2) {
-                parent::notification(title: 'Erro ao Excluir Imagem !', message: 'Você não pode excluir a única imagem do Producto.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/products/create');
+                parent::notification(title: 'Erro ao Excluir Imagem !', message: 'Você não pode excluir a única imagem do Producto.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/products/create');
                 exit();
             }
 
@@ -212,7 +212,7 @@ class ProductsAdminController extends ControllerHelper
 
         Products::update(id: $product->id, data: ['images' => $images]);
 
-        parent::notification(title: 'A Imagem foi Excluida !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/products/edit/'.$identificator.'');
+        parent::notification(title: 'A Imagem foi Excluida !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/products/edit/'.$identificator.'');
         exit();
     }
 
@@ -261,7 +261,7 @@ class ProductsAdminController extends ControllerHelper
             'variant_size' => 'array',
             'variant_color' => 'array',
             'variant_stock' => 'array',
-        ], notifyError: true, redirectUrl: '/projects/lexyhands/admin/products7create');
+        ], notifyError: true, redirectUrl: '/../admin/products7create');
 
         return $result;
     }
@@ -296,12 +296,12 @@ class ProductsAdminController extends ControllerHelper
                 }
             } else {
                 //retorna erro
-                parent::notification(title: 'O(s) preços ou a moeda indicada não são válidos.', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/create');
+                parent::notification(title: 'O(s) preços ou a moeda indicada não são válidos.', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
                 exit();
             }
         } else {
             //retorna erro
-            parent::notification(title: 'É necessário indicar pelomenos um Preço', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/create');
+            parent::notification(title: 'É necessário indicar pelomenos um Preço', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
             exit();
         }
 
@@ -309,7 +309,7 @@ class ProductsAdminController extends ControllerHelper
         //se tiver algum erro
         if (!empty($error_in_price)) {
             //retorna erro
-            parent::notification(title: 'Erro de Validação', message: implode('<br>', $error_in_price), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/create');
+            parent::notification(title: 'Erro de Validação', message: implode('<br>', $error_in_price), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
             exit();
         }
 
@@ -341,7 +341,7 @@ class ProductsAdminController extends ControllerHelper
         //verificar se o array n esta vazio
         if (!empty($color)) {
             if (is_array(value: $color) && count(value: $color) > 30) {
-                parent::notification(title: 'São permitidas no máximo 30 definições de cores.', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/create');
+                parent::notification(title: 'São permitidas no máximo 30 definições de cores.', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
                 exit();
             } else {
                 return json_encode(value: $color, flags: JSON_UNESCAPED_UNICODE);
@@ -396,7 +396,7 @@ class ProductsAdminController extends ControllerHelper
             }
             if (!empty($error)) {
                 //retorna erro
-                parent::notification(title: 'Erro de Validação', message: implode('<br>', $error), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/create');
+                parent::notification(title: 'Erro de Validação', message: implode('<br>', $error), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
                 exit();
             }
         } else if (
@@ -428,7 +428,7 @@ class ProductsAdminController extends ControllerHelper
             }
 
             if (!empty($error)) {
-                parent::notification(title: 'Erro de Validação', message: implode('<br>', $error), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/create');
+                parent::notification(title: 'Erro de Validação', message: implode('<br>', $error), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
                 exit();
             }
         } else if (
@@ -461,7 +461,7 @@ class ProductsAdminController extends ControllerHelper
                 }
             }
         } else {
-            parent::notification(title: 'Erro de Validação', message: implode('<br>', $error), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/projects/lexyhands/admin/products/create');
+            parent::notification(title: 'Erro de Validação', message: implode('<br>', $error), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
             exit();
         }
 
@@ -484,7 +484,7 @@ class ProductsAdminController extends ControllerHelper
                 'allowedExtensions' => ['jpg', 'png', 'gif'],
                 'convert' => 'png', // Converte para PNG
                 'alert' => true,
-                'url' => '/projects/lexyhands/admin/products/create',
+                'url' => '/../admin/products/create',
                 'returnJson' => true
             ]);
         } else {

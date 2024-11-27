@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\posts as Posts;
-use App\Models\posts_categorys as PostsCategorys;
+use App\Models\Posts;
+use App\Models\Posts_categorys as PostsCategory;
 use App\Services\FileUpload;
 
 class PostsAdminController extends ControllerHelper
@@ -18,7 +18,7 @@ class PostsAdminController extends ControllerHelper
     public static function create(): void
     {
         parent::renderView(array: ['type' => 'private', 'view' => 'posts/create.php', 'layoutChange' => ['pageName' => 'Criar Postagem']], strings: [
-            'categories' => PostsCategorys::getAll('id DESC'),
+            'categories' => PostsCategory::getAll('id DESC'),
         ]);
     }
 
@@ -29,7 +29,7 @@ class PostsAdminController extends ControllerHelper
         $images = self::validate_images();
 
         if (!$images) {
-            parent::notification(title: 'Erro ao Criar Postagem !', message: 'É necessário pelomenos uma imagem para continuar', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts/create');
+            parent::notification(title: 'Erro ao Criar Postagem !', message: 'É necessário pelomenos uma imagem para continuar', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/create');
             exit();
         }
 
@@ -38,7 +38,7 @@ class PostsAdminController extends ControllerHelper
 
 
         if (Posts::checkTittleExist($result->data->tittle)) {
-            parent::notification(title: 'Erro ao Criar Postagem !', message: 'Já existe uma Postagem com este Título.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts/create');
+            parent::notification(title: 'Erro ao Criar Postagem !', message: 'Já existe uma Postagem com este Título.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/create');
             exit();
         }
 
@@ -63,7 +63,7 @@ class PostsAdminController extends ControllerHelper
             'video' => $video
         ]);
 
-        parent::notification(title: 'A Postagem foi Criada !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts');
+        parent::notification(title: 'A Postagem foi Criada !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts');
         exit();
         
     }
@@ -79,7 +79,7 @@ class PostsAdminController extends ControllerHelper
 
         parent::renderView(array: ['type' => 'private', 'view' => 'posts/edit.php', 'layoutChange' => ['pageName' => 'Editar Postagem']], strings: [
             'post' => $post,
-            'categories' => PostsCategorys::getAll('id DESC'),
+            'categories' => PostsCategory::getAll('id DESC'),
         ]);
     }
 
@@ -118,7 +118,7 @@ class PostsAdminController extends ControllerHelper
 
 
         if (Posts::checkTittleExist($result->data->tittle)) {
-            parent::notification(title: 'Erro ao Criar Postagem !', message: 'Já existe uma Postagem com este Título.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts/create');
+            parent::notification(title: 'Erro ao Criar Postagem !', message: 'Já existe uma Postagem com este Título.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/create');
             exit();
         }
 
@@ -144,7 +144,7 @@ class PostsAdminController extends ControllerHelper
         ]);
 
         if ($send) {
-            parent::notification(title: 'A Postagem foi Actualizada !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts');
+            parent::notification(title: 'A Postagem foi Actualizada !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts');
             exit();
         }
     }
@@ -170,7 +170,7 @@ class PostsAdminController extends ControllerHelper
         }
 
         Posts::delete(id: $post->id);
-        parent::notification(title: 'A Postagem foi Excluída !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts');
+        parent::notification(title: 'A Postagem foi Excluída !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts');
         exit();
     }
 
@@ -186,7 +186,7 @@ class PostsAdminController extends ControllerHelper
             $images = json_decode(json: $post->images, associative: true);
 
             if(count($images) < 2) {
-                parent::notification(title: 'Erro ao Excluir Imagem !', message: 'Você não pode excluir a única imagem da postagem.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts/create');
+                parent::notification(title: 'Erro ao Excluir Imagem !', message: 'Você não pode excluir a única imagem da postagem.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/create');
                 exit();
             }
 
@@ -205,7 +205,7 @@ class PostsAdminController extends ControllerHelper
 
         Posts::update(id: $post->id, data: ['images' => $images]);
 
-        parent::notification(title: 'A Imagem foi Excluida !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts/edit/'.$identificator.'');
+        parent::notification(title: 'A Imagem foi Excluida !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/edit/'.$identificator.'');
         exit();
     }
 
@@ -223,7 +223,7 @@ class PostsAdminController extends ControllerHelper
         }
 
         Posts::update(id: $post->id, data: ['video' => null]);
-        parent::notification(title: 'O Video foi Excluido !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts/edit/'.$identificator.'');
+        parent::notification(title: 'O Video foi Excluido !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/edit/'.$identificator.'');
         exit();
 
     }
@@ -241,7 +241,7 @@ class PostsAdminController extends ControllerHelper
                     type: 'sweetalert',
                     position: 'top-end',
                     timeout: 3000,
-                    redirectUrl: '/projects/lexyhands/admin/posts/create'
+                    redirectUrl: '/../admin/posts/create'
                 );
                 exit();
             }
@@ -268,7 +268,7 @@ class PostsAdminController extends ControllerHelper
                 'tags' => 'array',
             ],
             notifyError: true,
-            redirectUrl: '/projects/lexyhands/admin/services/create'
+            redirectUrl: '/../admin/services/create'
         );
         return $result;
     }
@@ -287,7 +287,7 @@ class PostsAdminController extends ControllerHelper
                 'allowedExtensions' => ['jpg', 'png', 'gif'],
                 'convert' => 'png', // Converte para PNG
                 'alert' => true,
-                'url' => '/projects/lexyhands/admin/posts/create',
+                'url' => '/../admin/posts/create',
                 'returnJson' => true
             ]);
         } else {
@@ -309,7 +309,7 @@ class PostsAdminController extends ControllerHelper
                 'overwrite' => false,
                 'allowedExtensions' => ['mp4', 'avi', 'mkv'],
                 'alert' => true,
-                'url' => '/projects/lexyhands/admin/posts/create',
+                'url' => '/../admin/posts/create',
                 'returnJson' => false
             ]);
         } else {

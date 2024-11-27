@@ -48,7 +48,7 @@ $settings = $sql->select(table: 'settings', where: null, limit: 1, order: null, 
       <div class="main-box">
         <?php if ($settings->show_logo == true && $settings->site_logo !== null) { ?>
           <div class="logo-box">
-            <div class="logo"><a href="/projects/lexyhands"><img src="/projects/lexyhands/public/assets/images/logo.png" alt="Logo"></a></div>
+            <div class="logo"><a href="/projects/lexyhands"><img src="/../public/assets/images/logo.png" alt="Logo"></a></div>
           </div>
         <?php } else { ?>
           <div class="logo-box">
@@ -64,22 +64,14 @@ $settings = $sql->select(table: 'settings', where: null, limit: 1, order: null, 
           <nav class="nav main-menu">
             <ul class="navigation">
               <li><a href="/projects/lexyhands">Início</a></li>
-              <li><a href="/projects/lexyhands/services">Serviços</a></li>
-              <li><a href="/projects/lexyhands/posts">Comunidade</a></li>
-              <li><a href="/projects/lexyhands/contacts">Contactos</a></li>
+              <li><a href="/../services">Serviços</a></li>
+              <li><a href="/../posts">Comunidade</a></li>
+              <li><a href="/../contacts">Contactos</a></li>
 
               <?php if (!$main->user) { ?>
-                <li><a href="/projects/lexyhands/auth/login">Entrar</a></li>
+                <li><a href="/../auth/login">Login</a></li>
               <?php } else { ?>
-
-                <li class="dropdown"><a href="#">Mais</a>
-                  <ul>
-                    <li><a href="/projects/lexyhands/admin/dashboard">Painel de Controle</a></li>
-                    <li><a href="/projects/lexyhands/auth/logout">Sair</a></li>
-                  </ul>
-                  <div class="dropdown-btn"><i class="fa fa-angle-down"></i></div>
-                </li>
-
+                <li><a href="/../admin/dashboard">Painel de Controle</a></li>
               <?php } ?>
 
             </ul>
@@ -118,7 +110,7 @@ $settings = $sql->select(table: 'settings', where: null, limit: 1, order: null, 
       <div class="upper-box">
 
         <?php if ($settings->show_logo == true && $settings->site_logo !== null) { ?>
-          <div class="nav-logo"><a href="/projects/lexyhands"><img src="/projects/lexyhands/public/assets/images/logo-2.png" alt=""></a></div>
+          <div class="nav-logo"><a href="/projects/lexyhands"><img src="/../public/assets/images/logo-2.png" alt=""></a></div>
         <?php } else { ?>
           <div class="nav-logo"><a href="/projects/lexyhands"><?php echo $settings->site_name ?></a></div>
         <?php } ?>
@@ -150,7 +142,7 @@ $settings = $sql->select(table: 'settings', where: null, limit: 1, order: null, 
     <button class="close-search"><span class="fa fa-times"></span></button>
 
     <div class="search-inner">
-      <form method="post" action="/projects/lexyhands/">
+      <form method="post" action="/../">
         <div class="form-group">
           <input type="search" name="search-field" value="" placeholder="Search..." required="">
           <button type="submit"><i class="fa fa-search"></i></button>
@@ -166,7 +158,7 @@ $settings = $sql->select(table: 'settings', where: null, limit: 1, order: null, 
       <div class="inner-container">
         <!--Logo-->
         <div class="logo">
-          <a href="/projects/lexyhands/"><img src="/projects/lexyhands/public/assets/images/logo.png" alt=""></a>
+          <a href="/../"><img src="/../public/assets/images/logo.png" alt=""></a>
         </div>
 
         <!--Right Col-->

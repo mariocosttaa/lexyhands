@@ -1,6 +1,6 @@
 <h2 class="page-header-title d-flex align-items-center justify-content-between">
     Lista de Productos
-    <a href="/projects/lexyhands/admin/products/create" class="btn btn-primary-soft">
+    <a href="/../admin/products/create" class="btn btn-primary-soft">
         <i class="bi bi-plus me-1"></i>
         Criar Producto
     </a>
@@ -63,8 +63,8 @@
                             <?php } ?>
                             <div class="mt-2 mt-sm-0">
                                 <br>
-                                <form action="/projects/lexyhands/admin/products/delete/<?php echo $product->identificator ?>" method="POST">
-                                    <a href="/projects/lexyhands/admin/products/edit/<?php echo $product->identificator ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
+                                <form action="/../admin/products/delete/<?php echo $product->identificator ?>" method="POST">
+                                    <a href="/../admin/products/edit/<?php echo $product->identificator ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
                                     <button type="submit" class="btn btn-sm btn-danger-soft" w-tid="98"
                                         data-alert-config='{
                                         "type": "delete", 
@@ -78,7 +78,7 @@
                                     }'>
                                         Excluir
                                     </button> |
-                                    <a href="/projects/lexyhands/admin/products/details/<?php echo $product->identificator ?>" class="btn btn-sm btn-info-soft disabled" w-tid="98">Detalhes</a> |
+                                    <a href="/../admin/products/details/<?php echo $product->identificator ?>" class="btn btn-sm btn-info-soft disabled" w-tid="98">Detalhes</a> |
                                     <a class="btn btn-sm btn-primary-soft disable disabled" w-tid="98">
                                         Visualizar
                                     </a>
@@ -96,6 +96,6 @@
     <div class="alert alert-danger" role="alert">
         <h4 class="alert-heading">Ops!</h4>
         <p>Não existem Productos criados.</p>
-        <p>Clique <a href="/projects/lexyhands/admin/services/create">aqui</a> para criar um novo serviço.</p>
+        <p>Clique <a href="/../admin/services/create">aqui</a> para criar um novo serviço.</p>
     </div>
 <?php } ?>

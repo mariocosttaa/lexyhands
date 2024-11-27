@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\services as Services;
-use App\Models\products as Products;
-use App\Models\posts as Posts;
+use App\Models\Services as Services;
+use App\Models\Products as Products;
+use App\Models\Posts as Posts;
 
 class HomeController extends ControllerHelper
 {

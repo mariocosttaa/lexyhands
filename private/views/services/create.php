@@ -1,6 +1,6 @@
 <h2 class="page-header-title d-flex align-items-center justify-content-between">
     Criar Serviço
-    <a href="/projects/lexyhands/admin/services" class="btn btn-danger-soft">
+    <a href="/../admin/services" class="btn btn-danger-soft">
         <i class="bi bi-arrow-left me-1"></i>
          Voltar
     </a>
@@ -13,7 +13,7 @@
                 <i class="bi bi-house-door me-1" w-tid="106"></i>Menu
             </a>
         </li>
-        <li class="breadcrumb-item"><a href="/projects/lexyhands/admin/services">Serviços</a></li>
+        <li class="breadcrumb-item"><a href="/../admin/services">Serviços</a></li>
         <li class="breadcrumb-item active" aria-current="page">Criar Serviço</li>
     </ol>
 </nav>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
 
-                <script src="http://localhost/projects/lexyhands/private/assets/js/tinymce/tinymce.min.js"></script>
+                <script src="/..//private/assets/js/tinymce/tinymce.min.js"></script>
                 <script>
                     // Inicializa o editor TinyMCE
                     tinymce.init({
@@ -91,7 +91,7 @@
 </div>
 
 
-<script src="http://localhost/projects/lexyhands/private/assets/js/liveImageUpload.js"></script>
+<script src="/..//private/assets/js/liveImageUpload.js"></script>
 
 </body>
 </html>

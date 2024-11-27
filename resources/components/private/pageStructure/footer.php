@@ -20,7 +20,7 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="http://localhost/projects/lexyhands/private/assets/js/scripts.js"></script>
+    <script src="/..//private/assets/js/scripts.js"></script>
 
 </body>
 </html>

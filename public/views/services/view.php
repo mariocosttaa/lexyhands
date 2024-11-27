@@ -1,5 +1,5 @@
 <!-- Start main-content -->
-<section class="page-title" style="background-image: url(/projects/lexyhands/public/assets/images/background/page-title-bg.png);">
+<section class="page-title" style="background-image: url(/../public/assets/images/background/page-title-bg.png);">
     <h1 class="large-title">Serviços</h1>
     <div class="image-curve"></div>
     <div class="auto-container">
@@ -7,7 +7,7 @@
             <h1 class="title">Serviços</h1>
             <ul class="page-breadcrumb">
                 <li><a href="/projects/lexyhands">Início</a></li>
-                <li><a href="/projects/lexyhands/services">Serviços</a></li>
+                <li><a href="/../services">Serviços</a></li>
                 <li><?php echo $service->name ?></li>
             </ul>
         </div>

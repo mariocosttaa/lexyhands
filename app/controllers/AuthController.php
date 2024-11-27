@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\users as Users;
+use App\Models\Users as Users;
 
 class AuthController extends ControllerHelper
 {
@@ -16,7 +16,7 @@ class AuthController extends ControllerHelper
             $baseUrl = false;
             $continueUrl = $_POST['continue'];
         } else {
-            $continueUrl = '/projects/lexyhands/admin/dashboard';
+            $continueUrl = '/../admin/dashboard';
             $baseUrl = true;
         }
 
@@ -33,7 +33,7 @@ class AuthController extends ControllerHelper
                 level: 'error',
                 type: 'sweetalert',
                 position: 'center',
-                redirectUrl: '/projects/lexyhands/auth/login' . $continueUrl . ''
+                redirectUrl: '/../auth/login' . $continueUrl . ''
             );
             exit();
         }
@@ -59,11 +59,11 @@ class AuthController extends ControllerHelper
                 level: 'warning',
                 type: 'sweetalert',
                 position: 'top-end',
-                redirectUrl: '/projects/lexyhands/auth/login'
+                redirectUrl: '/../auth/login'
             );
             exit();
         } else {
-            header(header: 'Location: /projects/lexyhands/auth/login');
+            header(header: 'Location: /../auth/login');
             exit();
         }
     }

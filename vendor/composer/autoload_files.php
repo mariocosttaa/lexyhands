@@ -9,7 +9,7 @@ return array(
     '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
     '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     'a4a119a56e50fbb293281d9a48007e0e' => $vendorDir . '/symfony/polyfill-php80/bootstrap.php',
-    'd8e4525a20907a80a365d8634b26fc6b' => $baseDir . '/App/config/Global.php',
+    'e492ce36f4fa69c02b3d3217fd7a40a6' => $baseDir . '/App/Config/Global.php',
     'd67289e9d5ca32b22af748166decf968' => $baseDir . '/App/Helpers/General/errorReporting.php',
     '53d254ad9d0498924f2023c8ead42455' => $baseDir . '/App/Helpers/General/getComponent.php',
     '3f6116eef497c8e9d46e64b9d56ab4cf' => $baseDir . '/App/Helpers/General/CurrencyOrganizer.php',
@@ -20,5 +20,5 @@ return array(
     '1daded364a1d50bcdaacb5e9683a11a7' => $baseDir . '/App/Helpers/Models/Users.php',
     '925253970c191f7ae60e560da40f68ca' => $baseDir . '/App/Helpers/Models/Products.php',
     '5870ba671890ff34c557104b782a36be' => $baseDir . '/App/Helpers/Models/currencies.php',
-    '1775327acd2caf0dd62b9778c2bb4a3c' => $baseDir . '/App/helpers/controllers/Posts.php',
+    '458f4e43ce94145d3fa9cc17500d220f' => $baseDir . '/App/Helpers/Controllers/Posts.php',
 );

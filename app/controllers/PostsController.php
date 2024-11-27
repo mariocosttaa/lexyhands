@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use App\Models\posts as Posts;
-use App\Models\posts_category as PostsCategory;
-use App\Models\posts_comments as PostsComments;
+use App\Models\Posts as Posts;
+use App\Models\Posts_category as PostsCategory;
+use App\Models\Posts_comments as PostsComments;
 use App\Services\SlugGenerator as Slug;
-use App\Models\posts_categorys as PostsCategorys;
+use App\Models\Posts_categorys as PostsCategorys;
 
 class PostsController extends ControllerHelper
 {

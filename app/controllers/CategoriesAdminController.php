@@ -1,7 +1,7 @@
 <?php 
 
 namespace App\Controllers;
-use App\Models\posts_categorys as PostsCategorys;
+use App\Models\Posts_categorys as PostsCategorys;
 
 class CategoriesAdminController extends ControllerHelper { 
 
@@ -23,10 +23,10 @@ class CategoriesAdminController extends ControllerHelper {
             'status' => 'int',
         ], 
         notifyError: true, 
-        redirectUrl: '/projects/lexyhands/admin/posts/categories/create');
+        redirectUrl: '/../admin/posts/categories/create');
 
         if(PostsCategorys::getCategoryByName(name: $result->data->name)) {
-            parent::notification(title: 'Erro ao Criar Categoria', message: 'Já existe uma categoria com este nome', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts/categories/create');
+            parent::notification(title: 'Erro ao Criar Categoria', message: 'Já existe uma categoria com este nome', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/categories/create');
             exit();
         }
 
@@ -35,7 +35,7 @@ class CategoriesAdminController extends ControllerHelper {
 
         PostsCategorys::create(data: ['name' => $result->data->name,  'identificator' => $identificator, 'description' => $result->data->description, 'status' => $result->data->status]);
 
-        parent::notification(title: 'A Categoria foi Criada !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts/categories');
+        parent::notification(title: 'A Categoria foi Criada !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/categories');
         exit();
 
     }
@@ -62,10 +62,10 @@ class CategoriesAdminController extends ControllerHelper {
             'status' => 'int',
         ], 
         notifyError: true, 
-        redirectUrl: '/projects/lexyhands/admin/posts/categories/edit/'.$identificator.'');
+        redirectUrl: '/../admin/posts/categories/edit/'.$identificator.'');
 
         if(PostsCategorys::getCategoryByName(name: $result->data->name) && $result->data->name != $category->name) {
-            parent::notification(title: 'Erro ao Criar Categoria', message: 'Já existe uma categoria com este nome', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts/categories/create');
+            parent::notification(title: 'Erro ao Criar Categoria', message: 'Já existe uma categoria com este nome', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/categories/create');
             exit();
         }
 
@@ -74,20 +74,20 @@ class CategoriesAdminController extends ControllerHelper {
 
         PostsCategorys::update(id: $category->id, data: ['name' => $result->data->name, 'identificator' => $identificator, 'description' => $result->data->description, 'status' => $result->data->status]);
 
-        parent::notification(title: 'A Categoria foi Actualizada !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts/categories/edit/'.$identificator.'');
+        parent::notification(title: 'A Categoria foi Actualizada !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/categories/edit/'.$identificator.'');
         exit();
 
     }
 
-    public static function delete(int $id):void {
+    public static function delete(?string $identificator):void {
         
-        $category = PostsCategorys::getById(id: $id);
+        $category = PostsCategorys::getByidentificator(identificator: $identificator);
         if (!$category) {
             parent::renderAdmin404();
         }
 
         PostsCategorys::delete(id: $category->id);
-        parent::notification(title: 'A Categoria foi Excluída !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/posts/categories');
+        parent::notification(title: 'A Categoria foi Excluída !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/categories');
         exit();
 
     }

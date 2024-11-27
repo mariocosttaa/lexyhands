@@ -1,9 +1,11 @@
 <?php 
 
 namespace App\Models;
-use App\Models\product_prices as ProductPrices;
+use App\Models\Product_prices as ProductPrices;
+use App\Models\Product_stocks as ProductStocks;
+use App\Models\Product_reviews as ProductReviews;
 
-class products extends ModelHelper {
+class Products extends ModelHelper {
 
     public static function create($data): int|null|bool {
         if(empty($data)) return false;

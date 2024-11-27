@@ -1,12 +1,12 @@
 <!-- Start main-content -->
-<section class="page-title" style="background-image: url(/projects/lexyhands/public/assets/images/background/page-title-bg.png);">
+<section class="page-title" style="background-image: url(/../public/assets/images/background/page-title-bg.png);">
     <h1 class="large-title">Comunidade</h1>
     <div class="image-curve"></div>
     <div class="auto-container">
         <div class="title-outer text-center">
             <h1 class="title">Categorias</h1>
             <ul class="page-breadcrumb">
-                <li><a href="/projects/lexyhands/posts">Comunidade</a></li>
+                <li><a href="/../posts">Comunidade</a></li>
                 <li>Categorias</li>
             </ul>
         </div>
@@ -25,7 +25,7 @@
                     <div class="sidebar__tags-list">
                         <?php foreach ($categories as $category) { 
                             $category = (object) $category; 
-                            $categoryLink = '/projects/lexyhands/posts/categories/'.$category->identificator.'';
+                            $categoryLink = '/../posts/categories/'.$category->identificator.'';
                             ?>
                             <a href="<?php echo $categoryLink ?>"><?php echo $category->name ?></a> 
                         <?php } ?>

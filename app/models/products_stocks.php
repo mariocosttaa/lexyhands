@@ -1,8 +1,9 @@
 <?php 
 
 namespace App\Models;
+use App\Models\Products;
 
-class products_stocks extends ModelHelper {
+class Products_stocks extends ModelHelper {
 
     public static function create($data): int|null|bool {
         if(empty($data)) return false;

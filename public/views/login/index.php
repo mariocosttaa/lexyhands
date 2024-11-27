@@ -35,7 +35,7 @@
         }
 
         .right-side {
-            background-image: url('/projects/lexyhands/public/assets/images/website/banner-4.png');
+            background-image: url('/../public/assets/images/website/banner-4.png');
             background-size: cover;
             background-position: center;
             position: relative;
@@ -140,13 +140,13 @@
                 <div class="login-container">
 
                 <?php if ($settings->show_logo == true && $settings->site_logo !== null) { ?>
-                        <img src="/projects/lexyhands/public/assets/images/logo.png" alt="Horariux logo - um relógio estilizado com ponteiros formando a letra X, em tons de azul e roxo" class="logo">
+                        <img src="/../public/assets/images/logo.png" alt="Horariux logo - um relógio estilizado com ponteiros formando a letra X, em tons de azul e roxo" class="logo">
                     <?php } else { ?>
                         <?php echo $settings->site_name ?>
                 <?php } ?>
                     <h4>Iniciar Sessão</h4>
                     <p class="login-description">Bem-vindo de volta ao Horariux! Por favor, insira suas credenciais para acessar sua conta e gerenciar seus agendamentos de forma eficiente.</p>
-                    <form action="/projects/lexyhands/auth/connect" method="POST">
+                    <form action="/../auth/connect" method="POST">
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
                             <label for="floatingInput">Endereço de e-mail</label>

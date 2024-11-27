@@ -7,7 +7,7 @@ function isActive(string $dir): bool {
     $host = $_SERVER['HTTP_HOST'];
     $basePath = ($_SERVER['REQUEST_SCHEME'] === 'https' ? 'https://' : 'http://') . $host;
     if (strpos($host, 'localhost') !== false) {
-        $basePath = 'http://localhost/projects/lexyhands/';
+        $basePath = 'http://localhost/../';
         $onlybasePath = 'http://localhost/';
     }
 

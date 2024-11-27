@@ -12,7 +12,7 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Custom CSS -->
-    <link href="http://localhost/projects/lexyhands/private/assets/css/style.css" rel="stylesheet">
+    <link href="/..//private/assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>

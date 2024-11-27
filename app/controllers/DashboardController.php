@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\products as Products;
-use App\Models\posts as Posts;
+use App\Models\Products as Products;
+use App\Models\Posts as Posts;
 
 use App\Services\TrafficMonitor as Traffic;
 class DashboardController extends ControllerHelper{

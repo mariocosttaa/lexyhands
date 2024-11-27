@@ -1,6 +1,6 @@
 <h2 class="page-header-title d-flex align-items-center justify-content-between">
     Criar Postagem
-    <a href="/projects/lexyhands/admin/posts" class="btn btn-danger-soft">
+    <a href="/../admin/posts" class="btn btn-danger-soft">
         <i class="bi bi-arrow-left me-1"></i>
         Voltar
     </a>
@@ -13,7 +13,7 @@
                 <i class="bi bi-house-door me-1" w-tid="106"></i>Menu
             </a>
         </li>
-        <li class="breadcrumb-item"><a href="/projects/lexyhands/admin/posts">Comunidade</a></li>
+        <li class="breadcrumb-item"><a href="/../admin/posts">Comunidade</a></li>
         <li class="breadcrumb-item active" aria-current="page">Criar Postagem</li>
     </ol>
 </nav>
@@ -85,7 +85,7 @@
                     <!-- Editor --->
                     <div class="mb-2">
                         <label class="form-label">Informações da Postagem <b class="text-danger">*</b></label>
-                        <script src="http://localhost/projects/lexyhands/private/assets/js/tinymce/tinymce.min.js"></script>
+                        <script src="/..//private/assets/js/tinymce/tinymce.min.js"></script>
                         <script>
                             // Inicializa o editor TinyMCE
                             tinymce.init({
@@ -104,7 +104,7 @@
                     </div>
                 </div>
 
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="mb-2">
                         <label for="" class="form-label">Categoria <b class="text-danger">*</b></label>
                         <select name="category" class="form-control" required>
@@ -116,7 +116,7 @@
                     </div>
                 </div>
 
-                <div class="col-6">
+                <div class="col-md-6">
                     <div class="mb-2">
                         <label for="" class="form-label">Tags (Opcional) </label>
                         <input name="tags[]" type="text" id="choices-tags" class="form-control" placeholder="Adicione tags...">
@@ -139,9 +139,9 @@
 
 
 <!-- Include Choices CSS -->
-<link rel="stylesheet" href="/projects/lexyhands/private/assets/js/choices.js/public/assets/styles/choices.min.css" />
+<link rel="stylesheet" href="/../private/assets/js/choices.js/public/assets/styles/choices.min.css" />
 <!-- Include Choices JavaScript -->
-<script src="/projects/lexyhands/private/assets/js/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="/../private/assets/js/choices.js/public/assets/scripts/choices.min.js"></script>
 <script>
     // Inicializando Choices no campo de tags
     const tagsInput = new Choices('#choices-tags', {

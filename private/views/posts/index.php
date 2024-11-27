@@ -1,6 +1,6 @@
 <h2 class="page-header-title d-flex align-items-center justify-content-between">
     Lista de Postagens
-    <a href="/projects/lexyhands/admin/posts/create" class="btn btn-primary-soft">
+    <a href="/../admin/posts/create" class="btn btn-primary-soft">
         <i class="bi bi-plus me-1"></i>
         Criar Postagem
     </a>
@@ -50,8 +50,8 @@
                         <p class="card-text text-muted" w-tid="97"><?php echo $post->subtittle ?></p>
                     </div>
                     <div class="card-footer mb-2">
-                        <form action="/projects/lexyhands/admin/posts/delete/<?php echo $post->identificator ?>" method="POST">
-                            <a href="/projects/lexyhands/admin/posts/edit/<?php echo $post->identificator ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
+                        <form action="/../admin/posts/delete/<?php echo $post->identificator ?>" method="POST">
+                            <a href="/../admin/posts/edit/<?php echo $post->identificator ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
                             <button type="submit" class="btn btn-sm btn-danger-soft" w-tid="98"
                                 data-alert-config='{
                                         "type": "delete", 
@@ -65,7 +65,7 @@
                                     }'>
                                 Excluir
                             </button> |
-                            <a target="_blank" href="/projects/lexyhands/posts/<?php echo $post->identificator ?>/<?php echo date('d-m-Y', strtotime($post->date)) ?>/<?php echo $post->id ?>" class="btn btn-sm btn-primary-soft" w-tid="98">Visualizar</a>
+                            <a target="_blank" href="/../posts/<?php echo $post->identificator ?>/<?php echo date('d-m-Y', strtotime($post->date)) ?>/<?php echo $post->id ?>" class="btn btn-sm btn-primary-soft" w-tid="98">Visualizar</a>
                         </form>
                     </div>
                 </div>
@@ -78,6 +78,6 @@
     <div class="alert alert-danger" role="alert">
         <h4 class="alert-heading">Ops!</h4>
         <p>Não existem serviços criados.</p>
-        <p>Clique <a href="/projects/lexyhands/admin/services/create">aqui</a> para criar um novo serviço.</p>
+        <p>Clique <a href="/../admin/services/create">aqui</a> para criar um novo serviço.</p>
     </div>
 <?php } ?>

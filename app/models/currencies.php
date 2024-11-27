@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-Class currencies extends ModelHelper {
+class Currencies extends ModelHelper {
 
     public static function create(array $data = []): bool {
         if(empty($data)) return false;

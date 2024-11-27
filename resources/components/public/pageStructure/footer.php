@@ -1,6 +1,6 @@
   <!-- Main Footer -->
   <footer class="main-footer footer-style-two">
-    <div class="bg bg-image" style="background-image:url(/projects/lexyhands/public/assets/images/background/bg-footer1.jpg);"></div>
+    <div class="bg bg-image" style="background-image:url(/../public/assets/images/background/bg-footer1.jpg);"></div>
 
     <!--Widgets Section-->
     <div class="widgets-section">
@@ -15,7 +15,7 @@
 
             <?php if ($settings->show_logo == true && $settings->site_logo !== null) { ?>
               <div class="logo">
-                <a href="/projects/lexyhands"><img src="/projects/lexyhands/public/assets/images/logo.png" alt=""></a>
+                <a href="/projects/lexyhands"><img src="/../public/assets/images/logo.png" alt=""></a>
               </div>
             <?php } else { ?>
               <div class="logo">
@@ -50,9 +50,9 @@
               <h3 class="widget-title">Links</h3>
               <ul class="user-links">
                 <li><a href="/projects/lexyhands">Início</a></li>
-                <li><a href="/projects/lexyhands/services">Serviços</a></li>
-                <li><a href="/projects/lexyhands/posts">Comunidade</a></li>
-                <li><a href="/projects/lexyhands/contacts">Contactos</a></li>
+                <li><a href="/../services">Serviços</a></li>
+                <li><a href="/../posts">Comunidade</a></li>
+                <li><a href="/../contacts">Contactos</a></li>
               </ul>
             </div>
           </div>
@@ -99,41 +99,41 @@
 <!-- Scroll To Top -->
 <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
 
-<script data-cfasync="false" src="/projects/lexyhands/public/assets/js/email-decode.min.js"></script><script src="/projects/lexyhands/public/assets/js/jquery.js"></script> 
+<script data-cfasync="false" src="/../public/assets/js/email-decode.min.js"></script><script src="/../public/assets/js/jquery.js"></script> 
 
 
 <!--Revolution Slider-->
-<script src="/projects/lexyhands/public/assets/js/plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/plugins/revolution/js/extensions/revolution.extension.actions.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/plugins/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/plugins/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/plugins/revolution/js/extensions/revolution.extension.migration.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/plugins/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/plugins/revolution/js/extensions/revolution.extension.video.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/main-slider-script.js"></script>
+<script src="/../public/assets/js/plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
+<script src="/../public/assets/js/plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
+<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.video.min.js"></script>
+<script src="/../public/assets/js/main-slider-script.js"></script>
 <!--Revolution Slider-->
 
-<script src="/projects/lexyhands/public/assets/js/popper.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/bootstrap.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/jquery.fancybox.js"></script>
-<script src="/projects/lexyhands/public/assets/js/jquery-ui.js"></script>
-<script src="/projects/lexyhands/public/assets/js/mixitup.js"></script>
-<script src="/projects/lexyhands/public/assets/js/gsap.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/ScrollTrigger.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/splitType.js"></script>
-<script src="/projects/lexyhands/public/assets/js/wow.js"></script>
-<script src="/projects/lexyhands/public/assets/js/select2.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/appear.js"></script>
-<script src="/projects/lexyhands/public/assets/js/swiper.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/owl.js"></script>
-<script src="/projects/lexyhands/public/assets/js/script.js"></script>
+<script src="/../public/assets/js/popper.min.js"></script>
+<script src="/../public/assets/js/bootstrap.min.js"></script>
+<script src="/../public/assets/js/jquery.fancybox.js"></script>
+<script src="/../public/assets/js/jquery-ui.js"></script>
+<script src="/../public/assets/js/mixitup.js"></script>
+<script src="/../public/assets/js/gsap.min.js"></script>
+<script src="/../public/assets/js/ScrollTrigger.min.js"></script>
+<script src="/../public/assets/js/splitType.js"></script>
+<script src="/../public/assets/js/wow.js"></script>
+<script src="/../public/assets/js/select2.min.js"></script>
+<script src="/../public/assets/js/appear.js"></script>
+<script src="/../public/assets/js/swiper.min.js"></script>
+<script src="/../public/assets/js/owl.js"></script>
+<script src="/../public/assets/js/script.js"></script>
 <!-- form submit -->
-<script src="/projects/lexyhands/public/assets/js/jquery.validate.min.js"></script>
-<script src="/projects/lexyhands/public/assets/js/jquery.form.min.js"></script>
+<script src="/../public/assets/js/jquery.validate.min.js"></script>
+<script src="/../public/assets/js/jquery.form.min.js"></script>
 
 
 </body></html>

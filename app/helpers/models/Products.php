@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\products as Product;
-use App\Models\product_prices as ProductPrices;
+use App\Models\Products as Product;
+use App\Models\Product_prices as ProductPrices;
 
 
 //product

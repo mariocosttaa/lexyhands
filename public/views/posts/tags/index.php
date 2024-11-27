@@ -1,12 +1,12 @@
 <!-- Start main-content -->
-<section class="page-title" style="background-image: url(/projects/lexyhands/public/assets/images/background/page-title-bg.png);">
+<section class="page-title" style="background-image: url(/../public/assets/images/background/page-title-bg.png);">
     <h1 class="large-title">Comunidade</h1>
     <div class="image-curve"></div>
     <div class="auto-container">
         <div class="title-outer text-center">
             <h1 class="title">Tags</h1>
             <ul class="page-breadcrumb">
-                <li><a href="/projects/lexyhands/posts">Comunidade</a></li>
+                <li><a href="/../posts">Comunidade</a></li>
                 <li>Tags</li>
             </ul>
         </div>
@@ -24,7 +24,7 @@
                 <?php if(!empty($tags)) { ?>
                     <div class="sidebar__tags-list">
                         <?php foreach ($tags as $tag) {  ?>
-                            <a href="/projects/lexyhands/posts/tags/<?php echo slug(string: $tag) ?>"><?php echo $tag ?></a> 
+                            <a href="/../posts/tags/<?php echo slug(string: $tag) ?>"><?php echo $tag ?></a> 
                         <?php } ?>
                     </div>
                 <?php } else { ?>

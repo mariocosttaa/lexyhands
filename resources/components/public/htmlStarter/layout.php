@@ -5,9 +5,9 @@
 <meta name="author" content="LexyHands - Massagem e Massoterapia em Lisboa">
 <title> {{ pageName }} </title>
 <!-- Stylesheets -->
-<link href="/projects/lexyhands/public/assets/css/bootstrap.min.css" rel="stylesheet">
-<link href="/projects/lexyhands/public/assets/css/style.css" rel="stylesheet">
-<link rel="shortcut icon" href="/projects/lexyhands/public/assets/images/favicon.png" type="image/x-icon">
+<link href="/../public/assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="/../public/assets/css/style.css" rel="stylesheet">
+<link rel="shortcut icon" href="/../public/assets/images/favicon.png" type="image/x-icon">
 <link rel="icon" href="images/favicon.png" type="image/x-icon">
 
 <!-- Responsive -->

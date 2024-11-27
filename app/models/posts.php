@@ -2,9 +2,10 @@
 
 namespace App\Models;
 use App\Services\SlugGenerator as Slug;
-use App\Models\posts_comments as PostsComments;
-use App\Models\posts_categorys as PostsCategory;
-class posts extends ModelHelper {
+use App\Models\Posts_comments as PostsComments;
+use App\Models\Posts_categorys as PostsCategory;
+
+class Posts extends ModelHelper {
 
     public static function create($data): bool|object {
         if(empty($data)) return false;

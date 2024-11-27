@@ -1,8 +1,9 @@
 <?php 
 
 namespace App\Models;
+use App\Models\Services;
 
-class services_faq extends ModelHelper {
+class Services_faq extends ModelHelper {
 
     public static function create($data): void {
         if(empty($data)) return;

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class gallery extends ModelHelper {
+class Gallery extends ModelHelper {
 
     public static function create($data): void {
         if(empty($data)) return;

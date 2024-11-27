@@ -1,9 +1,9 @@
 <?php 
 
 namespace App\Models;
-use App\Models\roles as Roles;
+use App\Models\Roles as Roles;
 
-class users extends ModelHelper {
+class Users extends ModelHelper {
 
     public static function create($data): void {
         if(empty($data)) return;

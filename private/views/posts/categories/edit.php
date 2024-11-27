@@ -1,6 +1,6 @@
 <h2 class="page-header-title d-flex align-items-center justify-content-between">
    Editar Categorias
-    <a href="/projects/lexyhands/admin/posts/categories" class="btn btn-danger-soft">
+    <a href="/../admin/posts/categories" class="btn btn-danger-soft">
         <i class="bi bi-arrow-left me-1"></i>
         Voltar
     </a>
@@ -13,8 +13,8 @@
                 <i class="bi bi-house-door me-1" w-tid="106"></i>Menu
             </a>
         </li>
-        <li class="breadcrumb-item"><a href="/projects/lexyhands/admin/posts">Comunidade</a></li>
-        <li class="breadcrumb-item"><a href="/projects/lexyhands/admin/posts/categories">Categorias</a></li>
+        <li class="breadcrumb-item"><a href="/../admin/posts">Comunidade</a></li>
+        <li class="breadcrumb-item"><a href="/../admin/posts/categories">Categorias</a></li>
         <li class="breadcrumb-item active" aria-current="page">Editar Categorias</li>
     </ol>
 </nav>

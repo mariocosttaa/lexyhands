@@ -3,7 +3,7 @@
 namespace App\Models;
 use App\Services\SlugGenerator as Slug;
 
-class posts_categorys extends ModelHelper {
+class Posts_categorys extends ModelHelper {
 
     public static function create($data): bool|null {
         if(empty($data)) return false;

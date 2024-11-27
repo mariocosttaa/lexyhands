@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class roles extends ModelHelper
+class Roles extends ModelHelper
 {
     public static  function create($data): void {
         if(empty($data)) return;

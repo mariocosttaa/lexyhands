@@ -1,6 +1,6 @@
 <h2 class="page-header-title d-flex align-items-center justify-content-between">
     Editar Productos
-    <a href="/projects/lexyhands/admin/products" class="btn btn-danger-soft">
+    <a href="/../admin/products" class="btn btn-danger-soft">
         <i class="bi bi-arrow-left me-1"></i>
         Voltar
     </a>
@@ -13,7 +13,7 @@
                 <i class="bi bi-house-door me-1"></i>Menu
             </a>
         </li>
-        <li class="breadcrumb-item"><a href="/projects/lexyhands/admin/products">Productos</a></li>
+        <li class="breadcrumb-item"><a href="/../admin/products">Productos</a></li>
         <li class="breadcrumb-item active" aria-current="page">Criar Productos</li>
     </ol>
 </nav>
@@ -54,7 +54,7 @@
                         <div class="accordion-body">
                             <div class="col-12 mb-2">
                                 <!-- Editor --->
-                                <script src="http://localhost/projects/lexyhands/private/assets/js/tinymce/tinymce.min.js"></script>
+                                <script src="/..//private/assets/js/tinymce/tinymce.min.js"></script>
                                 <script>
                                     // Inicializa o editor TinyMCE
                                     tinymce.init({
@@ -389,7 +389,7 @@
                                                                     <button type="submit" class="btn btn-sm btn-danger" w-tid="98"
                                                                         data-alert-config='{
                                                                         "type": "action", 
-                                                                        "redirect": "/projects/lexyhands/admin/products/delete/file/<?php echo $key ?>/<?php echo $product->identificator ?>",
+                                                                        "redirect": "/../admin/products/delete/file/<?php echo $key ?>/<?php echo $product->identificator ?>",
                                                                         "title": "Você tem certeza?", 
                                                                         "message": "Esta ação é irreversível. Deseja continuar com a exclusão?", 
                                                                         "icon": "warning", 
@@ -445,9 +445,9 @@
 </div>
 
 <!-- Include Choices CSS -->
-<link rel="stylesheet" href="/projects/lexyhands/private/assets/js/choices.js/public/assets/styles/choices.min.css" />
+<link rel="stylesheet" href="/../private/assets/js/choices.js/public/assets/styles/choices.min.css" />
 <!-- Include Choices JavaScript -->
-<script src="/projects/lexyhands/private/assets/js/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="/../private/assets/js/choices.js/public/assets/scripts/choices.min.js"></script>
 <script>
     // Inicializando Choices no campo de tags
     const colorInput = new Choices('#choices-color', {
@@ -520,19 +520,19 @@
 
             <div class="col-md-4 mb-2">
                 <label for="totalPrice${priceCounter}" class="form-label">Preço Total</label>
-                <input type="text" id="totalPrice${priceCounter}" name="price[${availableCurrencies[Object.keys(availableCurrencies)[priceCounter-1]]}]" class="form-control currency-input" placeholder="Digite o preço total">
+                <input type="text" id="totalPrice${priceCounter}" name="price[]" class="form-control currency-input" placeholder="Digite o preço total">
             </div>
             <div class="col-md-4 mb-2">
                 <label for="fakePrice${priceCounter}" class="form-label">Preço Fake</label>
-                <input type="text" id="fakePrice${priceCounter}" name="fake_price[${availableCurrencies[Object.keys(availableCurrencies)[priceCounter-1]]}]" class="form-control currency-input" placeholder="Digite o preço fake">
+                <input type="text" id="fakePrice${priceCounter}" name="fake_price[]" class="form-control currency-input" placeholder="Digite o preço fake">
             </div>
             <div class="col-md-2 mb-2">
                 <label for="fakePrice${priceCounter}" class="form-label">Descrição (Opcional) </label>
-                <input type="text" id="description${priceCounter}" name="prices_description[${availableCurrencies[Object.keys(availableCurrencies)[priceCounter-1]]}]" class="form-control" placeholder="Digite a Descrição">
+                <input type="text" id="description${priceCounter}" name="prices_description[]" class="form-control" placeholder="Digite a Descrição">
             </div>
             <div class="col-md-2 mb-2">
                 <label for="currency${priceCounter}" class="form-label">Moeda</label>
-                <select id="currency${priceCounter}" name="currency[${availableCurrencies[Object.keys(availableCurrencies)[priceCounter-1]]}]" class="form-select currency-select">${availableOptions}</select>
+                <select id="currency${priceCounter}" name="currency[]" class="form-select currency-select">${availableOptions}</select>
             </div>
         `;
 

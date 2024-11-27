@@ -1,6 +1,6 @@
 <h2 class="page-header-title d-flex align-items-center justify-content-between">
     Lista de Postagens
-    <a href="/projects/lexyhands/admin/posts/categories/create" class="btn btn-primary-soft">
+    <a href="/../admin/posts/categories/create" class="btn btn-primary-soft">
         <i class="bi bi-plus me-1"></i>
         Criar Postagem
     </a>
@@ -28,8 +28,8 @@
                         <p class="card-text text-muted" w-tid="97"><?php echo $category->description ?: 'Sem Nenhuma Descrição'; ?></p>
                     </div>
                     <div class="card-footer mb-2">
-                        <form action="/projects/lexyhands/admin/posts/categories/delete/<?php echo $category->identificator ?>" method="POST">
-                            <a href="/projects/lexyhands/admin/posts/categories/edit/<?php echo  $category->identificator ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
+                        <form action="/../admin/posts/categories/delete/<?php echo $category->identificator ?>" method="POST">
+                            <a href="/../admin/posts/categories/edit/<?php echo  $category->identificator ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
                             <button type="submit" class="btn btn-sm btn-danger-soft" w-tid="98"
                                 data-alert-config='{
                                         "type": "delete", 
@@ -43,7 +43,7 @@
                                     }'>
                                 Excluir
                             </button> |
-                            <a target="_blank" href="/projects/lexyhands/posts/categories/<?php echo $category->identificator ?>" class="btn btn-sm btn-primary-soft" w-tid="98">Visualizar</a>
+                            <a target="_blank" href="/../posts/categories/<?php echo $category->identificator ?>" class="btn btn-sm btn-primary-soft" w-tid="98">Visualizar</a>
                         </form>
                     </div>
                 </div>
@@ -56,6 +56,6 @@
     <div class="alert alert-danger" role="alert">
         <h4 class="alert-heading">Ops!</h4>
         <p>Não existem Categorias criadas.</p>
-        <p>Clique <a href="/projects/lexyhands/admin/posts/categories/create">aqui</a> para criar uma nova Categoria.</p>
+        <p>Clique <a href="/../admin/posts/categories/create">aqui</a> para criar uma nova Categoria.</p>
     </div>
 <?php } ?>

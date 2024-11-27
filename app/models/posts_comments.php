@@ -1,8 +1,9 @@
 <?php 
 
 namespace App\Models;
+use App\Models\Posts;
 
-class posts_comments extends ModelHelper {
+class Posts_comments extends ModelHelper {
 
     public static function create($data): void {
         if(empty($data)) return;

@@ -18,7 +18,7 @@ class Money extends ServiceHelper {
         $formattedAmount = number_format((float) $amountAsString, $decimalPlaces, ',', '.');
 
         if($formatWithSymbol == true && !empty($currency) ) {
-            $symbol = \App\Models\currencies::getByCode(code: $currency)->symbol;
+            $symbol = \App\Models\Currencies::getByCode(code: $currency)->symbol;
             $formattedAmount = $symbol . ' ' . $formattedAmount;
         }
 

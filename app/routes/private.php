@@ -148,7 +148,7 @@ $router->post(uri: '/admin/posts/categories/edit/{identificator}', action: [
         [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
 ]);
 
-$router->post(uri: '/admin/posts/categories/delete/{id}', action: [ 
+$router->post(uri: '/admin/posts/categories/delete/{identificator}', action: [ 
     App\Controllers\CategoriesAdminController::class, 'delete'], middlewares: [
         [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
 ]);

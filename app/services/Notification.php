@@ -92,7 +92,7 @@ class Notification extends ServiceHelper
                 return "
 
                      <!-- SweetAlert JavaScript e Css -->
-                     <script src='/projects/lexyhands/public/default/services/sweetalert2/dist/sweetalert2.all.min.js'></script>
+                     <script src='/../public/default/services/sweetalert2/dist/sweetalert2.all.min.js'></script>
 
                     <script>
                     document.addEventListener('DOMContentLoaded', function() {

@@ -1,5 +1,5 @@
 <!-- Start main-content -->
-<section class="page-title" style="background-image: url(/projects/lexyhands/public/assets/images/background/page-title-bg.png);">
+<section class="page-title" style="background-image: url(/../public/assets/images/background/page-title-bg.png);">
     <h1 class="large-title">Comunidade</h1>
     <div class="image-curve"></div>
     <div class="auto-container">
@@ -32,7 +32,7 @@
             }
 
             $category = getPostCategory(id: $post->category);  
-            $postLink = "/projects/lexyhands/posts/".$post->identificator."/" .date('d-m-Y', strtotime($post->date)) ."/". $post->id;        
+            $postLink = "/../posts/".$post->identificator."/" .date('d-m-Y', strtotime($post->date)) ."/". $post->id;        
           ?>
         <!-- News Block -->
         <div class="blog-block col-lg-4 col-md-6">
@@ -50,7 +50,7 @@
                     </div>
                     <div class="content-box">
                         <ul class="post-meta">
-                            <li class="categories"><a href="/projects/lexyhands/<?php echo  $postLink ?>"><?php echo $category->name ?></a></li>
+                            <li class="categories"><a href="/../<?php echo  $postLink ?>"><?php echo $category->name ?></a></li>
                             <li class="date"><?php echo getUserDateTime(date: $post->date, format: 'd/m/Y'); ?></li>
                         </ul>
                         <h4 class="title mb-0"><a href="<?php echo  $postLink ?>"><?php echo $post->tittle ?></a></h4>

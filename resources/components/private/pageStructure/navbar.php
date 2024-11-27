@@ -13,9 +13,13 @@
     <div class="nav-section mb-4">
         <small class="text-muted text-uppercase fw-bold">Principal</small>
         <div class="nav flex-column mt-2">
-            <a href="/projects/lexyhands/admin/dashboard" class="<?php isActive(dir: '/admin/dashboard') ?> nav-link d-flex align-items-center">
+            <a href="/../admin/dashboard" class="<?php isActive(dir: '/admin/dashboard') ?> nav-link d-flex align-items-center">
                 <i class="bi bi-speedometer2 me-2"></i>
                 <span>Dashboard </span>
+            </a>
+            <a href="/../" class="nav-link d-flex align-items-center">
+                <i class="bi bi-globe me-2"></i>
+                <span>Website </span>
             </a>
         </div>
     </div>
@@ -30,9 +34,9 @@
                 <span>Comunidade </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-                <a class="<?php isActive(dir: '/admin/posts') ?> dropdown-item" href="/projects/lexyhands/admin/posts">Postagens</a>
-                <a class="<?php isActive(dir: '/admin/posts/categories') ?> dropdown-item" href="/projects/lexyhands/admin/posts/categories">Categorias</a>
-                <a class="<?php isActive(dir: '/admin/posts/create') ?> dropdown-item" href="/projects/lexyhands/admin/posts/create">Criar Postagem</a>
+                <a class="<?php isActive(dir: '/admin/posts') ?> dropdown-item" href="/../admin/posts">Postagens</a>
+                <a class="<?php isActive(dir: '/admin/posts/categories') ?> dropdown-item" href="/../admin/posts/categories">Categorias</a>
+                <a class="<?php isActive(dir: '/admin/posts/create') ?> dropdown-item" href="/../admin/posts/create">Criar Postagem</a>
             </div>
 
             <a href="#" class="
@@ -41,8 +45,8 @@
                 <span>Serviços </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-                <a class="<?php isActive(dir: '/admin/services') ?> dropdown-item" href="/projects/lexyhands/admin/services">Listar Serviços</a>
-                <a class="<?php isActive(dir: '/admin/services/create') ?> dropdown-item" href="/projects/lexyhands/admin/services/create">Criar Serviço</a>
+                <a class="<?php isActive(dir: '/admin/services') ?> dropdown-item" href="/../admin/services">Listar Serviços</a>
+                <a class="<?php isActive(dir: '/admin/services/create') ?> dropdown-item" href="/../admin/services/create">Criar Serviço</a>
             </div>
 
             <a href="#" class="
@@ -51,8 +55,8 @@
                 <span>Productos </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-                <a class="<?php isActive(dir: '/admin/products') ?> dropdown-item" href="/projects/lexyhands/admin/products">Listar Productos</a>
-                <a class="<?php isActive(dir: '/admin/products/create') ?> dropdown-item" href="/projects/lexyhands/admin/products/create">Criar Producto</a>
+                <a class="<?php isActive(dir: '/admin/products') ?> dropdown-item" href="/../admin/products">Listar Productos</a>
+                <a class="<?php isActive(dir: '/admin/products/create') ?> dropdown-item" href="/../admin/products/create">Criar Producto</a>
             </div>
 
         </div>
@@ -61,7 +65,7 @@
     <div class="nav-section mb-4">
         <small class="text-muted text-uppercase fw-bold">Definições</small>
         <div class="nav flex-column mt-2">
-            <a href="/projects/lexyhands/admin/settings" class="<?php isActive(dir: '/admin/settings') ?> nav-link d-flex align-items-center">
+            <a href="/../admin/settings" class="<?php isActive(dir: '/admin/settings') ?> nav-link d-flex align-items-center">
                 <i class="bi bi-wrench me-3"></i>
                 <span>Configurações </span>
             </a>
@@ -159,7 +163,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item text-danger" href="/projects/lexyhands/auth/logout">
+                                <a class="dropdown-item text-danger" href="/../auth/logout">
                                     <i class="bi bi-box-arrow-right me-2"></i>
                                     Sair
                                 </a>

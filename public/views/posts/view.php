@@ -1,12 +1,12 @@
 <!-- Start main-content -->
-<section class="page-title" style="background-image: url(/projects/lexyhands/public/assets/images/background/page-title-bg.png);">
+<section class="page-title" style="background-image: url(/../public/assets/images/background/page-title-bg.png);">
     <h1 class="large-title">Comunidade</h1>
     <div class="image-curve"></div>
     <div class="auto-container">
         <div class="title-outer text-center">
             <h1 class="title">Comunidade</h1>
             <ul class="page-breadcrumb">
-                <li><a href="/projects/lexyhands/posts">Comunidade</a></li>
+                <li><a href="/../posts">Comunidade</a></li>
                 <li><?php echo $post->tittle ?></li>
             </ul>
         </div>
@@ -61,7 +61,7 @@
                     <div class="blog-details__bottom">
                         <p class="blog-details__tags"> <span>Tags</span>
                             <?php foreach ($post->tags as $tag) {  ?>
-                                    <a href="/projects/lexyhands/posts/tags/<?php echo $tag ?>"><?php echo $tag ?></a>
+                                    <a href="/../posts/tags/<?php echo $tag ?>"><?php echo $tag ?></a>
                             <?php } ?>
                         </p>
                     </div>
@@ -129,7 +129,7 @@
                                     <?php if(!empty($user->image)) { ?>
                                         <img src="/<?php echo $user->image ?>" alt="" style="object-fit: cover; width: 140px; height: 120px;"> 
                                     <?php } else { ?>
-                                        <img src="/projects/lexyhands/public/assets/images/users/avatar.png" alt="" style="object-fit: cover; width: 140px; height: 120px;"> 
+                                        <img src="/../public/assets/images/users/avatar.png" alt="" style="object-fit: cover; width: 140px; height: 120px;"> 
                                     <?php } ?>
                                 </div>
                                 <div class="comment-one__content">
@@ -166,7 +166,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <a href="/projects/lexyhands/auth/login?continue=<?php echo $main->currentUrl ?>" class="theme-btn btn-style-one">Comentar</a>
+                                    <a href="/../auth/login?continue=<?php echo $main->currentUrl ?>" class="theme-btn btn-style-one">Comentar</a>
                                 </div>
                         </div>
                         <?php } ?> 
@@ -202,7 +202,7 @@
                                         $lastPost->images = [];
                                       }
                                       
-                                    $lasPostLink = "/projects/lexyhands/posts/".$lastPost->identificator."/" .date('d-m-Y', strtotime($lastPost->date)) ."/". $lastPost->id;  
+                                    $lasPostLink = "/../posts/".$lastPost->identificator."/" .date('d-m-Y', strtotime($lastPost->date)) ."/". $lastPost->id;  
                                  ?>
                                 <li>
                                     <?php if(!empty($lastPost->images)) { ?>
@@ -223,12 +223,12 @@
                     <div class="sidebar__single sidebar__category">
                         <h3 class="sidebar__title">Categorias</h3>
                         <ul class="sidebar__category-list list-unstyled">
-                            <li class="active"><a href="/projects/lexyhands/posts/<?php echo 'categories/' . slug(string: $post->category->name) . '/' . $post->category->id; ?>"><?php echo $post->category->name ?></a><span class="icon-right-arrow"></span></a></li>
+                            <li class="active"><a href="/../posts/<?php echo 'categories/' . slug(string: $post->category->name) . '/' . $post->category->id; ?>"><?php echo $post->category->name ?></a><span class="icon-right-arrow"></span></a></li>
                           
                           <?php if(!empty($categories)) { ?>
                             <?php foreach ($categories as $category) { 
                                         $category = (object) $category; 
-                                        $categoryLink = '/projects/lexyhands/posts/categories/' . slug(string: $category->name) . '/' . $category->id;
+                                        $categoryLink = '/../posts/categories/' . slug(string: $category->name) . '/' . $category->id;
                                 ?>
                                 <li><a href="<?php echo $categoryLink ?>"><?php echo $category->name ?><span class="icon-right-arrow"></span></a></li>
                             <?php } ?>
@@ -242,7 +242,7 @@
                         <h3 class="sidebar__title">Tags</h3>
                         <div class="sidebar__tags-list">
                             <?php foreach($tags as $tag) { ?>
-                                <a href="/projects/lexyhands/posts/tags/<?php echo slug(string: $tag) ?>"><?php echo $tag ?></a> 
+                                <a href="/../posts/tags/<?php echo slug(string: $tag) ?>"><?php echo $tag ?></a> 
                              <?php } ?>
                         </div>
                     </div>

@@ -1,8 +1,9 @@
 <?php 
 
 namespace App\Models;
+use App\Models\ServicesFaq;
 
-class services extends ModelHelper {
+class Services extends ModelHelper {
 
     public static function create(array $data = []): bool {
         if(empty($data)) return false;

@@ -21,13 +21,13 @@ class SettingsAdminController extends ControllerHelper
             'site_name' => 'string|max:200|required',
             'email' => 'email|max:200|required',
             'phone' => 'string',
-        ], notifyError: true, redirectUrl: '/projects/lexyhands/admin/settings');
+        ], notifyError: true, redirectUrl: '/../admin/settings');
 
         //actualizar
         Settings::update(data: ['site_name' => $result->data->site_name, 'email' =>  $result->data->email, 'phone' => $result->data->phone]);
 
         //notificação
-        parent::notification(title: 'Configurações Gerais Actualizadas!', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/settings');
+        parent::notification(title: 'Configurações Gerais Actualizadas!', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/settings');
         exit();
     }
 
@@ -43,7 +43,7 @@ class SettingsAdminController extends ControllerHelper
                 'allowedExtensions' => ['jpg', 'png', 'jpeg'],
                 'convert' => 'png', // Converte para PNG
                 'alert' => true,
-                'url' => '/projects/lexyhands/admin/settings',
+                'url' => '/../admin/settings',
                 'returnJson' => false
             ]);
             return $image;
@@ -74,7 +74,7 @@ class SettingsAdminController extends ControllerHelper
         }
 
         //notificação        
-        parent::notification(title: 'Logotipo(s) Actualizados!', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/projects/lexyhands/admin/settings');
+        parent::notification(title: 'Logotipo(s) Actualizados!', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/settings');
         exit();
 
     }

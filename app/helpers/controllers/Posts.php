@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\posts as Posts;
-use App\Models\posts_categorys as PostsCategorys;
-use App\Models\posts_comments as PostsComments;
+use App\Models\Posts as Posts;
+use App\Models\Posts_categorys as PostsCategorys;
+use App\Models\Posts_comments as PostsComments;
 
 function getPostCategory($id): mixed {
     if(empty($id)) return false;
