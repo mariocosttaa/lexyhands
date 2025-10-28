@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: lexyhands_mysql_prod
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data_prod:/var/lib/mysql
+    networks:
+      - lexyhands_network_prod
+
+  # PHP-FPM Application
+  app:
+    build: .
+    container_name: lexyhands_app_prod
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=${MYSQL_DATABASE}
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - APP_DEBUG=false
+    networks:
+      - lexyhands_network_prod
+
+  # Nginx Web Server
+  nginx:
+    image: nginx:alpine
+    container_name: lexyhands_nginx_prod
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./public:/var/www/html/public
+      - ./private:/var/www/html/private
+    depends_on:
+      - app
+    networks:
+      - lexyhands_network_prod
+
+volumes:
+  mysql_data_prod:
+
+networks:
+  lexyhands_network_prod:
+    driver: bridge

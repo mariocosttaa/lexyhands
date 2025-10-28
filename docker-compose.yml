@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: lexyhands_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: lexyhands
+      MYSQL_USER: lexyhands
+      MYSQL_PASSWORD: lexyhands123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - lexyhands_network
+
+  # PHP Application
+  app:
+    build: .
+    container_name: lexyhands_app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=lexyhands
+      - DB_USER=lexyhands
+      - DB_PASSWORD=lexyhands123
+      - APP_DEBUG=true
+    networks:
+      - lexyhands_network
+
+  # phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: lexyhands_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: lexyhands
+      PMA_PASSWORD: lexyhands123
+    depends_on:
+      - mysql
+    networks:
+      - lexyhands_network
+
+volumes:
+  mysql_data:
+
+networks:
+  lexyhands_network:
+    driver: bridge
