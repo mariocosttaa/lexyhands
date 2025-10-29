@@ -41,7 +41,7 @@ class Services extends ModelHelper {
 
     public static function getBySlugName(string $name):bool|object {
         if(empty($name)) return false;
-        return parent::SQL_EASY_SELECT(table: 'services', where: ['slug_name' => $name], limit: null, order: null, object: true);
+        return parent::SQL_EASY_SELECT(table: 'services', where: ['identificator' => $name], limit: null, order: null, object: true);
     }
 
 }

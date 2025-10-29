@@ -31,7 +31,7 @@
                                     <li class="current"><a><span><?php echo $service->name ?></span></a></li>
                                     <?php foreach ($othersServices as $otherService) {
                                         $otherService = (object) $otherService; ?>
-                                        <li><a href="../service/<?php echo $otherService->slug_name ?>"><i class="fas fa-angle-right"></i><span><?php echo $otherService->name ?></span></a></li>
+                                        <li><a href="/service/<?php echo $otherService->identificator ?>"><i class="fas fa-angle-right"></i><span><?php echo $otherService->name ?></span></a></li>
                                     <?php } ?>
                                 </ul>
                             </div>
@@ -42,21 +42,21 @@
                             <div class="help-shape-2"></div>
                             <h2 class="help-title">Estamos a um Clique</h2>
                             <div class="help-icon">
-                                <a href="tel:<?php echo $settings->phone ?>"><span class=" lnr-icon-phone-handset"></span></a>
+                                <a href="tel:<?php echo $settings->contact_phone ?? '' ?>"><span class=" lnr-icon-phone-handset"></span></a>
                             </div>
                             <div class="help-contact">
                                 <p>Precisa de Ajuda ? Entre em Contacto </p>
-                                <a href="tel:<?php echo $settings->phone ?>"><?php echo $settings->phone ?></a>
+                                <a href="tel:<?php echo $settings->contact_phone ?? '' ?>"><?php echo $settings->contact_phone ?? '' ?></a>
                             </div>
                         </div>
 
-                        <?php if($settings->whatssap !== null) { ?>
+                        <?php if(isset($settings->contact_phone) && !empty($settings->contact_phone)) { ?>
                         <!--Start Services Details Sidebar Single-->
                         <div class="sidebar-widget service-sidebar-single mt-4">
                             <div class="service-sidebar-single-btn wow fadeInUp" data-wow-delay="0.5s" data-wow-duration="1200m">
-                                <a href="https://web.whatsapp.com/send?phone=<?php echo $settings->whatssap ?>&amp;text=Ol%C3%A1,%20tudo%20bem%20?%20Vim%20pelo%20website.." class="theme-btn btn-style-one d-grid" style="background-color: #25D366; border-color: #25D366;">
+                                <a href="https://web.whatsapp.com/send?phone=<?php echo str_replace([' ', '-', '(', ')'], '', $settings->contact_phone) ?>&amp;text=Ol%C3%A1,%20tudo%20bem%20?%20Vim%20pelo%20website.." class="theme-btn btn-style-one d-grid" style="background-color: #25D366; border-color: #25D366;">
                                     <span class="btn-title h4">
-                                        <span class="fab fa-whatsapp"></span> <?php echo $settings->whatssap ?>
+                                        <span class="fab fa-whatsapp"></span> <?php echo $settings->contact_phone ?>
                                     </span></a>
                             </div>
                         </div>
