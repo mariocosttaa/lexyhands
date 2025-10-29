@@ -10,7 +10,7 @@ class PostsSeeder
 
     public function __construct()
     {
-        $this->sqlEasy = SqlEasy::getInstance();
+        $this->sqlEasy = new SqlEasy();
     }
 
     public function run(): void
@@ -49,18 +49,7 @@ class PostsSeeder
         ];
 
         foreach ($categories as $category) {
-            try {
-                $this->sqlEasy->insert('posts_categorys', $category);
-            } catch (\PDOException $e) {
-                // Ignore duplicate entry errors (SQLSTATE code is string "23000")
-                // Check error code or message for duplicate entry
-                $errorCode = (string)$e->getCode();
-                $isDuplicate = ($errorCode === '23000' || strpos($e->getMessage(), 'Duplicate entry') !== false);
-                if (!$isDuplicate) {
-                    throw $e;
-                }
-                // Silently ignore duplicate entries
-            }
+            $this->sqlEasy->insert('posts_categorys', $category);
         }
 
         // Seed posts
@@ -124,18 +113,7 @@ class PostsSeeder
         ];
 
         foreach ($posts as $post) {
-            try {
-                $this->sqlEasy->insert('posts', $post);
-            } catch (\PDOException $e) {
-                // Ignore duplicate entry errors (SQLSTATE code is string "23000")
-                // Check error code or message for duplicate entry
-                $errorCode = (string)$e->getCode();
-                $isDuplicate = ($errorCode === '23000' || strpos($e->getMessage(), 'Duplicate entry') !== false);
-                if (!$isDuplicate) {
-                    throw $e;
-                }
-                // Silently ignore duplicate entries
-            }
+            $this->sqlEasy->insert('posts', $post);
         }
 
         // Seed post comments
@@ -174,34 +152,8 @@ class PostsSeeder
             ]
         ];
 
-        // Get post IDs from database (posts may already exist)
-        $post1 = $this->sqlEasy->select('posts', ['identificator' => 'bem-vindos-lexyhands'], 1, null, true);
-        $post2 = $this->sqlEasy->select('posts', ['identificator' => 'beneficios-massagem-relaxante'], 1, null, true);
-        $post3 = $this->sqlEasy->select('posts', ['identificator' => 'massagem-terapeutica-dores'], 1, null, true);
-        
-        $postId1 = is_object($post1) ? $post1->id : ($post1['id'] ?? 1);
-        $postId2 = is_object($post2) ? $post2->id : ($post2['id'] ?? 2);
-        $postId3 = is_object($post3) ? $post3->id : ($post3['id'] ?? 3);
-        
-        // Update comment post_ids
-        $comments[0]['post_id'] = $postId1;
-        $comments[1]['post_id'] = $postId1;
-        $comments[2]['post_id'] = $postId2;
-        $comments[3]['post_id'] = $postId3;
-        
         foreach ($comments as $comment) {
-            try {
-                $this->sqlEasy->insert('posts_comments', $comment);
-            } catch (\PDOException $e) {
-                // Ignore duplicate entry errors (SQLSTATE code is string "23000")
-                // Check error code or message for duplicate entry
-                $errorCode = (string)$e->getCode();
-                $isDuplicate = ($errorCode === '23000' || strpos($e->getMessage(), 'Duplicate entry') !== false);
-                if (!$isDuplicate) {
-                    throw $e;
-                }
-                // Silently ignore duplicate entries
-            }
+            $this->sqlEasy->insert('posts_comments', $comment);
         }
         
         echo "✅ Posts and comments seeded\n";

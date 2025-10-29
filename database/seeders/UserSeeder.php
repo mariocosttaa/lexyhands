@@ -10,7 +10,7 @@ class UserSeeder
 
     public function __construct()
     {
-        $this->sqlEasy = SqlEasy::getInstance();
+        $this->sqlEasy = new SqlEasy();
     }
 
     public function run(): void

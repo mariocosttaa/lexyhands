@@ -10,7 +10,7 @@ class ServiceSeeder
 
     public function __construct()
     {
-        $this->sqlEasy = SqlEasy::getInstance();
+        $this->sqlEasy = new SqlEasy();
     }
 
     public function run(): void
@@ -60,18 +60,7 @@ class ServiceSeeder
         ];
 
         foreach ($services as $service) {
-            try {
-                $this->sqlEasy->insert('services', $service);
-            } catch (\PDOException $e) {
-                // Ignore duplicate entry errors (SQLSTATE code is string "23000")
-                // Check error code or message for duplicate entry
-                $errorCode = (string)$e->getCode();
-                $isDuplicate = ($errorCode === '23000' || strpos($e->getMessage(), 'Duplicate entry') !== false);
-                if (!$isDuplicate) {
-                    throw $e;
-                }
-                // Silently ignore duplicate entries
-            }
+            $this->sqlEasy->insert('services', $service);
         }
         
         echo "✅ Services seeded\n";
