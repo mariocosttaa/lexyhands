@@ -190,14 +190,21 @@ php seed.php
    cd lexyhands
    ```
 
-2. **Start the application**
+2. **Copy environment file**
+   ```bash
+   cp env.example .env
+   ```
+   > Note: For Docker, the application uses environment variables from `docker-compose.yml`. The `.env` file is optional but recommended for local development.
+
+3. **Start the application**
    ```bash
    docker-compose up -d
    ```
+   Wait a few seconds for containers to start.
 
-3. **Run database migrations**
+4. **Run database migrations**
 
-   **Using Docker**:
+   **Using Docker** (recommended):
    ```bash
    docker-compose exec app php migrate.php
    ```
@@ -207,9 +214,9 @@ php seed.php
    php migrate.php
    ```
 
-4. **Seed the database**
+5. **Seed the database**
 
-   **Using Docker**:
+   **Using Docker** (recommended):
    ```bash
    docker-compose exec app php seed.php
    ```
@@ -219,7 +226,17 @@ php seed.php
    php seed.php
    ```
 
-5. **Access the application**
+6. **Verify everything is working**
+   - Check containers are running:
+     ```bash
+     docker-compose ps
+     ```
+   - Check application logs:
+     ```bash
+     docker-compose logs app | tail -20
+     ```
+
+7. **Access the application**
    - **Website**: http://localhost:8080
    - **Admin Panel**: http://localhost:8080/admin/dashboard
    - **phpMyAdmin**: http://localhost:8081
