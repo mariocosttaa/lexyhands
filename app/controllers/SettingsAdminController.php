@@ -40,8 +40,12 @@ class SettingsAdminController extends ControllerHelper
     public static function logos(): void {
 
         function uploadImage(?array $param, ?string $rename): ? string {
-            $uploadService = new FileUpload(uploadDir: 'projects/lexyhands/public/assets/website/');
-                $image = $uploadService->upload(files: $param, params: [
+            if (empty($param) || !isset($param['name']) || (is_array($param['name']) && empty($param['name'][0])) || (!is_array($param['name']) && empty($param['name']))) {
+                return null;
+            }
+            
+            $uploadService = new FileUpload(uploadDir: 'public/assets/website/');
+            $image = $uploadService->upload(files: $param, params: [
                 'rename' => $rename,
                 'multiple' => false,
                 'maxSize' => 5, // em MB
@@ -55,17 +59,41 @@ class SettingsAdminController extends ControllerHelper
             return $image;
         }
 
-        // tratamento da imagem
-        if (!empty($_FILES['site_logo']['size'][0]) && $_FILES['site_logo']['size'][0] > 0) {
-            $site_logo = uploadImage($_FILES['site_logo'], rename: 'logo');
-        }  else {
-            $site_logo = Settings::get()->site_logo;
+        // Get existing settings
+        $existingSettings = Settings::get();
+        $existingSiteLogo = ($existingSettings !== false && isset($existingSettings->site_logo)) ? $existingSettings->site_logo : null;
+        $existingSiteLogoDark = ($existingSettings !== false && isset($existingSettings->site_logo_dark)) ? $existingSettings->site_logo_dark : null;
+
+        // tratamento da imagem site_logo
+        $site_logo = null;
+        if (isset($_FILES['site_logo']) && 
+            ((is_array($_FILES['site_logo']['size']) && !empty($_FILES['site_logo']['size'][0]) && $_FILES['site_logo']['size'][0] > 0) ||
+             (!is_array($_FILES['site_logo']['size']) && !empty($_FILES['site_logo']['size']) && $_FILES['site_logo']['size'] > 0))) {
+            $uploadedLogo = uploadImage($_FILES['site_logo'], rename: 'logo');
+            if (!empty($uploadedLogo)) {
+                $site_logo = $uploadedLogo;
+            }
+        }
+        
+        // If no new upload, keep existing
+        if (empty($site_logo)) {
+            $site_logo = $existingSiteLogo;
         }
 
-        if (!empty($_FILES['site_logo_dark']['size'][0]) && $_FILES['site_logo_dark']['size'][0] > 0) {
-            $site_logo_dark = uploadImage($_FILES['site_logo_dark'], 'logo-dark');
-        }  else {
-            $site_logo_dark = Settings::get()->site_logo_dark;
+        // tratamento da imagem site_logo_dark
+        $site_logo_dark = null;
+        if (isset($_FILES['site_logo_dark']) && 
+            ((is_array($_FILES['site_logo_dark']['size']) && !empty($_FILES['site_logo_dark']['size'][0]) && $_FILES['site_logo_dark']['size'][0] > 0) ||
+             (!is_array($_FILES['site_logo_dark']['size']) && !empty($_FILES['site_logo_dark']['size']) && $_FILES['site_logo_dark']['size'] > 0))) {
+            $uploadedLogoDark = uploadImage($_FILES['site_logo_dark'], rename: 'logo-dark');
+            if (!empty($uploadedLogoDark)) {
+                $site_logo_dark = $uploadedLogoDark;
+            }
+        }
+        
+        // If no new upload, keep existing
+        if (empty($site_logo_dark)) {
+            $site_logo_dark = $existingSiteLogoDark;
         }
 
         if(isset($_POST['show_image'])) {
@@ -74,10 +102,16 @@ class SettingsAdminController extends ControllerHelper
             $show_images = 0;
         }
 
-        //enviando
-        if(!empty($site_logo) || !empty($site_logo_dark)) {
-            Settings::update(data: ['show_logo' => $show_images, 'site_logo' => $site_logo, 'site_logo_dark' => $site_logo_dark]);
+        //enviando - sempre atualiza, mesmo se não houver novos uploads (para atualizar show_logo)
+        $updateData = ['show_logo' => $show_images];
+        if (!empty($site_logo)) {
+            $updateData['site_logo'] = $site_logo;
         }
+        if (!empty($site_logo_dark)) {
+            $updateData['site_logo_dark'] = $site_logo_dark;
+        }
+        
+        Settings::update(data: $updateData);
 
         //notificação        
         parent::notification(title: 'Logotipo(s) Actualizados!', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/settings');

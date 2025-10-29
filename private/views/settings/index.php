@@ -65,13 +65,13 @@
                                 <label class="form-label">Logotipo <small>(Versão Branca ou Transparente /Recomendado)</small></label>
                                 <small class="text-danger d-block  mb-0">Em caso de alteração, é substituido o logotipo actual, caso exista.</small>
                                 <?php if (!empty($settings->site_logo)) echo '<img src="/' . $settings->site_logo . '" width="200" height="50" style="object-fit: cover;" alt="">'; ?>
-                                <input type="file" name="site_logo[]" class="form-control">
+                                <input type="file" name="site_logo[]" class="form-control" accept="image/jpeg,image/jpg,image/png">
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">Logotipo <small>(Versão Dark ou Transparente / Opcional)</small></label>
                                 <small class="text-danger d-block  mb-0">Em caso de alteração, é substituido o logotipo actual, caso exista.</small>
                                 <?php if (!empty($settings->site_logo_dark)) echo '<img src="/' . $settings->site_logo_dark . '" width="200" height="50" style="object-fit: cover;" alt="">'; ?>
-                                <input type="file" name="site_logo_dark[]" class="form-control">
+                                <input type="file" name="site_logo_dark[]" class="form-control" accept="image/jpeg,image/jpg,image/png">
                             </div>
 
                             <div class="form-check form-switch form-check-md mb-3">
