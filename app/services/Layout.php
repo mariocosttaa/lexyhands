@@ -66,10 +66,10 @@ class Layout  extends ServiceHelper
             if($components !== false) {
                 if(is_array(value: $components))  {
                     if (array_search(needle: 'layout', haystack: $components)) {
-                        self::layoutChanges(page: $page, filePath: 'resources/components/'.$type.'/htmlStarter/layout.php', replacements: $layoutChange);
+                        self::layoutChanges(page: $page, filePath: parent::ROOT_PATH() . '/resources/components/'.$type.'/htmlStarter/layout.php', replacements: $layoutChange);
                     }
                 } else {
-                    self::layoutChanges(page: $page, filePath: 'resources/components/'.$type.'/htmlStarter/layout.php', replacements: $layoutChange);
+                    self::layoutChanges(page: $page, filePath: parent::ROOT_PATH() . '/resources/components/'.$type.'/htmlStarter/layout.php', replacements: $layoutChange);
                 }
             }
 
@@ -77,7 +77,7 @@ class Layout  extends ServiceHelper
                 if(is_array(value: $components))  {
                     if (array_search(needle: 'navbar', haystack: $components)) {
                         self::defaultJs(); //incluir css padrao do layout
-                        include_once "resources/components/$type/pageStructure/navbar.php";
+                        include_once parent::ROOT_PATH() . "/resources/components/$type/pageStructure/navbar.php";
                     }
                 } else {
                     self::defaultJs(); //incluir css padrao do layout
@@ -94,11 +94,11 @@ class Layout  extends ServiceHelper
                 if(is_array(value: $components))  {
                     if (array_search(needle: 'footer', haystack: $components)) {
                         self::defaultJs(); //incluir css padrao do layout
-                        include_once "resources/components/$type/pageStructure/footer.php";
+                        include_once parent::ROOT_PATH() . "/resources/components/$type/pageStructure/footer.php";
                     }
                 } else {
                     self::defaultJs(); //incluir css padrao do layout
-                    include_once "resources/components/$type/pageStructure/footer.php";
+                    include_once parent::ROOT_PATH() . "/resources/components/$type/pageStructure/footer.php";
                 }
             }
 
