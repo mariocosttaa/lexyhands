@@ -52,12 +52,14 @@
                                 <span class="fw-semibold ms-1">120</span>
                             </div>
                             <?php foreach ($prices as $price) {
-                                $price = (object) $price; ?>
+                                $price = (object) $price;
+                                $currency = getCurrencyByCode(code: $price->currency_code ?? null);
+                                ?>
                                 <div class="hstack gap-2">
-                                    <small><?php echo getCurrencyByCode(code: $price->currency)->name ?> <i class="bi bi-arrow-right"></i> </small>
-                                    <h6 class="fw-normal text-success mb-0"><?php echo formatMoney(amount: $price->price, decimalPlaces: 2, currency: $price->currency, formatWithSymbol: true) ?></h6>
+                                    <small><?php echo ($currency && is_object($currency)) ? $currency->name : ($price->currency_code ?? 'N/A') ?> <i class="bi bi-arrow-right"></i> </small>
+                                    <h6 class="fw-normal text-success mb-0"><?php echo formatMoney(amount: $price->price, decimalPlaces: 2, currency: $price->currency_code ?? 'EUR', formatWithSymbol: true) ?></h6>
                                     <?php if (!empty($price->promo)) { ?>
-                                        <span class="text-decoration-line-through text-danger"><?php echo formatMoney(amount: $price->price_promo, decimalPlaces: 2, currency: $price->currency) ?></span>
+                                        <span class="text-decoration-line-through text-danger"><?php echo formatMoney(amount: $price->price_promo, decimalPlaces: 2, currency: $price->currency_code ?? 'EUR') ?></span>
                                     <?php } ?>
                                 </div>
                             <?php } ?>

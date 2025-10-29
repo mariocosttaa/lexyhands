@@ -52,7 +52,7 @@ class PostsAdminController extends ControllerHelper
 
 
         Posts::create(data: [
-            'user_id' => parent::User()->user_id,
+            'author_id' => parent::User()->user_id,
             'tittle' => $result->data->tittle,
             'identificator' => $identificator,
             'subtittle' => $result->data->subtittle,
@@ -132,7 +132,7 @@ class PostsAdminController extends ControllerHelper
         
 
         $send = Posts::update(id: $post->id, data: [
-            'user_id' => parent::User()->user_id,
+            'author_id' => parent::User()->user_id,
             'tittle' => $result->data->tittle,
             'identificator' => $identificator,
             'subtittle' => $result->data->subtittle,

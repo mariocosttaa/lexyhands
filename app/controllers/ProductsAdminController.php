@@ -58,7 +58,7 @@ class ProductsAdminController extends ControllerHelper
             //criando os preços
             foreach ($product_prices as $price) {
                 $price = (object) $price;
-                ProductPrices::create(['product_id' => $product, 'price' => $price->price, 'price_promo' => $price->price_promo, 'description' =>  $price->description, 'currency' => $price->currency, 'status' => true,]);
+                ProductPrices::create(['product_id' => $product, 'price' => $price->price, 'price_promo' => $price->price_promo ?? null, 'description' =>  $price->description ?? null, 'currency_code' => $price->currency, 'is_active' => true,]);
             }
             //criar os stocks
             ProductStocks::create(data: ['product_id' => $product, 'unlimited_stocks' => $products_stocks->unlimited_stocks, 'stock' => $products_stocks->stock, 'stock_with_size' => $products_stocks->stock_with_size ?: null, 'stock_with_color' => $products_stocks->stock_with_color ?: null, 'stock_with_size_and_color' => $products_stocks->stock_with_size_and_color ?: null,]);
@@ -140,9 +140,9 @@ class ProductsAdminController extends ControllerHelper
                 $price_id = ProductPrices::getById($price_id);
 
                 if (!empty(($price_id))) {
-                    ProductPrices::update(id: $price_id->id, data: ['product_id' => $product, 'price' => $price->price, 'price_promo' => $price->price_promo, 'description' =>  $price->description, 'currency' => $price->currency, 'status' => true,]);
+                    ProductPrices::update(id: $price_id->id, data: ['product_id' => $product, 'price' => $price->price, 'price_promo' => $price->price_promo ?? null, 'description' =>  $price->description ?? null, 'currency_code' => $price->currency, 'is_active' => true,]);
                 } else {
-                    ProductPrices::create(data: ['product_id' => $product, 'price' => $price->price, 'price_promo' => $price->price_promo, 'description' =>  $price->description, 'currency' => $price->currency, 'status' => true]);
+                    ProductPrices::create(data: ['product_id' => $product, 'price' => $price->price, 'price_promo' => $price->price_promo ?? null, 'description' =>  $price->description ?? null, 'currency_code' => $price->currency, 'is_active' => true]);
                 }
             }
             //actuaizar os stocks

@@ -35,7 +35,7 @@
                 <div class="col-md-6">
                     <div class="mb-2">
                         <label for="" class="form-label">Descrição Curta (Opcional)</label>
-                        <input type="text" class="form-control" name="short_description" value="<?php echo $product->short_description ?>" placeholder="Coloque a descrição do produto">
+                        <input type="text" class="form-control" name="short_description" value="<?php echo $product->short_description ?? '' ?>" placeholder="Coloque a descrição do produto">
                     </div>
                 </div>
             </div>
@@ -103,11 +103,11 @@
 
                                         <div class="col-md-4 mb-2">
                                             <label for="totalPrice<?php echo $key + 1 ?>" class="form-label">Preço Total</label>
-                                            <input type="text" id="totalPrice<?php echo $key + 1 ?>" name="price[]" class="form-control currency-input" placeholder="Digite o preço total" value="<?php echo formatMoney(amount: $price->price, decimalPlaces: 2, currency: $price->currency, formatWithSymbol: true) ?>">
+                                            <input type="text" id="totalPrice<?php echo $key + 1 ?>" name="price[]" class="form-control currency-input" placeholder="Digite o preço total" value="<?php echo formatMoney(amount: $price->price, decimalPlaces: 2, currency: $price->currency_code ?? 'EUR', formatWithSymbol: true) ?>">
                                         </div>
                                         <div class="col-md-4 mb-2">
                                             <label for="fakePrice<?php echo $key + 1 ?>" class="form-label">Preço Fake</label>
-                                            <input type="text" id="fakePrice<?php echo $key + 1 ?>" name="fake_price[]" class="form-control currency-input" placeholder="Digite o preço fake" value="<?php echo formatMoney(amount: $price->price_promo, decimalPlaces: 2, currency: $price->currency, formatWithSymbol: true) ?? '' ?>">
+                                            <input type="text" id="fakePrice<?php echo $key + 1 ?>" name="fake_price[]" class="form-control currency-input" placeholder="Digite o preço fake" value="<?php echo formatMoney(amount: $price->price_promo ?? 0, decimalPlaces: 2, currency: $price->currency_code ?? 'EUR', formatWithSymbol: true) ?? '' ?>">
                                         </div>
                                         <div class="col-md-2 mb-2">
                                             <label for="fakePrice<?php echo $key + 1 ?>" class="form-label">Descrição (Opcinal)</label>
@@ -118,7 +118,7 @@
                                             <select id="currency<?php echo $key + 1 ?>" name="currency[]" class="form-select currency-select">
                                                 <?php foreach ($currencies as $currency) {
                                                     $currency = (object) $currency ?>
-                                                    <?php if ($price->currency === $currency->code) { ?>
+                                                    <?php if (($price->currency_code ?? null) === $currency->code) { ?>
                                                         <option value="<?php echo $currency->code ?>" selected><?php echo $currency->name ?> (<?php echo $currency->code ?>)</option>
                                                     <?php } else { ?>
                                                         <option value="<?php echo $currency->code ?>"><?php echo $currency->name ?> (<?php echo $currency->code ?>)</option>

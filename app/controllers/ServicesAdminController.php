@@ -31,9 +31,9 @@ class ServicesAdminController extends ServicesController
             exit();
         }
 
-        $slug_name = slug(string: $result->data->name);
+        $identificator = slug(string: $result->data->name);
 
-        $send = Services::create(data: ['name' => $result->data->name, 'slug_name' => $slug_name, 'description' => $result->data->description, 'content' => $result->data->content, 'image' => $image]);
+        $send = Services::create(data: ['name' => $result->data->name, 'identificator' => $identificator, 'description' => $result->data->description, 'content' => $result->data->content, 'featured_image' => $image]);
         if ($send) {
             parent::notification(title: 'O serviço foi Criado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '../services');
             exit();
@@ -68,11 +68,11 @@ class ServicesAdminController extends ServicesController
             exit();
         }
 
-        $image = self::validate_image() ?: $service->image;
-        $slug_name = slug(string: $result->data->name);
+        $image = self::validate_image() ?: ($service->featured_image ?? null);
+        $identificator = slug(string: $result->data->name);
 
 
-        Services::update($service->id, data: ['name' => $result->data->name, 'slug_name' => $slug_name, 'description' => $result->data->description, 'content' => $result->data->content, 'image' => $image]);
+        Services::update($service->id, data: ['name' => $result->data->name, 'identificator' => $identificator, 'description' => $result->data->description, 'content' => $result->data->content, 'featured_image' => $image]);
 
         parent::notification(title: 'O serviço foi Actualizado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/services/');
         exit();

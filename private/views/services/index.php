@@ -23,14 +23,14 @@
             <!-- Web Development Card -->
             <div class="col-12 col-md-6 col-lg-4" w-tid="92">
                 <div class="card h-100 position-relative service-card" w-tid="93">
-                    <img src="/<?php echo $service->image ?>" alt="Imagem do Serviço" class="card-img-top" height="200" style="object-fit: cover;" w-tid="94">
+                    <img src="/<?php echo $service->featured_image ?? '/assets/images/default-service.jpg' ?>" alt="Imagem do Serviço" class="card-img-top" height="200" style="object-fit: cover;" w-tid="94">
                     <div class="card-body" w-tid="95">
                         <h5 class="card-title mb-0" w-tid="96"><?php echo $service->name ?></h5>
                         <p class="card-text text-muted" w-tid="97"><?php echo $service->description ?></p>
                     </div>
                     <div class="card-footer mb-2">
-                        <form action="/../admin/services/delete/<?php echo $service->slug_name ?>" method="POST">
-                            <a href="/../admin/services/edit/<?php echo $service->slug_name ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
+                        <form action="/../admin/services/delete/<?php echo $service->identificator ?>" method="POST">
+                            <a href="/../admin/services/edit/<?php echo $service->identificator ?>" class="btn btn-sm btn-success-soft" w-tid="98">Editar</a> |
                             <button type="submit" class="btn btn-sm btn-danger-soft" w-tid="98"
                                 data-alert-config='{
                                         "type": "delete", 
@@ -44,7 +44,7 @@
                                     }'>
                                 Excluir
                             </button> |
-                            <a target="_blank" href="/../service/<?php echo $service->slug_name ?>" class="btn btn-sm btn-primary-soft" w-tid="98">Visualizar</a>
+                            <a target="_blank" href="/service/<?php echo $service->identificator ?>" class="btn btn-sm btn-primary-soft" w-tid="98">Visualizar</a>
                         </form>
                     </div>
                 </div>

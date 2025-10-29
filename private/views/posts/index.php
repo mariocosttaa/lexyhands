@@ -37,7 +37,10 @@
                     <div class="card-body" w-tid="95">
                         <div class="d-flex align-items-center mb-3">
                             <span class="text-muted me-2">
-                                Por <?php echo getUser(id: $post->user_id)->names ?> - 
+                                Por <?php 
+                                    $author = getUser(id: $post->author_id ?? null);
+                                    echo $author ? $author->names : 'LexyHands';
+                                ?> - 
                             </span>
                             <span class="text-muted">
                                 <?php echo getUserDateTime(date: $post->date, format: 'd/m/Y'); ?> -

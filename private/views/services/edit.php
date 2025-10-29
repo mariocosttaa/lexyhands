@@ -50,8 +50,8 @@
                                 <h5>Arraste uma imagem ou clique para selecionar</h5>
                                 <p class="text-muted mb-0">PNG, JPG ou JPEG (max. 3MB)</p>
                             </div>
-                            <?php if($service->image) { ?>
-                                <img id="imagePreview" class="position-absolute w-100 h-100 object-fit-cover" src="/<?php echo $service->image ?>" alt="Preview">
+                            <?php if($service->featured_image ?? null) { ?>
+                                <img id="imagePreview" class="position-absolute w-100 h-100 object-fit-cover" src="/<?php echo $service->featured_image ?>" alt="Preview">
                             <?php } else { ?>
                                 <img id="imagePreview" class="position-absolute w-100 h-100 object-fit-cover d-none" alt="Preview">
                             <?php } ?>
