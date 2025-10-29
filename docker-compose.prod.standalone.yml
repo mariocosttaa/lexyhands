@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # PHP Application with Apache
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        GIT_REPO: https://github.com/mariocosttaa/lexyhands.git
+        GIT_BRANCH: ${GIT_BRANCH:-master}
+        GIT_COMMIT: ${GIT_COMMIT:-HEAD}
+    container_name: lexyhands_prod
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      # Database Configuration
+      DB_HOST: ${DB_HOST:-mysql}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_NAME: ${DB_NAME:-lexyhands}
+      DB_USER: ${DB_USER:-lexyhands}
+      DB_PASSWORD: ${DB_PASSWORD}
+      
+      # Application Configuration
+      APP_NAME: ${APP_NAME:-LexyHands}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      APP_URL: ${APP_URL:-http://localhost}
+      APP_ENV: ${APP_ENV:-production}
+      
+      # Other settings
+      CACHE_DRIVER: ${CACHE_DRIVER:-file}
+      SESSION_DRIVER: ${SESSION_DRIVER:-file}
+    volumes:
+      # Persist cache directory
+      - lexyhands_cache:/var/www/html/app/cache
+      # Persist logs
+      - lexyhands_logs:/var/www/html/app/cache/logs
+    networks:
+      - lexyhands_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # MySQL Database (optional - can use external database)
+  mysql:
+    image: mysql:8.0
+    container_name: lexyhands_mysql_prod
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-lexyhands}
+      MYSQL_USER: ${DB_USER:-lexyhands}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - lexyhands_mysql_data:/var/lib/mysql
+    networks:
+      - lexyhands_network
+    command: --default-authentication-plugin=mysql_native_password
+
+volumes:
+  lexyhands_cache:
+  lexyhands_logs:
+  lexyhands_mysql_data:
+
+networks:
+  lexyhands_network:
+    driver: bridge
+
