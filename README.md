@@ -191,6 +191,31 @@ php seed.php --refresh  # Clear tables first
 - **Currencies**: EUR (default), USD, GBP
 - **Settings**: Site configuration
 
+**Expected Output**:
+When running `./seed --refresh`, you should see:
+```
+🔄 Refreshing database...
+🧹 Clearing database tables...
+✅ Cleared table: posts_comments
+✅ Cleared table: posts
+...
+✅ Database tables cleared
+
+🌱 Starting database seeding...
+👥 Seeding users and roles...
+✅ Users and roles seeded
+🛠️ Seeding services...
+✅ Services seeded
+📝 Seeding posts and categories...
+✅ Posts and comments seeded
+🛍️ Seeding products and currencies...
+✅ Products, currencies and settings seeded
+
+🎉 Database seeding completed successfully!
+```
+
+After seeding, verify by accessing http://localhost:8080 - you should see the homepage with content loaded.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -277,6 +302,13 @@ php seed.php --refresh  # Clear tables first
    - **Website**: http://localhost:8080
    - **Admin Panel**: http://localhost:8080/admin/dashboard
    - **phpMyAdmin**: http://localhost:8081
+
+8. **Verify seeder execution**
+   After running the seeder, you can verify the application is working:
+   - Navigate to http://localhost:8080 in your browser
+   - You should see the LexyHands homepage with content
+   - The page title should display "Lexy Hands"
+   - If you see content loaded, the seeder ran successfully and the database is populated
 
 ### Default Credentials
 - **Admin**: admin@lexyhands.com / admin123
