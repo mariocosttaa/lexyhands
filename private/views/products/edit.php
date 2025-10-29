@@ -88,9 +88,16 @@
                     <div id="collapsePrice" class="accordion-collapse collapse show" aria-labelledby="headingPrice" data-bs-parent="#price">
                         <div class="accordion-body">
                             <div id="priceContainer">
-                                <?php if (!empty($product->prices) && is_array($product->prices)) { ?>
-                                    <?php $i = 0;
-                                    foreach ($product->prices as $key => $price) {
+                                <?php 
+                                // Debug: Verificar se preços estão sendo carregados
+                                // $product->prices pode ser array vazio, false, ou array com dados
+                                $prices = isset($product->prices) ? $product->prices : [];
+                                if (empty($prices) && $prices !== false) {
+                                    $prices = [];
+                                }
+                                if (!empty($prices) && is_array($prices)) { 
+                                    $i = 0;
+                                    foreach ($prices as $key => $price) {
                                         $price = (object) $price;
                                         $i++; ?>
                                         <div class="row price-row" data-row-id="<?php echo $i ?>">
@@ -177,50 +184,54 @@
                     </h2>
                     <div id="collapseSpecifications" class="accordion-collapse collapse" aria-labelledby="headingSpecifications" data-bs-parent="#productDetailsAccordion">
                         <div class="accordion-body">
+                            <?php 
+                            $specs = isset($product->specifications) && !empty($product->specifications) ? json_decode($product->specifications, true) : [];
+                            $specs = is_array($specs) ? $specs : [];
+                            ?>
                             <!-- Especificações Técnicas -->
                             <div class="mb-2">
                                 <label for="specifications" class="form-label">Especificações Técnicas</label>
-                                <textarea class="form-control" name="specifications" placeholder="Detalhes técnicos do produto"></textarea>
+                                <textarea class="form-control" name="specifications" placeholder="Detalhes técnicos do produto"><?php echo $specs['specifications'] ?? '' ?></textarea>
                             </div>
 
                             <!-- Dimensões -->
                             <div class="row g-2 mb-2">
                                 <div class="col-4">
                                     <label for="product_length" class="form-label">Comprimento (cm)</label>
-                                    <input type="number" class="form-control" name="product_length" placeholder="Comprimento do produto">
+                                    <input type="number" class="form-control" name="product_length" placeholder="Comprimento do produto" value="<?php echo $specs['length'] ?? '' ?>">
                                 </div>
                                 <div class="col-4">
                                     <label for="product_width" class="form-label">Largura (cm)</label>
-                                    <input type="number" class="form-control" name="product_width" placeholder="Largura do produto">
+                                    <input type="number" class="form-control" name="product_width" placeholder="Largura do produto" value="<?php echo $specs['width'] ?? '' ?>">
                                 </div>
                                 <div class="col-4">
                                     <label for="product_height" class="form-label">Altura (cm)</label>
-                                    <input type="number" class="form-control" name="product_height" placeholder="Altura do produto">
+                                    <input type="number" class="form-control" name="product_height" placeholder="Altura do produto" value="<?php echo $specs['height'] ?? '' ?>">
                                 </div>
                             </div>
 
                             <!-- Peso -->
                             <div class="mb-2">
                                 <label for="product_weight" class="form-label">Peso (kg)</label>
-                                <input type="number" class="form-control" name="product_weight" placeholder="Peso do produto">
+                                <input type="number" class="form-control" name="product_weight" placeholder="Peso do produto" value="<?php echo $specs['weight'] ?? '' ?>">
                             </div>
 
                             <!-- Material -->
                             <div class="mb-2">
                                 <label for="product_material" class="form-label">Material</label>
-                                <input type="text" class="form-control" name="product_material" placeholder="Material do produto">
+                                <input type="text" class="form-control" name="product_material" placeholder="Material do produto" value="<?php echo $specs['material'] ?? '' ?>">
                             </div>
 
                             <!-- Cor -->
                             <div class="mb-2">
                                 <label for="product_color" class="form-label">Cor</label>
-                                <input type="text" class="form-control" placeholder="Adicione a(s) cor(es)..." id="choices-color" name="product_color[]" placeholder="Cor do produto">
+                                <input type="text" class="form-control" placeholder="Adicione a(s) cor(es)..." id="choices-color" name="product_color[]" placeholder="Cor do produto" value="<?php echo is_array($specs['color'] ?? null) ? implode(', ', $specs['color']) : ($specs['color'] ?? '') ?>">
                             </div>
 
                             <!-- Outras Características Opcionais -->
                             <div class="mb-2">
                                 <label for="other_features" class="form-label">Outras Características (Opcional)</label>
-                                <textarea class="form-control" name="other_features" placeholder="Características adicionais do produto (Ex: Tecnologia, Funcionalidades, etc.)"></textarea>
+                                <textarea class="form-control" name="other_features" placeholder="Características adicionais do produto (Ex: Tecnologia, Funcionalidades, etc.)"><?php echo $specs['other_features'] ?? '' ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -260,7 +271,7 @@
                                                 <div id="">
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-12">
-                                                            <input type="number" class="form-control" name="general_stock" placeholder="Quantidade">
+                                                            <input type="number" class="form-control" name="general_stock" placeholder="Quantidade" value="<?php echo isset($stocks) && is_object($stocks) ? ($stocks->stock ?? '') : '' ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -277,6 +288,27 @@
                                         <div id="collapseSizeStock" class="accordion-collapse collapse" aria-labelledby="headingSizeStock" data-bs-parent="#stocks">
                                             <div class="accordion-body">
                                                 <div id="sizeStockContainer">
+                                                    <?php 
+                                                    $stock_with_size = isset($stocks) && is_object($stocks) && !empty($stocks->stock_with_size) ? json_decode($stocks->stock_with_size, true) : [];
+                                                    if (!empty($stock_with_size) && is_array($stock_with_size)) {
+                                                        foreach ($stock_with_size as $size_stock) {
+                                                            $size_stock = (object) $size_stock;
+                                                    ?>
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-6">
+                                                            <input type="text" class="form-control" name="size[]" placeholder="Tamanho (Ex: P, M, G)" value="<?php echo $size_stock->size ?? '' ?>">
+                                                        </div>
+                                                        <div class="col-5">
+                                                            <input type="number" class="form-control" name="size_stock[]" placeholder="Quantidade" value="<?php echo $size_stock->stock ?? '' ?>">
+                                                        </div>
+                                                        <div class="col-1">
+                                                            <button type="button" class="btn btn-danger btn-sm remove-size-stock">X</button>
+                                                        </div>
+                                                    </div>
+                                                    <?php 
+                                                        }
+                                                    } else {
+                                                    ?>
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6">
                                                             <input type="text" class="form-control" name="size[]" placeholder="Tamanho (Ex: P, M, G)">
@@ -288,6 +320,7 @@
                                                             <button type="button" class="btn btn-danger btn-sm remove-size-stock">X</button>
                                                         </div>
                                                     </div>
+                                                    <?php } ?>
                                                 </div>
                                                 <button type="button" id="addSizeStock" class="btn btn-sm btn-secondary">Adicionar Estoque por Tamanho</button>
                                             </div>
@@ -304,6 +337,27 @@
                                         <div id="collapseColorStock" class="accordion-collapse collapse" aria-labelledby="headingColorStock" data-bs-parent="#stocks">
                                             <div class="accordion-body">
                                                 <div id="colorStockContainer">
+                                                    <?php 
+                                                    $stock_with_color = isset($stocks) && is_object($stocks) && !empty($stocks->stock_with_color) ? json_decode($stocks->stock_with_color, true) : [];
+                                                    if (!empty($stock_with_color) && is_array($stock_with_color)) {
+                                                        foreach ($stock_with_color as $color_stock) {
+                                                            $color_stock = (object) $color_stock;
+                                                    ?>
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-6">
+                                                            <input type="text" class="form-control" name="color[]" placeholder="Cor (Ex: Azul, Vermelho)" value="<?php echo $color_stock->color ?? '' ?>">
+                                                        </div>
+                                                        <div class="col-5">
+                                                            <input type="number" class="form-control" name="color_stock[]" placeholder="Quantidade" value="<?php echo $color_stock->stock ?? '' ?>">
+                                                        </div>
+                                                        <div class="col-1">
+                                                            <button type="button" class="btn btn-danger btn-sm remove-color-stock">X</button>
+                                                        </div>
+                                                    </div>
+                                                    <?php 
+                                                        }
+                                                    } else {
+                                                    ?>
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-6">
                                                             <input type="text" class="form-control" name="color[]" placeholder="Cor (Ex: Azul, Vermelho)">
@@ -315,6 +369,7 @@
                                                             <button type="button" class="btn btn-danger btn-sm remove-color-stock">X</button>
                                                         </div>
                                                     </div>
+                                                    <?php } ?>
                                                 </div>
                                                 <button type="button" id="addColorStock" class="btn btn-sm btn-secondary">Adicionar Estoque por Cor</button>
                                             </div>
@@ -331,6 +386,30 @@
                                         <div id="collapseVariantStock" class="accordion-collapse collapse" aria-labelledby="headingVariantStock" data-bs-parent="#stocks">
                                             <div class="accordion-body">
                                                 <div id="variantStockContainer">
+                                                    <?php 
+                                                    $stock_with_size_and_color = isset($stocks) && is_object($stocks) && !empty($stocks->stock_with_size_and_color) ? json_decode($stocks->stock_with_size_and_color, true) : [];
+                                                    if (!empty($stock_with_size_and_color) && is_array($stock_with_size_and_color)) {
+                                                        foreach ($stock_with_size_and_color as $variant_stock) {
+                                                            $variant_stock = (object) $variant_stock;
+                                                    ?>
+                                                    <div class="row g-2 mb-2">
+                                                        <div class="col-4">
+                                                            <input type="text" class="form-control" name="variant_size[]" placeholder="Tamanho (Ex: P, M, G)" value="<?php echo $variant_stock->size ?? '' ?>">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="text" class="form-control" name="variant_color[]" placeholder="Cor (Ex: Azul, Vermelho)" value="<?php echo $variant_stock->color ?? '' ?>">
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <input type="number" class="form-control" name="variant_stock[]" placeholder="Quantidade" value="<?php echo $variant_stock->stock ?? '' ?>">
+                                                        </div>
+                                                        <div class="col-1">
+                                                            <button type="button" class="btn btn-danger btn-sm remove-variant">X</button>
+                                                        </div>
+                                                    </div>
+                                                    <?php 
+                                                        }
+                                                    } else {
+                                                    ?>
                                                     <div class="row g-2 mb-2">
                                                         <div class="col-4">
                                                             <input type="text" class="form-control" name="variant_size[]" placeholder="Tamanho (Ex: P, M, G)">
@@ -345,6 +424,7 @@
                                                             <button type="button" class="btn btn-danger btn-sm remove-variant">X</button>
                                                         </div>
                                                     </div>
+                                                    <?php } ?>
                                                 </div>
                                                 <button type="button" id="addVariant" class="btn btn-sm btn-secondary">Adicionar Estoque por Tamanho e Cor</button>
                                             </div>

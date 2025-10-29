@@ -57,7 +57,16 @@ class Products extends ModelHelper {
         if(empty($result)) return false;
         
         $prices = ProductPrices::getByProductId($result->id);
-        $result->prices = is_array($prices) ? $prices : ($prices ? [$prices] : []);
+        // getByProductId retorna false quando não há resultados, ou array quando há
+        if ($prices === false) {
+            $result->prices = [];
+        } elseif (is_array($prices)) {
+            // Se é array, pode ser array vazio ou array com preços
+            $result->prices = $prices;
+        } else {
+            // Se retornou algo não-array e não-false, trata como array com um item
+            $result->prices = [$prices];
+        }
 
         return $result;
     }
