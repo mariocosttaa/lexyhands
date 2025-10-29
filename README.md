@@ -76,9 +76,9 @@ lexyhands/
 
 ## 🎯 MVC Architecture
 
-### Model Layer (`app/models/`)
+### Model Layer (`app/Models/`)
 - **Purpose**: Data access and business logic
-- **Files**: `users.php`, `posts.php`, `services.php`, `products.php`, etc.
+- **Files**: `Users.php`, `Posts.php`, `Services.php`, `Products.php`, etc.
 - **Responsibilities**:
   - Database operations (CRUD)
   - Data validation
@@ -95,7 +95,7 @@ lexyhands/
   - User interaction
   - Data display
 
-### Controller Layer (`app/controllers/`)
+### Controller Layer (`app/Controllers/`)
 - **Purpose**: Request handling and coordination
 - **Files**: `PostsController.php`, `ServicesController.php`, `HomeController.php`, etc.
 - **Responsibilities**:
@@ -151,7 +151,7 @@ php migrate.php
 
 **Requirements for manual execution**:
 - PHP 8.1+ installed locally
-- Database credentials configured in `app/config/Database.php`
+- Database credentials configured in `app/Config/Database.php`
 - Database server running and accessible
 
 **Rollback Migrations**:
@@ -207,7 +207,7 @@ php seed.php --refresh  # Clear tables first
 
 **Requirements for manual execution**:
 - PHP 8.1+ installed locally
-- Database credentials configured in `app/config/Database.php`
+- Database credentials configured in `app/Config/Database.php`
 - Migrations must be run first
 - Database server running and accessible
 
@@ -415,35 +415,35 @@ O projeto está configurado com **volume bind mount** que sincroniza automaticam
 
 ### Key Services
 
-#### Router (`app/services/Router.php`)
+#### Router (`app/Services/Router.php`)
 - URL routing and request handling
 - Supports RESTful routes
 - Middleware integration
 
-#### Layout (`app/services/Layout.php`)
+#### Layout (`app/Services/Layout.php`)
 - View rendering system
 - Template management
 - Asset loading
 
-#### SqlEasy (`app/services/SqlEasy.php`)
+#### SqlEasy (`app/Services/SqlEasy.php`)
 - Database abstraction layer
 - Query caching
 - CRUD operations
 
-#### Migration (`app/services/Migration.php`)
+#### Migration (`app/Services/Migration.php`)
 - Database schema management
 - Version control
 - Rollback support
 
-#### Seeder (`app/services/Seeder.php`)
+#### Seeder (`app/Services/Seeder.php`)
 - Database population
 - Sample data generation
 - Relationship management
 
 ### Adding New Features
 
-1. **Create Model** (`app/models/`)
-2. **Create Controller** (`app/controllers/`)
+1. **Create Model** (`app/Models/`)
+2. **Create Controller** (`app/Controllers/`)
 3. **Create Views** (`public/views/` or `private/views/`)
 4. **Add Routes** (`app/routes/`)
 5. **Create Migration** (`database/migrations/`)
@@ -484,7 +484,7 @@ O projeto está configurado com **volume bind mount** que sincroniza automaticam
 - Set application settings
 
 ### Database Configuration
-- Edit `app/config/Database.php`
+- Edit `app/Config/Database.php`
 - Update connection parameters
 - Configure caching settings
 

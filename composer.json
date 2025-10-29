@@ -5,7 +5,7 @@
             "App\\Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/config/Global.php",
+            "app/Config/Global.php",
 
             "app/helpers/general/errorReporting.php",
             "app/helpers/general/getComponent.php",

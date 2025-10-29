@@ -29,9 +29,10 @@ Thumbs.db
 *.md
 !README.md
 
-# Docker
+# Docker (but keep Dockerfile for reference)
 docker-compose*.yml
-Dockerfile
+# Don't exclude Dockerfile - Coolify needs it
+# Dockerfile
 .dockerignore
 
 # Scripts (keep these)

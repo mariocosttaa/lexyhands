@@ -9,7 +9,7 @@ return array(
     '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
     '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     'a4a119a56e50fbb293281d9a48007e0e' => $vendorDir . '/symfony/polyfill-php80/bootstrap.php',
-    'd5266603dda78a909e0c21a370d432b3' => $baseDir . '/app/config/Global.php',
+    'd021ab749f1316df28783d59510f0735' => $baseDir . '/app/Config/Global.php',
     '9516b8ef8ad64239e43cb4c67fa40817' => $baseDir . '/app/helpers/general/errorReporting.php',
     '6dc83fee78b3ecb81561290076361e74' => $baseDir . '/app/helpers/general/getComponent.php',
     '03ae90ddfe36887bcb38643e333b4743' => $baseDir . '/app/helpers/general/CurrencyOrganizer.php',
