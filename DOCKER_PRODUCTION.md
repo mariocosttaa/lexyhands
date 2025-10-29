@@ -1,6 +1,8 @@
 # Docker Production Deployment
 
-This guide explains how to deploy LexyHands using the production Dockerfile that clones from GitHub.
+This guide explains how to deploy LexyHands using the production Dockerfile.
+
+**Note:** For Coolify deployments, the platform handles Git cloning automatically. The Dockerfile.prod is optimized for this workflow.
 
 ## Quick Start
 
@@ -25,15 +27,12 @@ docker-compose -f docker-compose.prod.standalone.yml exec app php migrate.php
 docker-compose -f docker-compose.prod.standalone.yml exec app php seed.php --refresh
 ```
 
-### Option 2: Using Dockerfile Directly
+### Option 2: Using Dockerfile Directly (for local builds)
 
 ```bash
-# Build the image
+# Build the image (files should be in current directory)
 docker build \
   --file Dockerfile.prod \
-  --build-arg GIT_REPO=https://github.com/mariocosttaa/lexyhands.git \
-  --build-arg GIT_BRANCH=master \
-  --build-arg GIT_COMMIT=HEAD \
   --tag lexyhands:prod \
   .
 
@@ -51,42 +50,22 @@ docker run -d \
   lexyhands:prod
 ```
 
-## Build Arguments
+## For Coolify Deployment
 
-The `Dockerfile.prod` accepts these build arguments:
+Coolify automatically:
+- Clones the repository from GitHub
+- Sets up environment variables
+- Configures ports
+- Handles database connections (if using Coolify database service)
 
-- `GIT_REPO` (default: `https://github.com/mariocosttaa/lexyhands.git`)
-  - Repository URL to clone
-- `GIT_BRANCH` (default: `master`)
-  - Git branch to checkout
-- `GIT_COMMIT` (default: `HEAD`)
-  - Specific commit SHA or tag to checkout (optional)
+You just need to:
+1. Point to repository: `https://github.com/mariocosttaa/lexyhands`
+2. Select Dockerfile: `Dockerfile.prod`
+3. Configure port: `80`
+4. Set environment variables in Coolify UI
+5. Deploy!
 
-### Examples
-
-**Build from specific branch:**
-```bash
-docker build \
-  --file Dockerfile.prod \
-  --build-arg GIT_BRANCH=develop \
-  --tag lexyhands:prod .
-```
-
-**Build from specific commit:**
-```bash
-docker build \
-  --file Dockerfile.prod \
-  --build-arg GIT_COMMIT=abc123def456 \
-  --tag lexyhands:prod .
-```
-
-**Build from release tag:**
-```bash
-docker build \
-  --file Dockerfile.prod \
-  --build-arg GIT_COMMIT=v1.0.0 \
-  --tag lexyhands:prod .
-```
+See `COOLIFY_DEPLOYMENT.md` for detailed Coolify setup instructions.
 
 ## Environment Variables
 

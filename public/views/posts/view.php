@@ -25,7 +25,7 @@
                         <div class="blog-details__img">
                             <?php if($post->video) { ?>
                                 <video width="100%" height="400" controls>
-                                    <source src="http://localhost/<?php echo $post->video ?>" type="video/mp4">
+                                    <source src="/<?php echo htmlspecialchars($post->video, ENT_QUOTES, 'UTF-8') ?>" type="video/mp4">
                                     Ocorreu um erro ao reproduzir o video.
                                 </video>
                                 <br><br><br>
