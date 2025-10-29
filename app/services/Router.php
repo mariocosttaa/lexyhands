@@ -7,9 +7,13 @@ class Router
 {
     private $routes = [];
     private $currentUri;
+    private $logger;
+    private $startTime;
 
     public function __construct()
     {
+        $this->startTime = microtime(true);
+        $this->logger = new Logger();
 
         $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../'); // Caminho correto para a raiz do projeto
         $dotenv->load();
@@ -45,40 +49,70 @@ class Router
         // Obtém a URI sem a query string
         $uri = strtok($this->currentUri, '?');
         $method = $_SERVER['REQUEST_METHOD'];
+        $statusCode = 200;
+        $error = null;
     
-        foreach ($this->routes[$method] as $routeUri => $route) {
-            // Cria um padrão para capturar parâmetros dinâmicos
-            $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_-]+)', $routeUri);
-            $pattern = "#^" . $pattern . "$#";
-    
-            if (preg_match($pattern, $uri, $matches)) {
-                // Filtra os parâmetros dinâmicos (somente grupos nomeados)
-                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-    
-                // Executa cada middleware
-                foreach ($route['middlewares'] as $middleware) {
-                    $middlewareClass = $middleware[0];
-                    $middlewareMethod = $middleware[1];
-    
-                    // Instancia a classe do middleware e chama o método especificado
-                    $middlewareInstance = new $middlewareClass;
-                    $middlewareInstance->$middlewareMethod($params);  // Passa os parâmetros se necessário
+        try {
+            foreach ($this->routes[$method] as $routeUri => $route) {
+                // Cria um padrão para capturar parâmetros dinâmicos
+                $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_-]+)', $routeUri);
+                $pattern = "#^" . $pattern . "$#";
+        
+                if (preg_match($pattern, $uri, $matches)) {
+                    // Filtra os parâmetros dinâmicos (somente grupos nomeados)
+                    $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+        
+                    // Executa cada middleware
+                    foreach ($route['middlewares'] as $middleware) {
+                        $middlewareClass = $middleware[0];
+                        $middlewareMethod = $middleware[1];
+        
+                        // Instancia a classe do middleware e chama o método especificado
+                        $middlewareInstance = new $middlewareClass;
+                        $middlewareInstance->$middlewareMethod($params);  // Passa os parâmetros se necessário
+                    }
+        
+                    // Chama a ação e passa os parâmetros diretamente como argumentos
+                    if (is_array($route['action'])) {
+                        [$class, $method] = $route['action'];
+                        call_user_func_array([new $class, $method], $params);
+                    } else {
+                        call_user_func_array($route['action'], $params);
+                    }
+        
+                    // Log successful request
+                    $executionTime = microtime(true) - $this->startTime;
+                    $this->logger->logRequest($method, $uri, $statusCode, $executionTime);
+                    return true;
                 }
-    
-                // Chama a ação e passa os parâmetros diretamente como argumentos
-                if (is_array($route['action'])) {
-                    [$class, $method] = $route['action'];
-                    call_user_func_array([new $class, $method], $params);
-                } else {
-                    call_user_func_array($route['action'], $params);
-                }
-    
-                return true;
             }
+            
+            // No route found - 404
+            $statusCode = 404;
+            $executionTime = microtime(true) - $this->startTime;
+            $this->logger->logRequest($method, $uri, $statusCode, $executionTime, 'Route not found');
+            
+            // Render 404 page
+            \App\Controllers\ControllerHelper::render404();
+            return false;
+            
+        } catch (\Throwable $e) {
+            // Log error
+            $statusCode = 500;
+            $executionTime = microtime(true) - $this->startTime;
+            $error = $e->getMessage();
+            $this->logger->logError($error, $e->getTraceAsString());
+            $this->logger->logRequest($method, $uri, $statusCode, $executionTime, $error);
+            
+            // Re-throw if in debug mode, otherwise show generic error
+            if (isset($_ENV['APP_DEBUG']) && $_ENV['APP_DEBUG'] === 'true') {
+                throw $e;
+            } else {
+                http_response_code(500);
+                echo "An error occurred. Please check the logs.";
+            }
+            return false;
         }
-    
-        echo "Página não encontrada";
-        return false;
     }
     
     

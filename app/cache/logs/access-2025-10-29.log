@@ -1,0 +1,3 @@
+{"timestamp":"2025-10-29 12:33:52","method":"index","uri":false,"status":200,"ip":"127.0.0.1","user_agent":"curl/8.14.1","referer":"Direct","execution_time":"571.64ms","memory_usage":"2 MB","peak_memory":"2 MB"}
+{"timestamp":"2025-10-29 12:34:23","method":"index","uri":false,"status":200,"ip":"127.0.0.1","user_agent":"curl/8.14.1","referer":"Direct","execution_time":"536.49ms","memory_usage":"2 MB","peak_memory":"2 MB"}
+{"timestamp":"2025-10-29 12:34:54","method":"index","uri":false,"status":200,"ip":"127.0.0.1","user_agent":"curl/8.14.1","referer":"Direct","execution_time":"1211.28ms","memory_usage":"2 MB","peak_memory":"2 MB"}
