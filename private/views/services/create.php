@@ -76,6 +76,59 @@
                     </textarea>
                  </div>
 
+                <!-- Includes Section -->
+                <div class="col-12 mb-4">
+                    <label class="form-label">O que está incluído no serviço</label>
+                    <div id="includesContainer">
+                        <div class="mb-2 d-flex gap-2 include-row">
+                            <input type="text" name="includes[]" class="form-control" placeholder="Ex: Massagem de corpo completo">
+                            <button type="button" class="btn btn-danger-soft remove-include-btn" style="display: none;">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" id="addIncludeBtn" class="btn btn-sm btn-primary-soft mt-2">
+                        <i class="bi bi-plus"></i> Adicionar Item
+                    </button>
+                </div>
+
+                <!-- Prices Section -->
+                <div class="col-12 mb-4">
+                    <label class="form-label">Preços do Serviço</label>
+                    <div id="pricesContainer">
+                        <div class="card mb-3 price-row" data-row-id="0">
+                            <div class="card-body">
+                                <div class="row g-2">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Preço (€) <b class="text-danger">*</b></label>
+                                        <input type="number" step="0.01" name="prices[0][price]" class="form-control" placeholder="60.00" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Duração (min)</label>
+                                        <input type="number" name="prices[0][duration]" class="form-control" placeholder="60" value="60">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Moeda</label>
+                                        <select name="prices[0][currency]" class="form-select">
+                                            <option value="EUR" selected>EUR - Euro</option>
+                                            <option value="USD">USD - Dólar</option>
+                                            <option value="BRL">BRL - Real</option>
+                                            <option value="AOA">AOA - Kwanza</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Descrição do Preço (opcional)</label>
+                                        <textarea name="prices[0][description]" class="form-control" rows="2" placeholder="Ex: Ideal para relaxamento completo, incluindo pés e mãos"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="addPriceBtn" class="btn btn-sm btn-primary-soft">
+                        <i class="bi bi-plus"></i> Adicionar Preço
+                    </button>
+                </div>
+
             </div>
 
             <br><br>
@@ -92,6 +145,89 @@
 
 
 <script src="/..//private/assets/js/liveImageUpload.js"></script>
+
+<script>
+// Handle includes
+let includeCounter = 0;
+document.getElementById('addIncludeBtn').addEventListener('click', function() {
+    const container = document.getElementById('includesContainer');
+    const newRow = document.createElement('div');
+    newRow.className = 'mb-2 d-flex gap-2 include-row';
+    newRow.innerHTML = `
+        <input type="text" name="includes[]" class="form-control" placeholder="Ex: Massagem de corpo completo">
+        <button type="button" class="btn btn-danger-soft remove-include-btn">
+            <i class="bi bi-x"></i>
+        </button>
+    `;
+    container.appendChild(newRow);
+    updateIncludeButtons();
+});
+
+document.getElementById('includesContainer').addEventListener('click', function(e) {
+    if (e.target.closest('.remove-include-btn')) {
+        e.target.closest('.include-row').remove();
+        updateIncludeButtons();
+    }
+});
+
+function updateIncludeButtons() {
+    const rows = document.querySelectorAll('.include-row');
+    rows.forEach((row, index) => {
+        const btn = row.querySelector('.remove-include-btn');
+        btn.style.display = rows.length > 1 ? 'block' : 'none';
+    });
+}
+
+// Handle prices
+let priceCounter = 0;
+document.getElementById('addPriceBtn').addEventListener('click', function() {
+    priceCounter++;
+    const container = document.getElementById('pricesContainer');
+    const newRow = document.createElement('div');
+    newRow.className = 'card mb-3 price-row';
+    newRow.setAttribute('data-row-id', priceCounter);
+    newRow.innerHTML = `
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="mb-0">Preço ${priceCounter + 1}</h6>
+                <button type="button" class="btn btn-sm btn-danger-soft remove-price-btn">
+                    <i class="bi bi-trash"></i> Remover
+                </button>
+            </div>
+            <div class="row g-2">
+                <div class="col-md-4">
+                    <label class="form-label">Preço (€) <b class="text-danger">*</b></label>
+                    <input type="number" step="0.01" name="prices[${priceCounter}][price]" class="form-control" placeholder="60.00" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Duração (min)</label>
+                    <input type="number" name="prices[${priceCounter}][duration]" class="form-control" placeholder="60" value="60">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Moeda</label>
+                    <select name="prices[${priceCounter}][currency]" class="form-select">
+                        <option value="EUR" selected>EUR - Euro</option>
+                        <option value="USD">USD - Dólar</option>
+                        <option value="BRL">BRL - Real</option>
+                        <option value="AOA">AOA - Kwanza</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Descrição do Preço (opcional)</label>
+                    <textarea name="prices[${priceCounter}][description]" class="form-control" rows="2" placeholder="Ex: Ideal para relaxamento completo, incluindo pés e mãos"></textarea>
+                </div>
+            </div>
+        </div>
+    `;
+    container.appendChild(newRow);
+});
+
+document.getElementById('pricesContainer').addEventListener('click', function(e) {
+    if (e.target.closest('.remove-price-btn')) {
+        e.target.closest('.price-row').remove();
+    }
+});
+</script>
 
 </body>
 </html>

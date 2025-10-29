@@ -38,7 +38,7 @@ class Database
         // Verifica se a instância já foi criada, se não, cria uma nova conexão
         if (!isset(self::$instance)) {
             $database = new self(); // Cria uma nova instância da classe Database
-            $dsn = "mysql:host={$database->host};dbname={$database->database};port={$database->port}";
+            $dsn = "mysql:host={$database->host};dbname={$database->database};port={$database->port};charset=utf8mb4";
 
             try {
                 // Criando a conexão PDO
@@ -46,6 +46,8 @@ class Database
                 self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 self::$instance->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
                 self::$instance->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+                // Set UTF-8 charset
+                self::$instance->exec("SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci");
             } catch (PDOException $e) {
                 // Em caso de erro, exibe a mensagem de erro
                 self::handleError('Erro ao conectar ao banco de dados: ' . $e->getMessage());

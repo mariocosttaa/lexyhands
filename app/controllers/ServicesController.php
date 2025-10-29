@@ -40,6 +40,7 @@ class ServicesController extends ControllerHelper
             'othersServices' => \App\Models\Services::getAllExceptThis(id: $service->id, order: 'id DESC', limit: 6),
             'settigns' => parent::settings(),
             'service_faq' => ServiceFaq::getAllByServiceId(service_id: $service->id, order: 'id DESC'),
+            'service_prices' => \App\Models\Services_price::getAllByServiceId($service->id),
         ]);
     }
 }

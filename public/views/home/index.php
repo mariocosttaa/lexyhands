@@ -389,23 +389,45 @@
 <!-- End Services Section-->
 
 
-<?php if (!empty($products)) { 
-  
-    $totalProducts = count(value: $products);
-    $halfTotalProducts = (int) ($totalProducts / 2);
-    $firstHalfProducts = array_slice(array: $products, offset: 0, length: $halfTotalProducts);
-    $secondHalfProducts = array_slice(array: $products, offset: $halfTotalProducts);
+<?php 
+// Services Pricing Section (similar to old products section)
+if (!empty($services) && is_array($services)) { 
+    // Get all services with their prices
+    $servicesWithPrices = [];
+    foreach ($services as $service) {
+        $service = (object) $service;
+        $servicePrices = $service->prices ?? [];
+        if (!empty($servicePrices)) {
+            foreach ($servicePrices as $price) {
+                $price = (object) $price;
+                $servicesWithPrices[] = [
+                    'service_name' => $service->name,
+                    'service_image' => $service->image ?? '',
+                    'service_slug' => $service->identificator ?? '',
+                    'price' => $price->price,
+                    'currency_code' => $price->currency_code ?? 'EUR',
+                    'duration' => $price->duration ?? 60,
+                    'description' => $price->description ?? ''
+                ];
+            }
+        }
+    }
+    
+    // Split services into two halves for left/right layout
+    $totalServices = count($servicesWithPrices);
+    $halfTotalServices = (int) ($totalServices / 2);
+    $firstHalfServices = array_slice($servicesWithPrices, 0, $halfTotalServices);
+    $secondHalfServices = array_slice($servicesWithPrices, $halfTotalServices);
 
-    if(empty($firstHalfProducts)) {
+    if(empty($firstHalfServices)) {
       $defaultCol = 6;
-      $firstHalfProducts = $secondHalfProducts;
-      $secondHalfProducts = [];
+      $firstHalfServices = $secondHalfServices;
+      $secondHalfServices = [];
     } else {
       $defaultCol = 4;
     }
 
-    
-
+    if (!empty($servicesWithPrices)) {
 ?>
 
 <section class="pricing-section-four">
@@ -420,67 +442,60 @@
             <div class="title-stroke-text">Preçário</div>
             <figure class="image"><img src="/assets/images/icons/icon1.png" alt="Image"></figure>
             <span class="sub-title">LexyHands</span>
-            <h2 class="words-slide-up text-split">Você escolhe a sua primeira experiência</h2>
+            <h2 class="words-slide-up text-split">Escolha a sua sessão de massagem</h2>
         </div>
         <div class="row align-items-center">
             <div class="content-column col-lg-<?php echo $defaultCol ?>">
                 <!-- pricing-block -->
                 <div class="row align-items-center">
-                    <?php foreach ($firstHalfProducts as  $product) {
-                          $product = (object) $product;
-                          if (!empty($product->images)) {
-                            $product->images = json_decode(json: $product->images, associative: true);
-                          }
-                          if ($product->name == $product->name) {
-                            $prices = getPrices(id: $product->id);
-                          } ?>
-
+                    <?php foreach ($firstHalfServices as $serviceItem) { ?>
                     <!-- pricing-block -->
                     <div class="pricing-block">
-                        <h4 class="title"><a href="https://web.whatsapp.com/send?phone=+351962674341&amp;text=Ol%C3%A1,%20tudo%20bem%20?%20Estou%20a%20entrar%20em%20contacto%20a%20partir%20do%20Website,%20e%20gostaria%20de%20reservar%20a%20Sess%C3%A3o%20de%20Massagem%20de%20<?php echo urlencode($product->name); ?>."
-                        target="_blank"><?php echo $product->name; ?></a></h4>
+                        <h4 class="title"><a href="/service/<?php echo $serviceItem['service_slug'] ?>" target="_blank"><?php echo htmlspecialchars($serviceItem['service_name']); ?></a></h4>
                         <div class="inner-box">
-                            <?php if (!empty($product->images)) { ?>
-                            <div class="image-box">
-                                <figure class="image overlay-anim mb-0">
-                                    <a href="https://web.whatsapp.com/send?phone=+351962674341&amp;text=Ol%C3%A1,%20tudo%20bem%20?%20Estou%20a%20entrar%20em%20contacto%20a%20partir%20do%20Website,%20e%20gostaria%20de%20reservar%20a%20Sess%C3%A3o%20de%20Massagem%20de%20<?php echo urlencode($product->name); ?>."
-                                    target="_blank"><img src="<?php echo reset($product->images) ?>" alt="Image"></a>
-                                </figure>
-                            </div>
-                            <?php } ?>
-                            <?php if (!empty($prices)) { ?>
+                            <?php if (!empty($serviceItem['description'])) { ?>
                             <div class="row">
-                                <?php foreach ($prices as $p) { 
-                                  $p = (object) $p; 
-                                  if(!empty($p->description)) {
-                                    $ColInSight = "col-6";
-                                  } else {
-                                     $ColInSight = "col-12";
-                                  }
-                                  ?>
-                                  
-                                <?php if($ColInSight == "col-6") { ?>
                                 <div class="col-6">
                                     <div class="content-box">
                                         <div class="inner">
-                                          <a href="https://web.whatsapp.com/send?phone=+351962674341&amp;text=Ol%C3%A1,%20tudo%20bem%20?%20Estou%20a%20entrar%20em%20contacto%20a%20partir%20do%20Website,%20e%20gostaria%20de%20reservar%20a%20Sess%C3%A3o%20de%20Massagem%20de%20<?php echo urlencode($product->name); ?>."
-                                          target="_blank"><div class="text-secondary"><?php echo $p->description; ?></div></a>
+                                            <a href="/service/<?php echo $serviceItem['service_slug'] ?>" target="_blank">
+                                                <div class="text-secondary"><?php echo htmlspecialchars($serviceItem['description'], ENT_QUOTES, 'UTF-8'); ?></div>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                                <?php } ?>
-
-                                <div class="<?php echo $ColInSight ?>">
+                                <div class="col-6">
                                     <div class="content-box">
-                                        <a href="https://web.whatsapp.com/send?phone=+351962674341&amp;text=Ol%C3%A1,%20tudo%20bem%20?%20Estou%20a%20entrar%20em%20contacto%20a%20partir%20do%20Website,%20e%20gostaria%20de%20reservar%20a%20Sess%C3%A3o%20de%20Massagem%20de%20<?php echo urlencode($product->name); ?>."
-                                        target="_blank"><span class="price"><?php echo currencyOrganizer(value: $p->price, decimalPlaces: 2); ?></span></a>
+                                        <a href="/service/<?php echo $serviceItem['service_slug'] ?>" target="_blank">
+                                            <span class="price"><?php echo number_format($serviceItem['price'], 2, ',', '.') ?> <?php echo htmlspecialchars($serviceItem['currency_code']) ?></span>
+                                        </a>
                                     </div>
                                 </div>
-                                <?php } ?>
-                                <?php } ?>
-
-
                             </div>
+                            <?php } else { ?>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="content-box">
+                                        <a href="/service/<?php echo $serviceItem['service_slug'] ?>" target="_blank">
+                                            <span class="price"><?php echo number_format($serviceItem['price'], 2, ',', '.') ?> <?php echo htmlspecialchars($serviceItem['currency_code']) ?></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
+                            <?php if (!empty($serviceItem['duration'])) { ?>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <div class="content-box">
+                                        <div class="inner">
+                                            <div style="color: #666; font-size: 14px;">
+                                                <i class="far fa-clock me-1"></i> <?php echo $serviceItem['duration'] ?> minutos
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <?php } ?>
@@ -493,79 +508,83 @@
                     <div class="bg bg-image bounce-y"
                         style="background-image: url(/assets/images/resource/flower1.png);"></div>
                     <figure class="image overlay-anim mb-0">
-                        <img src="/assets/images/website/banner-4.png" alt="Image">
+                        <?php 
+                        // Use first service image or default
+                        $firstService = !empty($services) ? (object)($services[0]) : null;
+                        if ($firstService && !empty($firstService->image)) { ?>
+                            <img src="/<?php echo $firstService->image ?>" alt="Image" style="border-radius: 208px;">
+                        <?php } else { ?>
+                            <img src="/assets/images/website/banner-4.png" alt="Image">
+                        <?php } ?>
                     </figure>
                 </div>
             </div>
 
             <div class="content-column col-lg-<?php echo $defaultCol ?>">
                 <!-- pricing-block -->
-                <?php if(!empty($secondHalfProducts )) { ?>
+                <?php if(!empty($secondHalfServices)) { ?>
                 <div class="row align-items-center">
-                    <?php foreach ($secondHalfProducts  as  $product) {
-                            $product = (object) $product;
-                            if (!empty($product->images)) {
-                              $product->images = json_decode(json: $product->images, associative: true);
-                            }
-                            if ($product->name == $product->name) {
-                              $prices = getPrices(id: $product->id);
-                            } ?>
-
+                    <?php foreach ($secondHalfServices as $serviceItem) { ?>
                     <!-- pricing-block -->
                     <div class="pricing-block">
-                        <h4 class="title"><a href=""><?php echo $product->name; ?></a></h4>
+                        <h4 class="title"><a href="/service/<?php echo $serviceItem['service_slug'] ?>" target="_blank"><?php echo htmlspecialchars($serviceItem['service_name']); ?></a></h4>
                         <div class="inner-box">
-                            <?php if (!empty($product->images)) { ?>
-                            <div class="image-box">
-                                <figure class="image overlay-anim mb-0">
-                                    <a href=""><img src="<?php echo reset($product->images) ?>" alt="Image"></a>
-                                </figure>
-                            </div>
-                            <?php } ?>
-                            <?php if (!empty($prices)) { ?>
+                            <?php if (!empty($serviceItem['description'])) { ?>
                             <div class="row">
-                            <?php foreach ($prices as $p) { 
-                                  $p = (object) $p; 
-                                  if(!empty($p->description)) {
-                                    $ColInSight = "col-6";
-                                  } else {
-                                     $ColInSight = "col-12";
-                                  }
-                                  ?>
-                                  
-                                <?php if($ColInSight == "col-6") { ?>
                                 <div class="col-6">
                                     <div class="content-box">
                                         <div class="inner">
-                                          <a href="https://web.whatsapp.com/send?phone=+351962674341&amp;text=Ol%C3%A1,%20tudo%20bem%20?%20Estou%20a%20entrar%20em%20contacto%20a%20partir%20do%20Website,%20e%20gostaria%20de%20reservar%20a%20Sess%C3%A3o%20de%20Massagem%20de%20<?php echo urlencode($product->name); ?>."
-                                          target="_blank"><div class="text-secondary"><?php echo $p->description; ?></div></a>
+                                            <a href="/service/<?php echo $serviceItem['service_slug'] ?>" target="_blank">
+                                                <div class="text-secondary"><?php echo htmlspecialchars($serviceItem['description'], ENT_QUOTES, 'UTF-8'); ?></div>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                                <?php } ?>
-
-                                <div class="<?php echo $ColInSight ?>">
+                                <div class="col-6">
                                     <div class="content-box">
-                                        <a href="https://web.whatsapp.com/send?phone=+351962674341&amp;text=Ol%C3%A1,%20tudo%20bem%20?%20Estou%20a%20entrar%20em%20contacto%20a%20partir%20do%20Website,%20e%20gostaria%20de%20reservar%20a%20Sess%C3%A3o%20de%20Massagem%20de%20<?php echo urlencode($product->name); ?>."
-                                        target="_blank"><span class="price"><?php echo currencyOrganizer(value: $p->price, decimalPlaces: 2); ?></span></a>
+                                        <a href="/service/<?php echo $serviceItem['service_slug'] ?>" target="_blank">
+                                            <span class="price"><?php echo number_format($serviceItem['price'], 2, ',', '.') ?> <?php echo htmlspecialchars($serviceItem['currency_code']) ?></span>
+                                        </a>
                                     </div>
                                 </div>
-                                <?php } ?>
-                                <?php } ?>
-
-
                             </div>
+                            <?php } else { ?>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="content-box">
+                                        <a href="/service/<?php echo $serviceItem['service_slug'] ?>" target="_blank">
+                                            <span class="price"><?php echo number_format($serviceItem['price'], 2, ',', '.') ?> <?php echo htmlspecialchars($serviceItem['currency_code']) ?></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
+                            <?php if (!empty($serviceItem['duration'])) { ?>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <div class="content-box">
+                                        <div class="inner">
+                                            <div style="color: #666; font-size: 14px;">
+                                                <i class="far fa-clock me-1"></i> <?php echo $serviceItem['duration'] ?> minutos
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <?php } ?>
                 </div>
-                <?php }?>
+                <?php } ?>
             </div>
 
         </div>
     </div>
 </section>
-<?php }?>
+<?php } 
+} 
+?>
 
 <!-- Seção Funfact -->
 <section class="funfact-section-home5">

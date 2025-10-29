@@ -74,6 +74,60 @@
                     <h3 class="mt-4">Informações do Serviço</h3>
 
                     <p><?php echo $service->content ?></p>
+
+                    <!-- Includes Section -->
+                    <?php 
+                    $includes = !empty($service->includes) ? json_decode($service->includes, true) : [];
+                    if (!empty($includes)) { ?>
+                    <div class="mt-4 mb-4">
+                        <h4>O que está incluído:</h4>
+                        <ul class="list-unstyled">
+                            <?php foreach ($includes as $include) { ?>
+                                <li class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-check-circle text-primary me-2"></i>
+                                    <span><?php echo htmlspecialchars($include) ?></span>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                    <?php } ?>
+
+                    <!-- Prices Section -->
+                    <?php 
+                    // Make sure we have the prices variable
+                    $prices = $service_prices ?? [];
+                    if(!empty($prices) && is_array($prices)) { ?>
+                    <div class="mt-4 mb-4">
+                        <h4 class="mb-4">Preços</h4>
+                        <div class="row g-4">
+                            <?php foreach ($prices as $price) { 
+                                $price = (object)$price; ?>
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card h-100 shadow-sm" style="transition: transform 0.2s; border-radius: 12px; border: 2px solid #BFA54E;">
+                                        <div class="card-body d-flex flex-column p-4">
+                                            <div class="mb-3">
+                                                <h2 class="mb-1" style="font-size: 2rem; font-weight: bold; color: #BFA54E;">
+                                                    <?php echo number_format($price->price, 2, ',', '.') ?> 
+                                                    <small class="text-muted" style="font-size: 0.7em;"><?php echo htmlspecialchars($price->currency_code) ?></small>
+                                                </h2>
+                                                <?php if (!empty($price->duration)) { ?>
+                                                    <div class="text-muted small">
+                                                        <i class="far fa-clock me-1"></i> <?php echo $price->duration ?> minutos
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+                                            <?php if (!empty($price->description)) { ?>
+                                                <p class="text-muted mb-auto" style="line-height: 1.6;">
+                                                    <?php echo nl2br(htmlspecialchars($price->description, ENT_QUOTES, 'UTF-8')) ?>
+                                                </p>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <?php } ?>
                     
                     <?php if(!empty($service_faq)) {?>
                     <div class=" mt-25 mb-4">

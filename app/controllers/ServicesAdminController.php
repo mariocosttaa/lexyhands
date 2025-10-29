@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Services\FileUpload;
 use App\Models\Services as Services;
+use App\Models\Services_price as ServicesPrice;
 use App\Services\SlugGenerator;
 
 class ServicesAdminController extends ServicesController
@@ -33,8 +34,22 @@ class ServicesAdminController extends ServicesController
 
         $identificator = slug(string: $result->data->name);
 
-        $send = Services::create(data: ['name' => $result->data->name, 'identificator' => $identificator, 'description' => $result->data->description, 'content' => $result->data->content, 'featured_image' => $image]);
+        // Process includes
+        $includes = self::process_includes($_POST['includes'] ?? []);
+        
+        // Create service
+        $send = Services::create(data: [
+            'name' => $result->data->name, 
+            'identificator' => $identificator, 
+            'description' => $result->data->description, 
+            'content' => $result->data->content, 
+            'featured_image' => $image,
+            'includes' => !empty($includes) ? json_encode($includes) : null
+        ]);
+        
         if ($send) {
+            // Process prices
+            self::process_prices($send, $_POST['prices'] ?? []);
             parent::notification(title: 'O serviço foi Criado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '../services');
             exit();
         }
@@ -48,8 +63,12 @@ class ServicesAdminController extends ServicesController
             exit();
         }
 
+        $includes = !empty($service->includes) ? json_decode($service->includes, true) : [];
+        $service->includes_array = $includes;
+
         parent::renderView(array: ['type' => 'private', 'view' => 'services/edit.php', 'layoutChange' => ['pageName' => 'Editar Serviço']], strings: [
-            'service' => $service
+            'service' => $service,
+            'service_prices' => ServicesPrice::getAllByServiceId($service->id)
         ]);
     }
 
@@ -71,8 +90,20 @@ class ServicesAdminController extends ServicesController
         $image = self::validate_image() ?: ($service->featured_image ?? null);
         $identificator = slug(string: $result->data->name);
 
+        // Process includes
+        $includes = self::process_includes($_POST['includes'] ?? []);
 
-        Services::update($service->id, data: ['name' => $result->data->name, 'identificator' => $identificator, 'description' => $result->data->description, 'content' => $result->data->content, 'featured_image' => $image]);
+        Services::update($service->id, data: [
+            'name' => $result->data->name, 
+            'identificator' => $identificator, 
+            'description' => $result->data->description, 
+            'content' => $result->data->content, 
+            'featured_image' => $image,
+            'includes' => !empty($includes) ? json_encode($includes) : null
+        ]);
+
+        // Process prices
+        self::process_prices($service->id, $_POST['prices'] ?? []);
 
         parent::notification(title: 'O serviço foi Actualizado !', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/services/');
         exit();
@@ -134,6 +165,41 @@ class ServicesAdminController extends ServicesController
         return $image;
     }
 
+    private static function process_includes(array $includes_data): array
+    {
+        $includes = [];
+        if (!empty($includes_data) && is_array($includes_data)) {
+            foreach ($includes_data as $include) {
+                $include = trim($include);
+                if (!empty($include)) {
+                    $includes[] = $include;
+                }
+            }
+        }
+        return $includes;
+    }
 
+    private static function process_prices(int $service_id, array $prices_data): void
+    {
+        // Delete existing prices
+        ServicesPrice::deleteByServiceId($service_id);
+
+        if (!empty($prices_data) && is_array($prices_data)) {
+            foreach ($prices_data as $price_data) {
+                if (!empty($price_data['price'])) {
+                    ServicesPrice::create([
+                        'service_id' => $service_id,
+                        'name' => null, // Not used anymore
+                        'description' => $price_data['description'] ?? null,
+                        'price' => floatval($price_data['price']),
+                        'currency_code' => $price_data['currency'] ?? 'EUR',
+                        'duration' => intval($price_data['duration'] ?? 60),
+                        'is_active' => isset($price_data['is_active']) ? (bool)$price_data['is_active'] : true,
+                        'sort_order' => intval($price_data['sort_order'] ?? 0)
+                    ]);
+                }
+            }
+        }
+    }
 
 }

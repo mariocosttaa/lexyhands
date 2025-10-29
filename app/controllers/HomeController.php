@@ -10,9 +10,20 @@ class HomeController extends ControllerHelper
 {
     public static function index(): void
     {
+        $services = Services::getAll(order: 'id DESC', limit: 4);
+        
+        // Fetch prices for each service
+        $servicesWithPrices = [];
+        if (!empty($services) && is_array($services)) {
+            foreach ($services as $service) {
+                $service = (object)$service;
+                $service->prices = \App\Models\Services_price::getAllByServiceId($service->id);
+                $servicesWithPrices[] = $service;
+            }
+        }
+        
         parent::renderView(array: ['type' => 'public', 'view' => 'home/index.php', 'layoutChange' => ['pageName' => 'Lexy Hands']], strings: [
-            'services' => Services::getAll(order: 'id DESC', limit: 4),
-            'products' => Products::getAll(order: 'id DESC'),
+            'services' => $servicesWithPrices,
             'posts' => Posts::getAll(order: 'id DESC', limit: 3 ),
             'settings' => Settings::get(),
         ]);
