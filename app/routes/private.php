@@ -30,6 +30,11 @@ $router->post(uri: '/admin/settings/logos', action: [
         [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
 ]);
 
+$router->post(uri: '/admin/settings/social-media', action: [ 
+    App\Controllers\SettingsAdminController::class, 'social_media'], middlewares: [
+        [App\Middlewares\AuthMiddlewar::class, 'onlyLogin'],
+]);
+
 
 
 

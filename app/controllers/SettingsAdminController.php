@@ -23,8 +23,14 @@ class SettingsAdminController extends ControllerHelper
             'phone' => 'string',
         ], notifyError: true, redirectUrl: '/../admin/settings');
 
-        //actualizar
-        Settings::update(data: ['site_name' => $result->data->site_name, 'email' =>  $result->data->email, 'phone' => $result->data->phone]);
+        //actualizar (update both contact_email/contact_phone and email/phone for compatibility)
+        Settings::update(data: [
+            'site_name' => $result->data->site_name, 
+            'contact_email' => $result->data->email,
+            'email' => $result->data->email,
+            'contact_phone' => $result->data->phone ?? null,
+            'phone' => $result->data->phone ?? null
+        ]);
 
         //notificação
         parent::notification(title: 'Configurações Gerais Actualizadas!', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/settings');
@@ -77,6 +83,36 @@ class SettingsAdminController extends ControllerHelper
         parent::notification(title: 'Logotipo(s) Actualizados!', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/settings');
         exit();
 
+    }
+
+    public static function social_media(): void
+    {
+        $result = \App\Services\FormFilter::validate($_POST, rules: [
+            'whatssap' => 'string|max:50',
+            'facebook' => 'string|max:500',
+            'youtube' => 'string|max:500',
+            'linkedin' => 'string|max:500',
+            'pinterest' => 'string|max:500',
+        ], notifyError: true, redirectUrl: '/../admin/settings');
+
+        // Update settings with social media links
+        // Also update facebook_url and linkedin_url if they exist in table for compatibility
+        $dataToUpdate = [
+            'whatssap' => $result->data->whatssap ?? null,
+            'whatsapp' => $result->data->whatssap ?? null, // Also update whatsapp if exists
+            'facebook' => $result->data->facebook ?? null,
+            'facebook_url' => $result->data->facebook ?? null, // Also update facebook_url for compatibility
+            'youtube' => $result->data->youtube ?? null,
+            'linkedin' => $result->data->linkedin ?? null,
+            'linkedin_url' => $result->data->linkedin ?? null, // Also update linkedin_url for compatibility
+            'pinterest' => $result->data->pinterest ?? null,
+        ];
+
+        Settings::update(data: $dataToUpdate);
+
+        //notificação
+        parent::notification(title: 'Redes Sociais Actualizadas!', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/settings');
+        exit();
     }
 
 }
