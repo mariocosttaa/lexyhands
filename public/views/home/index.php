@@ -2,15 +2,15 @@
 
 <!-- Banner Start -->
 <section class="banner-style1-home5">
-    <div class="leaf-1 d-none d-xxl-block bounce-y"><img src="public/assets/images/home5-banner3.png" alt=""></div>
-    <div class="banner-bottom"><img src="public/assets/images/home5-banner-bottom.png" alt=""></div>
+    <div class="leaf-1 d-none d-xxl-block bounce-y"><img src="/assets/images/home5-banner3.png" alt=""></div>
+    <div class="banner-bottom"><img src="/assets/images/home5-banner-bottom.png" alt=""></div>
     <div class="auto-container">
         <div class="row">
             <div class="col-xl-6 d-none d-xl-block">
                 <div class="image-content">
                     <div class="bg-circle zoom-one"></div>
-                    <img class="img" src="public/assets/images/home5-banner1.png" alt="">
-                    <img class="img-2 bounce-x" src="public/assets/images/home5-banner2.png" alt="">
+                    <img class="img" src="/assets/images/home5-banner1.png" alt="">
+                    <img class="img-2 bounce-x" src="/assets/images/home5-banner2.png" alt="">
                 </div>
             </div>
             <div class="col-xl-6">
@@ -40,7 +40,7 @@
         <div class="outer-box">
             <div class="sec-title text-center">
                 <div class="title-stroke-text">Serviços</div>
-                <figure class="image"><img src="public/assets/images/icon2.png" alt="Image"></figure>
+                <figure class="image"><img src="/assets/images/icon2.png" alt="Image"></figure>
                 <span class="sub-title">Maxímo Relaxamento</span>
                 <h2 class="words-slide-up text-split">Os nossos serviços</h2>
             </div>
@@ -56,7 +56,7 @@
                             <div class="bg-image" style="background-image:url(/<?php echo $service->image ?>);"></div>
                         </div>
                         <div class="content-box">
-                            <figure class="icon mb-0"><img src="public/assets/images/icon-leaf<?php if ($i >= 4) {
+                            <figure class="icon mb-0"><img src="/assets/images/icon-leaf<?php if ($i >= 4) {
                                                                                       echo 1;
                                                                                     } else {
                                                                                       echo $i;
@@ -89,7 +89,7 @@
             <div class="sec-title">
                 <div class="row">
                     <div class="col-xl-6">
-                        <figure class="image"><img src="public/assets/images/icons/icon1.png" alt="Image"></figure>
+                        <figure class="image"><img src="/assets/images/icons/icon1.png" alt="Image"></figure>
                         <span class="sub-title">Você Está Apenas a Um Passo</span>
                         <h2 class="words-slide-up text-split">Você sabia dos beneficios ?</h2>
                     </div>
@@ -108,14 +108,14 @@
                                 <div class="inner-box">
                                     <div class="image-box">
                                         <div class="bg-image"
-                                            style="background-image:url(public/assets/images/resource/service1-1.png);">
+                                            style="background-image:url(/assets/images/resource/service1-1.png);">
                                         </div>
                                         <div class="bg-image-two"
-                                            style="background-image:url(public/assets/images/resource/service1-2.png);">
+                                            style="background-image:url(/assets/images/resource/service1-2.png);">
                                         </div>
                                     </div>
                                     <div class="content-box">
-                                        <figure class="icon mb-0"><img src="public/assets/images/icons/theme-icon5.png"
+                                        <figure class="icon mb-0"><img src="/assets/images/icons/theme-icon5.png"
                                                 alt="Image"></figure>
                                         <h4 class="title"><a href="page-service-details.html">Relaxamento</a></h4>
                                     </div>
@@ -128,14 +128,14 @@
                                 <div class="inner-box">
                                     <div class="image-box">
                                         <div class="bg-image"
-                                            style="background-image:url(public/assets/images/resource/service1-1.png);">
+                                            style="background-image:url(/assets/images/resource/service1-1.png);">
                                         </div>
                                         <div class="bg-image-two"
-                                            style="background-image:url(public/assets/images/resource/service1-2.png);">
+                                            style="background-image:url(/assets/images/resource/service1-2.png);">
                                         </div>
                                     </div>
                                     <div class="content-box">
-                                        <figure class="icon mb-0"><img src="public/assets/images/icons/theme-icon6.png"
+                                        <figure class="icon mb-0"><img src="/assets/images/icons/theme-icon6.png"
                                                 alt="Image"></figure>
                                         <h4 class="title"><a href="page-service-details.html">Alívio</a></h4>
                                     </div>
@@ -148,14 +148,14 @@
                                 <div class="inner-box">
                                     <div class="image-box">
                                         <div class="bg-image"
-                                            style="background-image:url(public/assets/images/resource/service1-1.png);">
+                                            style="background-image:url(/assets/images/resource/service1-1.png);">
                                         </div>
                                         <div class="bg-image-two"
-                                            style="background-image:url(public/assets/images/resource/service1-2.png);">
+                                            style="background-image:url(/assets/images/resource/service1-2.png);">
                                         </div>
                                     </div>
                                     <div class="content-box">
-                                        <figure class="icon mb-0"><img src="public/assets/images/icons/theme-icon7.png"
+                                        <figure class="icon mb-0"><img src="/assets/images/icons/theme-icon7.png"
                                                 alt="Image"></figure>
                                         <h4 class="title"><a href="page-service-details.html">Circulação</a></h4>
                                     </div>
@@ -168,14 +168,14 @@
                                 <div class="inner-box">
                                     <div class="image-box">
                                         <div class="bg-image"
-                                            style="background-image:url(public/assets/images/resource/service1-1.png);">
+                                            style="background-image:url(/assets/images/resource/service1-1.png);">
                                         </div>
                                         <div class="bg-image-two"
-                                            style="background-image:url(public/assets/images/resource/service1-2.png);">
+                                            style="background-image:url(/assets/images/resource/service1-2.png);">
                                         </div>
                                     </div>
                                     <div class="content-box">
-                                        <figure class="icon mb-0"><img src="public/assets/images/icons/theme-icon8.png"
+                                        <figure class="icon mb-0"><img src="/assets/images/icons/theme-icon8.png"
                                                 alt="Image"></figure>
                                         <h4 class="title"><a href="page-service-details.html">Flexibilidade</a></h4>
                                     </div>
@@ -188,14 +188,14 @@
                                 <div class="inner-box">
                                     <div class="image-box">
                                         <div class="bg-image"
-                                            style="background-image:url(public/assets/images/resource/service1-1.png);">
+                                            style="background-image:url(/assets/images/resource/service1-1.png);">
                                         </div>
                                         <div class="bg-image-two"
-                                            style="background-image:url(public/assets/images/resource/service1-2.png);">
+                                            style="background-image:url(/assets/images/resource/service1-2.png);">
                                         </div>
                                     </div>
                                     <div class="content-box">
-                                        <figure class="icon mb-0"><img src="public/assets/images/icons/theme-icon5.png"
+                                        <figure class="icon mb-0"><img src="/assets/images/icons/theme-icon5.png"
                                                 alt="Image"></figure>
                                         <h4 class="title"><a href="page-service-details.html">Postura</a></h4>
                                     </div>
@@ -208,14 +208,14 @@
                                 <div class="inner-box">
                                     <div class="image-box">
                                         <div class="bg-image"
-                                            style="background-image:url(public/assets/images/resource/service1-1.png);">
+                                            style="background-image:url(/assets/images/resource/service1-1.png);">
                                         </div>
                                         <div class="bg-image-two"
-                                            style="background-image:url(public/assets/images/resource/service1-2.png);">
+                                            style="background-image:url(/assets/images/resource/service1-2.png);">
                                         </div>
                                     </div>
                                     <div class="content-box">
-                                        <figure class="icon mb-0"><img src="public/assets/images/icons/theme-icon6.png"
+                                        <figure class="icon mb-0"><img src="/assets/images/icons/theme-icon6.png"
                                                 alt="Image"></figure>
                                         <h4 class="title"><a href="page-service-details.html">Sono</a></h4>
                                     </div>
@@ -228,14 +228,14 @@
                                 <div class="inner-box">
                                     <div class="image-box">
                                         <div class="bg-image"
-                                            style="background-image:url(public/assets/images/resource/service1-1.png);">
+                                            style="background-image:url(/assets/images/resource/service1-1.png);">
                                         </div>
                                         <div class="bg-image-two"
-                                            style="background-image:url(public/assets/images/resource/service1-2.png);">
+                                            style="background-image:url(/assets/images/resource/service1-2.png);">
                                         </div>
                                     </div>
                                     <div class="content-box">
-                                        <figure class="icon mb-0"><img src="public/assets/images/icons/theme-icon7.png"
+                                        <figure class="icon mb-0"><img src="/assets/images/icons/theme-icon7.png"
                                                 alt="Image"></figure>
                                         <h4 class="title"><a href="page-service-details.html">Ansiedade</a></h4>
                                     </div>
@@ -248,14 +248,14 @@
                                 <div class="inner-box">
                                     <div class="image-box">
                                         <div class="bg-image"
-                                            style="background-image:url(public/assets/images/resource/service1-1.png);">
+                                            style="background-image:url(/assets/images/resource/service1-1.png);">
                                         </div>
                                         <div class="bg-image-two"
-                                            style="background-image:url(public/assets/images/resource/service1-2.png);">
+                                            style="background-image:url(/assets/images/resource/service1-2.png);">
                                         </div>
                                     </div>
                                     <div class="content-box">
-                                        <figure class="icon mb-0"><img src="public/assets/images/icons/theme-icon8.png"
+                                        <figure class="icon mb-0"><img src="/assets/images/icons/theme-icon8.png"
                                                 alt="Image"></figure>
                                         <h4 class="title"><a href="page-service-details.html">Ansiedade</a></h4>
                                     </div>
@@ -302,7 +302,7 @@
                 <!-- About Block -->
                 <div class="about-block-home5 mb-5 mb-lg-0 col-lg-6">
                     <div class="thumb-box">
-                        <img src="public/assets/images/website/banner-1.png" alt=""
+                        <img src="/assets/images/website/banner-1.png" alt=""
                             style="object-fit: cover; width: 900px; height: 500px;">
                     </div>
                 </div>
@@ -311,7 +311,7 @@
                 <div class="about-block-home5 col-lg-6 col-xxl-4">
                     <div class="inner-box">
                         <div class="sec-title mb-20">
-                            <figure class="image"><img src="public/assets/images/icon1.png" alt="Image"></figure>
+                            <figure class="image"><img src="/assets/images/icon1.png" alt="Image"></figure>
                             <span class="sub-title">Você precisa experimentar</span>
                             <h2 class="words-slide-up text-split">Experiência <br class="d-none d-xxl-block"> de
                                 Relaxamento </h2>
@@ -323,15 +323,15 @@
                                 mesmo!</small><br>
                             <div class="list-style1-home4 d-flex align-items-center">
                                 <ul class="list-style1-home4">
-                                    <li class="mb-25"><img class="me-2" src="public/assets/images/list-style-icon1.svg"
+                                    <li class="mb-25"><img class="me-2" src="/assets/images/list-style-icon1.svg"
                                             alt=""> Intensivas </li>
-                                    <li><img class="me-2" src="public/assets/images/list-style-icon1.svg" alt="">
+                                    <li><img class="me-2" src="/assets/images/list-style-icon1.svg" alt="">
                                         Específicas</li>
                                 </ul>
                                 <ul class="list-style1-home4 ml-40">
-                                    <li class="mb-25"><img class="me-2" src="public/assets/images/list-style-icon1.svg"
+                                    <li class="mb-25"><img class="me-2" src="/assets/images/list-style-icon1.svg"
                                             alt=""> Estéticas</li>
-                                    <li><img class="me-2" src="public/assets/images/list-style-icon1.svg" alt="">
+                                    <li><img class="me-2" src="/assets/images/list-style-icon1.svg" alt="">
                                         Energéticas </li>
                                 </ul>
                             </div>
@@ -355,7 +355,7 @@
                 <div class="about-block2-home5 col-lg-6 col-xxl-4 offset-xxl-2 ps-4 ps-xxl-0 mb-5 mb-lg-0">
                     <div class="inner-box">
                         <div class="sec-title mb-20">
-                            <figure class="image"><img src="public/assets/images/icon1.png" alt="Image"></figure>
+                            <figure class="image"><img src="/assets/images/icon1.png" alt="Image"></figure>
                             <span class="sub-title">Massagista Terapêutica</span>
                             <h2 class="words-slide-up text-split">Descubra sua nova versão</h2>
                         </div>
@@ -366,7 +366,7 @@
                                 regeneração, experimente sansações aliviantes e relaxantes. </p>
                             <div class="list-style1-home4 d-flex align-items-center">
                                 <ul class="list-style1-home4">
-                                    <li class="mb-25"><img class="me-2" src="public/assets/images/list-style-icon1.svg"
+                                    <li class="mb-25"><img class="me-2" src="/assets/images/list-style-icon1.svg"
                                             alt=""> 3 Anos de Experiência</li>
                                 </ul>
                             </div>
@@ -378,7 +378,7 @@
                 <!-- About Block -->
                 <div class="about-block2-home5 col-lg-6 text-end">
                     <div class="thumb-box">
-                        <img src="public/assets/images/website/professional.png" alt=""
+                        <img src="/assets/images/website/professional.png" alt=""
                             style="object-fit: cover; width: 900px; height: 500px;">
                     </div>
                 </div>
@@ -418,7 +418,7 @@
     <div class="auto-container">
         <div class="sec-title text-center">
             <div class="title-stroke-text">Preçário</div>
-            <figure class="image"><img src="public/assets/images/icons/icon1.png" alt="Image"></figure>
+            <figure class="image"><img src="/assets/images/icons/icon1.png" alt="Image"></figure>
             <span class="sub-title">LexyHands</span>
             <h2 class="words-slide-up text-split">Você escolhe a sua primeira experiência</h2>
         </div>
@@ -491,9 +491,9 @@
             <div class="image-column col-lg-<?php echo $defaultCol ?>">
                 <div class="inner-box">
                     <div class="bg bg-image bounce-y"
-                        style="background-image: url(public/assets/images/resource/flower1.png);"></div>
+                        style="background-image: url(/assets/images/resource/flower1.png);"></div>
                     <figure class="image overlay-anim mb-0">
-                        <img src="public/assets/images/website/banner-4.png" alt="Image">
+                        <img src="/assets/images/website/banner-4.png" alt="Image">
                     </figure>
                 </div>
             </div>
@@ -611,7 +611,7 @@
 <section class="blog-section-home4">
     <div class="auto-container">
         <div class="sec-title text-center">
-            <figure class="image"><img src="public/assets/images/icon1.png" alt="Image"></figure>
+            <figure class="image"><img src="/assets/images/icon1.png" alt="Image"></figure>
             <span class="sub-title">Comunidade</span>
             <h2 class="words-slide-up text-split">Confira as Úlltimas Novidades da Nossa Comunidade</h2>
         </div>
@@ -669,10 +669,10 @@
 
 <!-- Seção de Testemunhos -->
 <section class="testimonial-section-three pt-120 pb-90">
-    <div class="image-1 bounce-y"><img src="public/assets/images/resource/testimonial-pattrn1-2.png" alt=""></div>
+    <div class="image-1 bounce-y"><img src="/assets/images/resource/testimonial-pattrn1-2.png" alt=""></div>
     <div class="auto-container">
         <div class="sec-title text-center">
-            <figure class="image"><img src="public/assets/images/icons/icon1.png" alt="Image"></figure>
+            <figure class="image"><img src="/assets/images/icons/icon1.png" alt="Image"></figure>
             <span class="sub-title">Testemunhos</span>
             <h2 class="words-slide-up text-split">O que dizem?</h2>
         </div>
@@ -682,11 +682,11 @@
                 <!-- Bloco de Testemunho -->
                 <div class="testimonial-block-three">
                     <div class="inner-box">
-                        <img class="img-1 bounce-y" src="public/assets/images/resource/testi-pattern-1.png" alt="">
-                        <img class="img-2 bounce-x" src="public/assets/images/resource/testi-leaf-1.png" alt="">
+                        <img class="img-1 bounce-y" src="/assets/images/resource/testi-pattern-1.png" alt="">
+                        <img class="img-2 bounce-x" src="/assets/images/resource/testi-leaf-1.png" alt="">
                         <span class="icon bounce-y fa fa-quote-right"></span>
                         <figure class="thumb">
-                            <img src="public/assets/images/website/avatar.png" alt="">
+                            <img src="/assets/images/website/avatar.png" alt="">
                         </figure>
                         <div class="info-box">
                             <div class="rating">
@@ -706,11 +706,11 @@
                 <!-- Bloco de Testemunho -->
                 <div class="testimonial-block-three">
                     <div class="inner-box">
-                        <img class="img-1 bounce-y" src="public/assets/images/resource/testi-pattern-1.png" alt="">
-                        <img class="img-2 bounce-x" src="public/assets/images/resource/testi-leaf-1.png" alt="">
+                        <img class="img-1 bounce-y" src="/assets/images/resource/testi-pattern-1.png" alt="">
+                        <img class="img-2 bounce-x" src="/assets/images/resource/testi-leaf-1.png" alt="">
                         <span class="icon bounce-y fa fa-quote-right"></span>
                         <figure class="thumb">
-                            <img src="public/assets/images/website/avatar.png" alt="">
+                            <img src="/assets/images/website/avatar.png" alt="">
                         </figure>
                         <div class="info-box">
                             <div class="rating">
@@ -730,11 +730,11 @@
                 <!-- Bloco de Testemunho -->
                 <div class="testimonial-block-three">
                     <div class="inner-box">
-                        <img class="img-1 bounce-y" src="public/assets/images/resource/testi-pattern-1.png" alt="">
-                        <img class="img-2 bounce-x" src="public/assets/images/resource/testi-leaf-1.png" alt="">
+                        <img class="img-1 bounce-y" src="/assets/images/resource/testi-pattern-1.png" alt="">
+                        <img class="img-2 bounce-x" src="/assets/images/resource/testi-leaf-1.png" alt="">
                         <span class="icon bounce-y fa fa-quote-right"></span>
                         <figure class="thumb">
-                            <img src="public/assets/images/website/avatar.png" alt="">
+                            <img src="/assets/images/website/avatar.png" alt="">
                         </figure>
                         <div class="info-box">
                             <div class="rating">
@@ -754,11 +754,11 @@
                 <!-- Bloco de Testemunho -->
                 <div class="testimonial-block-three">
                     <div class="inner-box">
-                        <img class="img-1 bounce-y" src="public/assets/images/resource/testi-pattern-1.png" alt="">
-                        <img class="img-2 bounce-x" src="public/assets/images/resource/testi-leaf-1.png" alt="">
+                        <img class="img-1 bounce-y" src="/assets/images/resource/testi-pattern-1.png" alt="">
+                        <img class="img-2 bounce-x" src="/assets/images/resource/testi-leaf-1.png" alt="">
                         <span class="icon bounce-y fa fa-quote-right"></span>
                         <figure class="thumb">
-                            <img src="public/assets/images/website/avatar.png" alt="">
+                            <img src="/assets/images/website/avatar.png" alt="">
                         </figure>
                         <div class="info-box">
                             <div class="rating">

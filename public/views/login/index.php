@@ -35,7 +35,7 @@
         }
 
         .right-side {
-            background-image: url('/../public/assets/images/website/banner-4.png');
+            background-image: url('/assets/images/website/banner-4.png');
             background-size: cover;
             background-position: center;
             position: relative;
@@ -140,7 +140,7 @@
                 <div class="login-container">
 
                 <?php if ($settings->show_logo == true && $settings->site_logo !== null) { ?>
-                        <img src="/../public/assets/images/logo.png" alt="Horariux logo - um relógio estilizado com ponteiros formando a letra X, em tons de azul e roxo" class="logo">
+                        <img src="/assets/images/logo.png" alt="Horariux logo - um relógio estilizado com ponteiros formando a letra X, em tons de azul e roxo" class="logo">
                     <?php } else { ?>
                         <?php echo $settings->site_name ?>
                 <?php } ?>

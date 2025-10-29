@@ -1,5 +1,5 @@
 <!-- Start main-content -->
-<section class="page-title" style="background-image: url(/../public/assets/images/background/page-title-bg.png);">
+<section class="page-title" style="background-image: url(/assets/images/background/page-title-bg.png);">
     <h1 class="large-title">Comunidade</h1>
     <div class="image-curve"></div>
     <div class="auto-container">

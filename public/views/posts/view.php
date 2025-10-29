@@ -1,5 +1,5 @@
 <!-- Start main-content -->
-<section class="page-title" style="background-image: url(/../public/assets/images/background/page-title-bg.png);">
+<section class="page-title" style="background-image: url(/assets/images/background/page-title-bg.png);">
     <h1 class="large-title">Comunidade</h1>
     <div class="image-curve"></div>
     <div class="auto-container">
@@ -129,7 +129,7 @@
                                     <?php if(!empty($user->image)) { ?>
                                         <img src="/<?php echo $user->image ?>" alt="" style="object-fit: cover; width: 140px; height: 120px;"> 
                                     <?php } else { ?>
-                                        <img src="/../public/assets/images/users/avatar.png" alt="" style="object-fit: cover; width: 140px; height: 120px;"> 
+                                        <img src="/assets/images/users/avatar.png" alt="" style="object-fit: cover; width: 140px; height: 120px;"> 
                                     <?php } ?>
                                 </div>
                                 <div class="comment-one__content">
