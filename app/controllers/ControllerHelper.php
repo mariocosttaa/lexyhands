@@ -37,7 +37,8 @@ class ControllerHelper {
         return Layout::render(array: $array, strings: $strings);
     }
     public static function render404(): void {
-        echo 'A Pagina não foi encontrada ou nao existe..';
+        http_response_code(404);
+        self::renderView(array: ['type' => 'public', 'view' => '404.php', 'layoutChange' => ['pageName' => '404 - Página não encontrada']], strings: []);
         exit();
     }
 

@@ -5,14 +5,12 @@
             <div class="col-xl-12">
                 <div class="content-column">
                     <div class="inner-content text-center">
-                        <h4 class="" style="color: #BFA54E;">404</h4>
-                        <h2 class="title">Página não encontrada</h2>
-                        <p class="text">A página que procura não existe ou foi movida.<br class="d-none d-xxl-block"> 
-                        Verifique o URL ou use os links abaixo para navegar.</p>
+                        <h4 class="" style="color: #BFA54E; font-size: 8rem; font-weight: bold; margin-bottom: 1.5rem; line-height: 1;">404</h4>
+                        <h2 class="title" style="font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: 600;">Page not found</h2>
+                        <p class="text" style="font-size: 1.1rem; margin-bottom: 2.5rem; color: #666;">A página que procura não existe ou foi movida.</p>
                         
-                        <div class="error-actions mt-4">
-                            <a href="/" class="theme-btn btn-style-transparent mt-25 me-3">Voltar ao Início</a>
-                            <a href="/auth/login" class="theme-btn btn-style-transparent mt-25">Login</a>
+                        <div class="error-actions">
+                            <a href="/" class="theme-btn btn-style-transparent mt-25">Voltar ao Início</a>
                         </div>
                     </div>
                 </div>
