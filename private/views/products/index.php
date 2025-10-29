@@ -51,18 +51,24 @@
                                 <h6 class="fw-normal mb-0">Stock Total:</h6>
                                 <span class="fw-semibold ms-1">120</span>
                             </div>
-                            <?php foreach ($prices as $price) {
-                                $price = (object) $price;
-                                $currency = getCurrencyByCode(code: $price->currency_code ?? null);
-                                ?>
+                            <?php 
+                            $prices = is_array($product->prices ?? null) ? $product->prices : ((!empty($product->prices) && is_object($product->prices)) ? [$product->prices] : []);
+                            if (!empty($prices)) {
+                                foreach ($prices as $price) {
+                                    $price = (object) $price;
+                                    $currency = getCurrencyByCode(code: $price->currency_code ?? null);
+                                    ?>
                                 <div class="hstack gap-2">
                                     <small><?php echo ($currency && is_object($currency)) ? $currency->name : ($price->currency_code ?? 'N/A') ?> <i class="bi bi-arrow-right"></i> </small>
                                     <h6 class="fw-normal text-success mb-0"><?php echo formatMoney(amount: $price->price, decimalPlaces: 2, currency: $price->currency_code ?? 'EUR', formatWithSymbol: true) ?></h6>
-                                    <?php if (!empty($price->promo)) { ?>
+                                    <?php if (!empty($price->price_promo)) { ?>
                                         <span class="text-decoration-line-through text-danger"><?php echo formatMoney(amount: $price->price_promo, decimalPlaces: 2, currency: $price->currency_code ?? 'EUR') ?></span>
                                     <?php } ?>
                                 </div>
-                            <?php } ?>
+                            <?php 
+                                }
+                            }
+                            ?>
                             <div class="mt-2 mt-sm-0">
                                 <br>
                                 <form action="/../admin/products/delete/<?php echo $product->identificator ?>" method="POST">

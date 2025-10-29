@@ -43,7 +43,7 @@ class ProductsAdminController extends ControllerHelper
          $images = self::validate_images();
         
 
-        if(Products::getbyName($result->data->name)) {
+        if(Products::getByName($result->data->name)) {
             //retorna erro
             parent::notification(title: 'Já existe um Produto com este Nome', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
             exit();
@@ -127,10 +127,10 @@ class ProductsAdminController extends ControllerHelper
         }
         
 
-        $productByName = Products::getbyName(name: $result->data->name);
-        if($productByName !== null && $result->data->name != $productByName->name) {
+        $productByName = Products::getByName($result->data->name);
+        if($productByName !== false && $productByName !== null && $productByName->id != $id) {
             //retorna erro
-            parent::notification(title: 'Já existe um Produto com este Nome', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/edit/'.$id.'');
+            parent::notification(title: 'Já existe um Produto com este Nome', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/edit/'.$identificator.'');
             exit();
         }
 
@@ -268,7 +268,7 @@ class ProductsAdminController extends ControllerHelper
             'variant_size' => 'array',
             'variant_color' => 'array',
             'variant_stock' => 'array',
-        ], notifyError: true, redirectUrl: '/../admin/products7create');
+        ], notifyError: true, redirectUrl: '/../admin/products/create');
 
         return $result;
     }
@@ -342,12 +342,9 @@ class ProductsAdminController extends ControllerHelper
 
     private static function colors_verify(?array $color): mixed
     {
-
-        if (empty($colors)) return null;
-
         //verificar se o array n esta vazio
-        if (!empty($color)) {
-            if (is_array(value: $color) && count(value: $color) > 30) {
+        if (!empty($color) && is_array($color)) {
+            if (count($color) > 30) {
                 parent::notification(title: 'São permitidas no máximo 30 definições de cores.', message: null, level: 'success', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
                 exit();
             } else {
@@ -467,11 +464,31 @@ class ProductsAdminController extends ControllerHelper
                     $return['stock'] += $value['stock'];
                 }
             }
-        } else {
-            parent::notification(title: 'Erro de Validação', message: implode('<br>', $error), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
-            exit();
+            if (!empty($error)) {
+                parent::notification(title: 'Erro de Validação', message: implode('<br>', $error), level: 'error', type: 'sweetalert', position: 'top-end', timeout: 7000, redirectUrl: '/../admin/products/create');
+                exit();
+            }
         }
-
+        // Se nenhum tipo de estoque foi definido, o estoque permanece 0 (permitido)
+        
+        // Convert arrays to JSON for storage
+        if (is_array($return['stock_with_size']) && !empty($return['stock_with_size'])) {
+            $return['stock_with_size'] = json_encode($return['stock_with_size'], JSON_UNESCAPED_UNICODE);
+        } else {
+            $return['stock_with_size'] = null;
+        }
+        
+        if (is_array($return['stock_with_color']) && !empty($return['stock_with_color'])) {
+            $return['stock_with_color'] = json_encode($return['stock_with_color'], JSON_UNESCAPED_UNICODE);
+        } else {
+            $return['stock_with_color'] = null;
+        }
+        
+        if (is_array($return['stock_with_size_and_color']) && !empty($return['stock_with_size_and_color'])) {
+            $return['stock_with_size_and_color'] = json_encode($return['stock_with_size_and_color'], JSON_UNESCAPED_UNICODE);
+        } else {
+            $return['stock_with_size_and_color'] = null;
+        }
 
         return $return = (object) $return;
     }

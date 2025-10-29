@@ -124,7 +124,8 @@ class SqlEasy {
         }
 
         if($stmt->execute()) {
-            return $this->conn()->lastInsertId() . (new Cache())->delete('sqlEasy', ['table' => $table]);
+            (new Cache())->delete('sqlEasy', ['table' => $table]);
+            return (int) $this->conn()->lastInsertId();
         } else {
            return false;
         }

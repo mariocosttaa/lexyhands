@@ -56,7 +56,8 @@ class Products extends ModelHelper {
     private static function addKeys($result): mixed {
         if(empty($result)) return false;
         
-         $result->prices = ProductPrices::getByProductId($result->id);
+        $prices = ProductPrices::getByProductId($result->id);
+        $result->prices = is_array($prices) ? $prices : ($prices ? [$prices] : []);
 
         return $result;
     }

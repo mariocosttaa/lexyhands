@@ -88,11 +88,12 @@
                     <div id="collapsePrice" class="accordion-collapse collapse show" aria-labelledby="headingPrice" data-bs-parent="#price">
                         <div class="accordion-body">
                             <div id="priceContainer">
-                                <div class="row price-row" data-row-id="<?php echo $key + 1 ?>">
+                                <?php if (!empty($product->prices) && is_array($product->prices)) { ?>
                                     <?php $i = 0;
                                     foreach ($product->prices as $key => $price) {
                                         $price = (object) $price;
                                         $i++; ?>
+                                        <div class="row price-row" data-row-id="<?php echo $i ?>">
                                         <!-- Campo oculto para ID -->
 
                                         <?php if ($i !== 1) {
@@ -127,6 +128,30 @@
                                             </select>
                                         </div>
 
+                                    <?php } else { ?>
+                                        <div class="row price-row" data-row-id="1">
+                                            <div class="col-md-4 mb-2">
+                                                <label for="totalPrice1" class="form-label">Preço Total</label>
+                                                <input type="text" id="totalPrice1" name="price[]" class="form-control currency-input" placeholder="Digite o preço total">
+                                            </div>
+                                            <div class="col-md-4 mb-2">
+                                                <label for="fakePrice1" class="form-label">Preço Fake</label>
+                                                <input type="text" id="fakePrice1" name="fake_price[]" class="form-control currency-input" placeholder="Digite o preço fake">
+                                            </div>
+                                            <div class="col-md-2 mb-2">
+                                                <label for="prices_description1" class="form-label">Descrição (Opcional)</label>
+                                                <input type="text" id="prices_description1" name="prices_description[]" class="form-control" placeholder="Descrição (opcionao)">
+                                            </div>
+                                            <div class="col-md-2 mb-2">
+                                                <label for="currency1" class="form-label">Moeda</label>
+                                                <select id="currency1" name="currency[]" class="form-select currency-select">
+                                                    <option value="USD">USD - Dólar</option>
+                                                    <option value="EUR" selected>EUR - Euro</option>
+                                                    <option value="BRL">BRL - Real</option>
+                                                    <option value="AOA">AOA - Kwanza</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -212,7 +237,7 @@
                             <div class="mb-2">
                                 <div class="form-check">
                                     <input type="hidden" name="unlimited_stock" value="0">
-                                    <input class="form-check-input" type="checkbox" id="unlimitedStock" name="unlimited_stock" value="1" <?php if ($stocks->unlimited_stocks) echo 'checked' ?>>
+                                    <input class="form-check-input" type="checkbox" id="unlimitedStock" name="unlimited_stock" value="1" <?php if (isset($stocks) && is_object($stocks) && !empty($stocks->unlimited_stocks)) echo 'checked' ?>>
                                     <label class="form-check-label" for="unlimitedStock">Estoque Ilimitado</label>
                                 </div>
                             </div>
