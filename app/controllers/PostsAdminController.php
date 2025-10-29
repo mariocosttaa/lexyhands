@@ -95,30 +95,44 @@ class PostsAdminController extends ControllerHelper
         $result = self::validate_post($_POST);
         $images = self::validate_images();
 
+        // Safely get existing images
+        $existingImages = null;
+        if (property_exists($post, 'images') && isset($post->images)) {
+            $existingImages = !empty($post->images) ? $post->images : null;
+        }
+
         if (!$images) {
-            $images = $post->images;
+            $images = $existingImages;
         } else {
             //se tiver sido colcoad uma imagem
             //verifica se ja tem uma antes
-            if($post->images) {
+            if($existingImages) {
                 $imagesNew = json_decode(json: $images, associative: true);
-                $imagesOld = json_decode(json: $post->images, associative: true);
+                $imagesOld = json_decode(json: $existingImages, associative: true);
                 $images = array_merge($imagesOld, $imagesNew);
                 $images = json_encode(value: $images, flags: JSON_UNESCAPED_UNICODE);
             } else {
-                $images = $post->images;
+                // Keep new images - no old images to merge
             }
         }
 
         $identificator = slug($result->data->tittle);
         $video = self::validate_video($identificator);
+        
+        // Safely get existing video
         if (!$video) {
-            $video = $post->video;
+            $existingVideo = null;
+            if (property_exists($post, 'video') && isset($post->video)) {
+                $existingVideo = !empty($post->video) ? $post->video : null;
+            }
+            $video = $existingVideo;
         }
 
 
-        if (Posts::checkTittleExist($result->data->tittle)) {
-            parent::notification(title: 'Erro ao Criar Postagem !', message: 'Já existe uma Postagem com este Título.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/create');
+        // Check if title exists but exclude current post
+        $existingPost = Posts::checkTittleExist($result->data->tittle);
+        if ($existingPost && $existingPost->id != $post->id) {
+            parent::notification(title: 'Erro ao Editar Postagem !', message: 'Já existe uma Postagem com este Título.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/edit/'.$identificator.'');
             exit();
         }
 
@@ -157,15 +171,17 @@ class PostsAdminController extends ControllerHelper
         }
 
         //remover imagens
-        if(!empty($post->images)) {
+        if(property_exists($post, 'images') && !empty($post->images)) {
             $images = json_decode(json: $post->images, associative: true);
-            foreach ($images as $key => $image) {
-                (new FileUpload())->remove(relativePath: '/' . $image);
+            if (is_array($images)) {
+                foreach ($images as $key => $image) {
+                    (new FileUpload())->remove(relativePath: '/' . $image);
+                }
             }
         }
 
         //remover video
-        if(!empty($post->video)) {
+        if(property_exists($post, 'video') && !empty($post->video)) {
             (new FileUpload())->remove(relativePath: '/' . $post->video);
         }
 
@@ -182,10 +198,10 @@ class PostsAdminController extends ControllerHelper
             parent::renderAdmin404();
         }
 
-        if(!empty($post->images)) {
+        if(property_exists($post, 'images') && !empty($post->images)) {
             $images = json_decode(json: $post->images, associative: true);
 
-            if(count($images) < 2) {
+            if(!is_array($images) || count($images) < 2) {
                 parent::notification(title: 'Erro ao Excluir Imagem !', message: 'Você não pode excluir a única imagem da postagem.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/create');
                 exit();
             }
@@ -216,7 +232,7 @@ class PostsAdminController extends ControllerHelper
             parent::renderAdmin404();
         }
 
-        if(!empty($post->video)) {
+        if(property_exists($post, 'video') && !empty($post->video)) {
             (new FileUpload())->remove(relativePath: '/' . $post->video);
         } else {
             parent::renderAdmin404();
