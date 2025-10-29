@@ -14,6 +14,7 @@ return array(
     '6dc83fee78b3ecb81561290076361e74' => $baseDir . '/app/helpers/general/getComponent.php',
     '03ae90ddfe36887bcb38643e333b4743' => $baseDir . '/app/helpers/general/CurrencyOrganizer.php',
     'ac3487463ec3579ad0236e44d4546d87' => $baseDir . '/app/helpers/general/url.php',
+    '54b92d64e3db87a8b97db7086f98460a' => $baseDir . '/app/helpers/general/urlHelper.php',
     'feaacb47e3ce3ecf41e4d98d3f25649c' => $baseDir . '/app/helpers/services/UserDateTime.php',
     'c88cf269f3cd3e13e7c738da2207081e' => $baseDir . '/app/helpers/services/SlugGenerator.php',
     '6de4f0e8351564eb3ca3f60580ce8089' => $baseDir . '/app/helpers/services/Money.php',

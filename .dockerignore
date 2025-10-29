@@ -1,37 +1,41 @@
 # Git
 .git
 .gitignore
-
-# Documentation
-README.md
-*.md
-
-# Cache and logs
-app/cache/*
-!app/cache/.gitkeep
+.gitattributes
 
 # Environment files
 .env
+.env.*
 env.example
 env.docker
 
-# Development files
-docker-compose.yml
-docker-compose.prod.yml
+# Cache and logs
+app/cache/sqlEasy/*.cache
+app/cache/logs/*.log
+app/cache/*.log
+app/cache/site_traffic/*.cache
 
-# IDE files
-.vscode/
-.idea/
+# IDE
+.vscode
+.idea
 *.swp
 *.swo
 
-# OS files
+# OS
 .DS_Store
 Thumbs.db
 
-# Node modules (if any)
-node_modules/
+# Documentation
+*.md
+!README.md
 
-# Temporary files
-*.tmp
-*.temp
+# Docker
+docker-compose*.yml
+Dockerfile
+.dockerignore
+
+# Scripts (keep these)
+# migrate
+# migrate.php
+# seed
+# seed.php

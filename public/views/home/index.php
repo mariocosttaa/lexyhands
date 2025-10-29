@@ -2,15 +2,15 @@
 
 <!-- Banner Start -->
 <section class="banner-style1-home5">
-    <div class="leaf-1 d-none d-xxl-block bounce-y"><img src="/assets/images/home5-banner3.png" alt=""></div>
-    <div class="banner-bottom"><img src="/assets/images/home5-banner-bottom.png" alt=""></div>
+    <div class="leaf-1 d-none d-xxl-block bounce-y"><img src="<?php echo asset('images/home5-banner3.png') ?>" alt=""></div>
+    <div class="banner-bottom"><img src="<?php echo asset('images/home5-banner-bottom.png') ?>" alt=""></div>
     <div class="auto-container">
         <div class="row">
             <div class="col-xl-6 d-none d-xl-block">
                 <div class="image-content">
                     <div class="bg-circle zoom-one"></div>
-                    <img class="img" src="/assets/images/home5-banner1.png" alt="">
-                    <img class="img-2 bounce-x" src="/assets/images/home5-banner2.png" alt="">
+                    <img class="img" src="<?php echo asset('images/home5-banner1.png') ?>" alt="">
+                    <img class="img-2 bounce-x" src="<?php echo asset('images/home5-banner2.png') ?>" alt="">
                 </div>
             </div>
             <div class="col-xl-6">
@@ -40,7 +40,7 @@
         <div class="outer-box">
             <div class="sec-title text-center">
                 <div class="title-stroke-text">Serviços</div>
-                <figure class="image"><img src="/assets/images/icon2.png" alt="Image"></figure>
+                <figure class="image"><img src="<?php echo asset('images/icon2.png') ?>" alt="Image"></figure>
                 <span class="sub-title">Maxímo Relaxamento</span>
                 <h2 class="words-slide-up text-split">Os nossos serviços</h2>
             </div>

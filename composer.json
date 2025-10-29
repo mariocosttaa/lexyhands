@@ -11,6 +11,7 @@
             "app/helpers/general/getComponent.php",
             "app/helpers/general/CurrencyOrganizer.php",
             "app/helpers/general/url.php",
+            "app/helpers/general/urlHelper.php",
 
             "app/helpers/services/UserDateTime.php",
             "app/helpers/services/SlugGenerator.php",

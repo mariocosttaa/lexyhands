@@ -23,7 +23,7 @@ class ServicesController extends ControllerHelper
                 'slugName' => 'string|max:255|required',
             ],
             notifyError: true,
-            redirectUrl: 'http://localhost/../services'
+            redirectUrl: ($_ENV['APP_URL'] ?? '') . '/services'
         );
 
 

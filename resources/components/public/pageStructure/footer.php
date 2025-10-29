@@ -15,11 +15,11 @@
 
             <?php if ($settings->show_logo == true && $settings->site_logo !== null) { ?>
               <div class="logo">
-                <a href="/"><img src="/assets/images/logo.png" alt=""></a>
+                <a href="<?php echo url('/') ?>"><img src="<?php echo asset('images/logo.png') ?>" alt=""></a>
               </div>
             <?php } else { ?>
               <div class="logo">
-                <a href="/projects/lexyhands">
+                <a href="<?php echo url('/') ?>">
                   <?php echo $settings->site_name ?>
                 </a>
               </div>
@@ -49,10 +49,10 @@
             <div class="footer-widget links-widget">
               <h3 class="widget-title">Links</h3>
               <ul class="user-links">
-                <li><a href="/projects/lexyhands">Início</a></li>
-                <li><a href="/../services">Serviços</a></li>
-                <li><a href="/../posts">Comunidade</a></li>
-                <li><a href="/../contacts">Contactos</a></li>
+                <li><a href="<?php echo url('/') ?>">Início</a></li>
+                <li><a href="<?php echo url('/services') ?>">Serviços</a></li>
+                <li><a href="<?php echo url('/posts') ?>">Comunidade</a></li>
+                <li><a href="<?php echo url('/contacts') ?>">Contactos</a></li>
               </ul>
             </div>
           </div>

@@ -15,6 +15,7 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         '6dc83fee78b3ecb81561290076361e74' => __DIR__ . '/../..' . '/app/helpers/general/getComponent.php',
         '03ae90ddfe36887bcb38643e333b4743' => __DIR__ . '/../..' . '/app/helpers/general/CurrencyOrganizer.php',
         'ac3487463ec3579ad0236e44d4546d87' => __DIR__ . '/../..' . '/app/helpers/general/url.php',
+        '54b92d64e3db87a8b97db7086f98460a' => __DIR__ . '/../..' . '/app/helpers/general/urlHelper.php',
         'feaacb47e3ce3ecf41e4d98d3f25649c' => __DIR__ . '/../..' . '/app/helpers/services/UserDateTime.php',
         'c88cf269f3cd3e13e7c738da2207081e' => __DIR__ . '/../..' . '/app/helpers/services/SlugGenerator.php',
         '6de4f0e8351564eb3ca3f60580ce8089' => __DIR__ . '/../..' . '/app/helpers/services/Money.php',
@@ -47,6 +48,7 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         ),
         'A' => 
         array (
+            'App\\Database\\Seeders\\' => 21,
             'App\\' => 4,
         ),
     );
@@ -83,6 +85,10 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         'Detection\\' => 
         array (
             0 => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/src',
+        ),
+        'App\\Database\\Seeders\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/database/seeders',
         ),
         'App\\' => 
         array (

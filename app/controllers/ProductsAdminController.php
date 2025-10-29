@@ -499,7 +499,7 @@ class ProductsAdminController extends ControllerHelper
         // tratamento da imagem
         if ($_FILES['images']['size'][0] > 0) {
 
-            $uploadService = new FileUpload(uploadDir: 'projects/lexyhands/public/assets/images/products');
+            $uploadService = new FileUpload(uploadDir: 'public/assets/images/products');
             $image = $uploadService->upload(files: $_FILES['images'], params: [
                 'rename' => true,
                 'multiple' => true,

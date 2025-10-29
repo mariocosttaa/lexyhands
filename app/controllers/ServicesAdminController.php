@@ -146,7 +146,7 @@ class ServicesAdminController extends ServicesController
     private static function validate_image(): array|bool|string|null {
         // tratamento da imagem
         if (!empty($_FILES['image']['size'] > 0)) {
-            $uploadService = new FileUpload(uploadDir: 'projects/lexyhands/public/assets/images/services');
+            $uploadService = new FileUpload(uploadDir: 'public/assets/images/services');
             $image = $uploadService->upload(files: $_FILES['image'], params: [
                 'rename' => true,
                 'multiple' => false,

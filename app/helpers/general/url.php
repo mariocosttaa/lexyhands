@@ -1,6 +1,6 @@
 <?php
 
-
+// Legacy function - use urlHelper.php instead
 function isActive(string $dir): bool {
     if (empty($dir)) return false;
 

@@ -6,8 +6,8 @@
         <div class="title-outer text-center">
             <h1 class="title">Serviços</h1>
             <ul class="page-breadcrumb">
-                <li><a href="/projects/lexyhands">Início</a></li>
-                <li><a href="/../services">Serviços</a></li>
+                <li><a href="<?php echo url('/') ?>">Início</a></li>
+                <li><a href="<?php echo url('/services') ?>">Serviços</a></li>
                 <li><?php echo $service->name ?></li>
             </ul>
         </div>
@@ -31,7 +31,7 @@
                                     <li class="current"><a><span><?php echo $service->name ?></span></a></li>
                                     <?php foreach ($othersServices as $otherService) {
                                         $otherService = (object) $otherService; ?>
-                                        <li><a href="/service/<?php echo $otherService->identificator ?>"><i class="fas fa-angle-right"></i><span><?php echo $otherService->name ?></span></a></li>
+                                        <li><a href="<?php echo url('/service/' . $otherService->identificator) ?>"><i class="fas fa-angle-right"></i><span><?php echo $otherService->name ?></span></a></li>
                                     <?php } ?>
                                 </ul>
                             </div>
@@ -69,7 +69,7 @@
             <div class="col-xl-8 col-lg-8">
                 <div class="services-details__content">
                     <?php if(!empty($service->image)) {?>
-                        <img src="/<?php echo $service->image ?>" alt="" style="object-fit: cover; width: 900px; height: 500px;">
+                        <img src="<?php echo asset($service->image) ?>" alt="" style="object-fit: cover; width: 900px; height: 500px;">
                     <?php } ?>
                     <h3 class="mt-4">Informações do Serviço</h3>
 

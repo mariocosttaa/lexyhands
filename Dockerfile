@@ -36,6 +36,8 @@ COPY . .
 # Set proper permissions
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 755 /var/www/html
+RUN chmod -R 775 /var/www/html/app/cache
+RUN chmod -R 775 /var/www/html/app/cache/logs
 
 # Configure Apache
 RUN echo '<VirtualHost *:80>\n\
