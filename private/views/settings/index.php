@@ -61,17 +61,35 @@
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="col-12 mb-2">
                         <form action="/../admin/settings/logos" method="POST" enctype="multipart/form-data">
-                            <div class="mb-2">
-                                <label class="form-label">Logotipo <small>(Versão Branca ou Transparente /Recomendado)</small></label>
-                                <small class="text-danger d-block  mb-0">Em caso de alteração, é substituido o logotipo actual, caso exista.</small>
-                                <?php if (!empty($settings->site_logo)) echo '<img src="/' . $settings->site_logo . '" width="200" height="50" style="object-fit: cover;" alt="">'; ?>
-                                <input type="file" name="site_logo[]" class="form-control" accept="image/jpeg,image/jpg,image/png">
+                            <div class="mb-3">
+                                <label for="site_logo" class="form-label">Logotipo <small>(Versão Branca ou Transparente /Recomendado)</small></label>
+                                <small class="text-danger d-block mb-2">Em caso de alteração, é substituido o logotipo actual, caso exista.</small>
+                                <?php if (!empty($settings->site_logo)) { ?>
+                                    <div class="mb-2">
+                                        <img src="/<?php echo $settings->site_logo ?>" width="200" height="50" style="object-fit: cover; border-radius: 8px;" alt="Logo atual">
+                                    </div>
+                                <?php } ?>
+                                <div class="input-group">
+                                    <input type="file" id="site_logo" name="site_logo[]" class="form-control" accept="image/jpeg,image/jpg,image/png">
+                                    <label class="input-group-text btn btn-primary-soft" for="site_logo" style="cursor: pointer; margin: 0;">
+                                        <i class="bi bi-upload me-1"></i> Escolher Ficheiro
+                                    </label>
+                                </div>
                             </div>
-                            <div class="mb-2">
-                                <label class="form-label">Logotipo <small>(Versão Dark ou Transparente / Opcional)</small></label>
-                                <small class="text-danger d-block  mb-0">Em caso de alteração, é substituido o logotipo actual, caso exista.</small>
-                                <?php if (!empty($settings->site_logo_dark)) echo '<img src="/' . $settings->site_logo_dark . '" width="200" height="50" style="object-fit: cover;" alt="">'; ?>
-                                <input type="file" name="site_logo_dark[]" class="form-control" accept="image/jpeg,image/jpg,image/png">
+                            <div class="mb-3">
+                                <label for="site_logo_dark" class="form-label">Logotipo <small>(Versão Dark ou Transparente / Opcional)</small></label>
+                                <small class="text-danger d-block mb-2">Em caso de alteração, é substituido o logotipo actual, caso exista.</small>
+                                <?php if (!empty($settings->site_logo_dark)) { ?>
+                                    <div class="mb-2">
+                                        <img src="/<?php echo $settings->site_logo_dark ?>" width="200" height="50" style="object-fit: cover; border-radius: 8px;" alt="Logo dark atual">
+                                    </div>
+                                <?php } ?>
+                                <div class="input-group">
+                                    <input type="file" id="site_logo_dark" name="site_logo_dark[]" class="form-control" accept="image/jpeg,image/jpg,image/png">
+                                    <label class="input-group-text btn btn-primary-soft" for="site_logo_dark" style="cursor: pointer; margin: 0;">
+                                        <i class="bi bi-upload me-1"></i> Escolher Ficheiro
+                                    </label>
+                                </div>
                             </div>
 
                             <div class="form-check form-switch form-check-md mb-3">
