@@ -54,8 +54,11 @@ class Router
     
         try {
             foreach ($this->routes[$httpMethod] as $routeUri => $route) {
+                // Normalize empty route to match root
+                $normalizedRouteUri = $routeUri === '' ? '/' : $routeUri;
+                
                 // Cria um padrão para capturar parâmetros dinâmicos
-                $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_-]+)', $routeUri);
+                $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_-]+)', $normalizedRouteUri);
                 $pattern = "#^" . $pattern . "$#";
         
                 if (preg_match($pattern, $uri, $matches)) {
