@@ -200,7 +200,14 @@ php seed.php
    ```bash
    docker-compose up -d
    ```
-   Wait a few seconds for containers to start.
+   
+   **Wait for MySQL to be ready** (important):
+   ```bash
+   # Wait 10-15 seconds for MySQL to fully initialize
+   sleep 15
+   # Or check MySQL is ready:
+   docker-compose exec mysql mysqladmin ping -h localhost -u lexyhands -plexyhands123
+   ```
 
 4. **Run database migrations**
 
@@ -208,6 +215,7 @@ php seed.php
    ```bash
    docker-compose exec app php migrate.php
    ```
+   > Note: Make sure MySQL container is fully started (wait 10-15 seconds after `docker-compose up`)
    
    **Manual (without Docker)**:
    ```bash
