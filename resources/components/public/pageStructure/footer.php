@@ -142,22 +142,29 @@
         var preloader = document.querySelector('.preloader');
         if (preloader) {
             preloader.style.display = 'none';
+            preloader.style.opacity = '0';
+            preloader.style.visibility = 'hidden';
         }
     }
     
-    // Try to hide after page load
-    if (document.readyState === 'complete') {
-        setTimeout(hidePreloader, 500);
-    } else {
-        window.addEventListener('load', function() {
-            setTimeout(hidePreloader, 500);
+    // Hide immediately if DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(hidePreloader, 300);
         });
+    } else {
+        setTimeout(hidePreloader, 300);
     }
     
+    // Also hide after window load
+    window.addEventListener('load', function() {
+        setTimeout(hidePreloader, 500);
+    });
+    
     // Also hide after script.js loads (if it loads)
-    if (window.jQuery) {
+    if (typeof jQuery !== 'undefined' && jQuery) {
         setTimeout(function() {
-            if (jQuery && jQuery('.preloader').length) {
+            if (jQuery('.preloader').length) {
                 jQuery('.preloader').fadeOut(500);
             }
         }, 200);
