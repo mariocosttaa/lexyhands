@@ -38,11 +38,35 @@ class Posts extends ModelHelper {
     }
 
     public static function getFromIdentificator($id, $identificator, $date) {
-        if(empty($id) || empty($identificator) || empty($date)) return false;
-        $day = date('d', strtotime(datetime: $date));
-        $month = date('m', strtotime(datetime: $date));
-        $year = date('Y', strtotime(datetime: $date));
-        $result =  parent::SQL_EASY_SELECT(table: 'posts', where: ['id' => $id, 'identificator' => $identificator, 'date' => [ 'day' => $day, 'month' => $month, 'year' => $year ]], limit: null, order: null, object: true);
+        if(empty($id) || empty($identificator)) return false;
+        
+        // First try to find by id and identificator (unique combination)
+        $result = parent::SQL_EASY_SELECT(table: 'posts', where: ['id' => $id, 'identificator' => $identificator], limit: null, order: null, object: true);
+        
+        if (!$result) {
+            return false;
+        }
+        
+        // Optional: Validate date format if provided
+        if (!empty($date)) {
+            // Parse date format: dd-mm-yyyy
+            if (preg_match('/^(\d{2})-(\d{2})-(\d{4})$/', $date, $matches)) {
+                $expectedDay = (int)$matches[1];
+                $expectedMonth = (int)$matches[2];
+                $expectedYear = (int)$matches[3];
+                
+                // Get date from result
+                $dbDate = new \DateTime($result->date);
+                $dbDay = (int)$dbDate->format('d');
+                $dbMonth = (int)$dbDate->format('m');
+                $dbYear = (int)$dbDate->format('Y');
+                
+                // Validate date matches
+                if ($dbDay != $expectedDay || $dbMonth != $expectedMonth || $dbYear != $expectedYear) {
+                    return false;
+                }
+            }
+        }
         
         if($result): $result = self::addKeys(result: $result); endif; 
         return $result;
