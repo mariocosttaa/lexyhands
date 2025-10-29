@@ -47,13 +47,13 @@ class Router
     public function resolve(): bool
     {
         // Obtém a URI sem a query string
-        $uri = strtok($this->currentUri, '?');
-        $method = $_SERVER['REQUEST_METHOD'];
+        $uri = strtok($this->currentUri, '?') ?: '/';
+        $httpMethod = $_SERVER['REQUEST_METHOD'];
         $statusCode = 200;
         $error = null;
     
         try {
-            foreach ($this->routes[$method] as $routeUri => $route) {
+            foreach ($this->routes[$httpMethod] as $routeUri => $route) {
                 // Cria um padrão para capturar parâmetros dinâmicos
                 $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_-]+)', $routeUri);
                 $pattern = "#^" . $pattern . "$#";
@@ -82,7 +82,7 @@ class Router
         
                     // Log successful request
                     $executionTime = microtime(true) - $this->startTime;
-                    $this->logger->logRequest($method, $uri, $statusCode, $executionTime);
+                    $this->logger->logRequest($httpMethod, $uri, $statusCode, $executionTime);
                     return true;
                 }
             }
@@ -90,7 +90,7 @@ class Router
             // No route found - 404
             $statusCode = 404;
             $executionTime = microtime(true) - $this->startTime;
-            $this->logger->logRequest($method, $uri, $statusCode, $executionTime, 'Route not found');
+            $this->logger->logRequest($httpMethod, $uri, $statusCode, $executionTime, 'Route not found');
             
             // Render 404 page
             \App\Controllers\ControllerHelper::render404();
@@ -102,7 +102,7 @@ class Router
             $executionTime = microtime(true) - $this->startTime;
             $error = $e->getMessage();
             $this->logger->logError($error, $e->getTraceAsString());
-            $this->logger->logRequest($method, $uri, $statusCode, $executionTime, $error);
+            $this->logger->logRequest($httpMethod, $uri, $statusCode, $executionTime, $error);
             
             // Re-throw if in debug mode, otherwise show generic error
             if (isset($_ENV['APP_DEBUG']) && $_ENV['APP_DEBUG'] === 'true') {

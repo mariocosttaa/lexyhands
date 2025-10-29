@@ -319,6 +319,78 @@ docker-compose up -d
 docker-compose -f docker-compose.prod.yml up -d
 ```
 
+## 📊 Logging and Monitoring
+
+### Access Logs
+The application automatically logs all HTTP requests when `APP_DEBUG=true`:
+
+**Log Location**: `app/cache/logs/`
+- **Access Logs**: `access-YYYY-MM-DD.log` - All HTTP requests
+- **Error Logs**: `error-YYYY-MM-DD.log` - PHP errors and exceptions
+
+**Logged Information**:
+- Timestamp
+- HTTP Method (GET, POST, etc.)
+- Request URI
+- HTTP Status Code (200, 404, 500)
+- Client IP Address
+- User Agent
+- Referer
+- Execution Time
+- Memory Usage
+- Errors (if any)
+
+### View Logs
+
+**Command Line** (recommended):
+```bash
+# View access logs (last 50 entries)
+docker-compose exec app php view_logs.php access 50
+
+# View error logs (last 50 entries)
+docker-compose exec app php view_logs.php error 50
+
+# View more entries
+docker-compose exec app php view_logs.php access 100
+```
+
+**Direct File Access**:
+```bash
+# View today's access log
+docker-compose exec app tail -f app/cache/logs/access-$(date +%Y-%m-%d).log
+
+# View today's error log
+docker-compose exec app tail -f app/cache/logs/error-$(date +%Y-%m-%d).log
+```
+
+### Log Format
+Logs are stored in JSON format for easy parsing:
+```json
+{
+  "timestamp": "2025-10-29 12:30:45",
+  "method": "GET",
+  "uri": "/posts/massagem-terapeutica",
+  "status": 200,
+  "ip": "192.168.1.1",
+  "user_agent": "Mozilla/5.0...",
+  "referer": "https://example.com",
+  "execution_time": "45.23ms",
+  "memory_usage": "2.5 MB",
+  "peak_memory": "3.1 MB"
+}
+```
+
+### Automatic Error Logging
+The system automatically logs:
+- **PHP Errors**: Warnings, notices, and errors
+- **Exceptions**: Uncaught exceptions with stack traces
+- **Fatal Errors**: Critical PHP errors
+- **404 Errors**: Route not found
+- **500 Errors**: Server errors
+
+### Log Rotation
+Logs are automatically organized by date (one file per day). Old logs can be cleaned up manually or using the Logger's `clearOldLogs()` method.
+
 ## 📞 Support
 
 For questions or issues:
@@ -326,6 +398,7 @@ For questions or issues:
 - Review the database structure
 - Examine the MVC implementation
 - Test with the provided seed data
+- Check application logs in `app/cache/logs/`
 
 ---
 
