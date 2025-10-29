@@ -50,7 +50,7 @@ class Posts extends ModelHelper {
     }
 
     public static function checkTittleExist(string $tittle):bool|object {
-        if(empty($name)) return false;
+        if(empty($tittle)) return false;
         return parent::SQL_EASY_SELECT(table: 'posts', where: ['tittle' => $tittle], limit: null, order: null, object: true);
     }
 

@@ -44,7 +44,7 @@ class PostsAdminController extends ControllerHelper
 
         if (!empty($result->data->tags[0])) {
             $result->data->tags = explode(',', $result->data->tags[0]);
-            $result->data->tags = self::validate_tags(tags: $result->data->tags);
+            $result->data->tags = self::validate_tags(tags: $result->data->tags, redirectUrl: '/../admin/posts/edit/'.$identificator);
             $result->data->tags = json_encode(value: $result->data->tags, flags: JSON_UNESCAPED_UNICODE);
         } else {
             $result->data->tags = null;
@@ -92,7 +92,10 @@ class PostsAdminController extends ControllerHelper
             parent::renderAdmin404();
         }
 
-        $result = self::validate_post($_POST);
+        // Save old identificator for redirect URLs in case of errors
+        $oldIdentificator = $identificator;
+        
+        $result = self::validate_post($_POST, redirectUrl: '/../admin/posts/edit/'.$oldIdentificator);
         $images = self::validate_images();
 
         // Safely get existing images
@@ -130,15 +133,18 @@ class PostsAdminController extends ControllerHelper
 
 
         // Check if title exists but exclude current post
-        $existingPost = Posts::checkTittleExist($result->data->tittle);
-        if ($existingPost && $existingPost->id != $post->id) {
-            parent::notification(title: 'Erro ao Editar Postagem !', message: 'Já existe uma Postagem com este Título.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/edit/'.$identificator.'');
-            exit();
+        // Only check if title has changed
+        if ($result->data->tittle !== $post->tittle) {
+            $existingPost = Posts::checkTittleExist($result->data->tittle);
+            if ($existingPost && is_object($existingPost) && $existingPost->id != $post->id) {
+                parent::notification(title: 'Erro ao Editar Postagem !', message: 'Já existe uma Postagem com este Título.', level: 'warning', type: 'sweetalert', position: 'top-end', timeout: 3000, redirectUrl: '/../admin/posts/edit/'.$oldIdentificator);
+                exit();
+            }
         }
 
         if (!empty($result->data->tags[0])) {
             $result->data->tags = explode(',', $result->data->tags[0]);
-            $result->data->tags = self::validate_tags(tags: $result->data->tags);
+            $result->data->tags = self::validate_tags(tags: $result->data->tags, redirectUrl: '/../admin/posts/edit/'.$oldIdentificator);
             $result->data->tags = json_encode(value: $result->data->tags, flags: JSON_UNESCAPED_UNICODE);
         } else {
             $result->data->tags = null;
@@ -245,22 +251,26 @@ class PostsAdminController extends ControllerHelper
     }
 
 
-    private static function validate_tags(array $tags): array|false|null
+    private static function validate_tags(array $tags, ?string $redirectUrl = null): array|false|null
     {
         foreach ($tags as $key => $tag) {
-            $tag = preg_replace('/\s+/', '', $tag);
-            if (!preg_match('/^[a-zA-Z0-9_]+$/', $tag)) {
+            // Remove only multiple spaces, keep single spaces and hyphens
+            $tag = trim($tag);
+            // Allow letters, numbers, underscores, hyphens, and common Portuguese characters
+            if (!preg_match('/^[a-zA-ZáàâãéêíóôõúçÁÀÂÃÉÊÍÓÔÕÚÇ0-9_\-\s]+$/u', $tag)) {
                 parent::notification(
                     title: 'Erro ao Criar Postagem !',
-                    message: 'As tags devem conter apenas letras, números e underline (_).',
+                    message: 'As tags contêm caracteres inválidos. Use apenas letras, números, hífen (-) e underscore (_).',
                     level: 'warning',
                     type: 'sweetalert',
                     position: 'top-end',
                     timeout: 3000,
-                    redirectUrl: '/../admin/posts/create'
+                    redirectUrl: $redirectUrl ?? '/../admin/posts/create'
                 );
                 exit();
             }
+            // Normalize spaces to single space
+            $tag = preg_replace('/\s+/', ' ', $tag);
             $tags[$key] = $tag;
         }
 
@@ -271,7 +281,7 @@ class PostsAdminController extends ControllerHelper
         }
     }
 
-    private static function validate_post(array $data): mixed
+    private static function validate_post(array $data, ?string $redirectUrl = null): mixed
     {
         // Validando os dados com notificação de erro
         $result = \App\Services\FormFilter::validate(
@@ -284,7 +294,7 @@ class PostsAdminController extends ControllerHelper
                 'tags' => 'array',
             ],
             notifyError: true,
-            redirectUrl: '/../admin/services/create'
+            redirectUrl: $redirectUrl ?? '/../admin/posts/create'
         );
         return $result;
     }
