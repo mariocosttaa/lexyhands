@@ -154,6 +154,35 @@ php migrate.php
 - Database credentials configured in `app/config/Database.php`
 - Database server running and accessible
 
+**Rollback Migrations**:
+Rollback the last migration or multiple migrations:
+```bash
+# Easy way (recommended)
+./migrate rollback          # Rollback last migration
+./migrate rollback 3         # Rollback last 3 migrations
+
+# Using Docker directly
+docker-compose exec app php migrate.php rollback 5
+
+# Manual (without Docker)
+php migrate.php rollback 2
+```
+
+**Drop All Tables** (⚠️ **Destructive Operation**):
+Delete all database tables at once (this cannot be undone via migrations):
+```bash
+# Easy way (recommended)
+./migrate drop
+
+# Using Docker directly
+docker-compose exec app php migrate.php drop --force
+
+# Manual (without Docker)
+php migrate.php drop --force
+```
+
+> **Warning**: The `drop` command will permanently delete ALL tables from the database. This is useful when you want to start fresh. After dropping tables, you'll need to run migrations again with `./migrate` to recreate the schema.
+
 ### Seeders (`database/seeders/`)
 Populate database with initial data:
 
@@ -311,8 +340,8 @@ After seeding, verify by accessing http://localhost:8080 - you should see the ho
    - If you see content loaded, the seeder ran successfully and the database is populated
 
 ### Default Credentials
-- **Admin**: admin@lexyhands.com / admin123
-- **Editor**: editor@lexyhands.com / editor123
+- **Admin**: admin@example.com / password
+- **Editor**: user@example.com / password
 
 ### Stopping the Application
 

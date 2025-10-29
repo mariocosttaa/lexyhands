@@ -196,4 +196,35 @@ class Migration
         $stmt = $this->pdo->prepare("DELETE FROM {$this->migrationsTable} WHERE migration = ?");
         $stmt->execute([$migration]);
     }
+
+    public function dropAllTables(): void
+    {
+        echo "🗑️  Dropping all database tables...\n\n";
+        
+        // Get all tables from the database
+        $stmt = $this->pdo->query("SHOW TABLES");
+        $tables = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        
+        if (empty($tables)) {
+            echo "✅ No tables to drop.\n";
+            return;
+        }
+        
+        // Disable foreign key checks
+        $this->pdo->exec('SET FOREIGN_KEY_CHECKS = 0');
+        
+        foreach ($tables as $table) {
+            try {
+                $this->pdo->exec("DROP TABLE IF EXISTS `{$table}`");
+                echo "✅ Dropped table: {$table}\n";
+            } catch (PDOException $e) {
+                echo "⚠️  Could not drop table {$table}: " . $e->getMessage() . "\n";
+            }
+        }
+        
+        // Re-enable foreign key checks
+        $this->pdo->exec('SET FOREIGN_KEY_CHECKS = 1');
+        
+        echo "\n🎉 All tables dropped successfully!\n";
+    }
 }

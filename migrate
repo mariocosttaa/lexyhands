@@ -26,7 +26,17 @@ if ! docker-compose ps | grep -q "Up"; then
 fi
 
 # Run migrations inside Docker container
-echo "🚀 Running migrations..."
-docker-compose exec app php migrate.php
+# Pass through any command line arguments (rollback, drop, etc.)
+if [ "$1" == "rollback" ]; then
+    echo "🔄 Rolling back migrations..."
+    docker-compose exec app php migrate.php rollback ${2:-1}
+elif [ "$1" == "drop" ]; then
+    echo "⚠️  WARNING: This will delete ALL tables from the database!"
+    echo "⚠️  Continuing with drop operation..."
+    docker-compose exec app php migrate.php drop --force
+else
+    echo "🚀 Running migrations..."
+    docker-compose exec app php migrate.php "$@"
+fi
 
 exit $?
