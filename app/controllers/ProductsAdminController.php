@@ -107,16 +107,23 @@ class ProductsAdminController extends ControllerHelper
         $products_stocks = self::stockMagement(unlimited_stock: $result->data->unlimited_stock, general_stock: $result->data->general_stock, color: $result->data->color, color_stock: $result->data->color_stock, size: $result->data->size, size_stock: $result->data->size_stock, variant_size: $result->data->variant_size, variant_color: $result->data->variant_color, variant_stock: $result->data->variant_stock);
         $images = self::validate_images();
 
-        
+        // Safely get existing images
+        $existingImages = null;
+        if (property_exists($product, 'images') && isset($product->images)) {
+            $existingImages = !empty($product->images) ? $product->images : null;
+        }
 
         if (!$images) {
-            $images = $product->images;
-        } else if($product->images) {
-            
+            $images = $existingImages;
+        } else if($existingImages) {
+            //se tiver sido colcoad uma imagem
+            //verifica se ja tem uma antes
             $imagesNew = json_decode(json: $images, associative: true);
-            $imagesOld = json_decode(json: $product->images, associative: true);
+            $imagesOld = json_decode(json: $existingImages, associative: true);
             $images = array_merge($imagesOld, $imagesNew);
             $images = json_encode(value: $images, flags: JSON_UNESCAPED_UNICODE);
+        } else {
+            // Keep new images
         }
         
 
@@ -162,7 +169,7 @@ class ProductsAdminController extends ControllerHelper
         $id = $product->id;
         
         //remover imagens
-        if(!empty($product->images)) {
+        if(property_exists($product, 'images') && !empty($product->images)) {
             $images = json_decode(json: $product->images, associative: true);
             foreach ($images as $image) {
                 (new FileUpload())->remove(relativePath: '/' . $image);
@@ -189,7 +196,7 @@ class ProductsAdminController extends ControllerHelper
             parent::renderAdmin404();
         }
 
-        if(!empty($product->images)) {
+        if(property_exists($product, 'images') && !empty($product->images)) {
             $images = json_decode(json: $product->images, associative: true);
 
             if(count($images) < 2) {
