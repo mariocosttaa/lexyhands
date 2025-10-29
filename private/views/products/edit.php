@@ -127,6 +127,7 @@
                                                 <?php } ?>
                                             </select>
                                         </div>
+                                        </div> <!-- end price-row -->
                                     <?php 
                                         } // end foreach
                                     } else { ?>
