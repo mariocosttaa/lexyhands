@@ -191,6 +191,43 @@ docker-compose exec app php seed.php
 - **Admin**: admin@lexyhands.com / admin123
 - **Editor**: editor@lexyhands.com / editor123
 
+### Stopping the Application
+
+**Stop containers (keeps data)**:
+```bash
+docker-compose stop
+```
+
+**Stop and remove containers (keeps volumes/data)**:
+```bash
+docker-compose down
+```
+
+**Stop and remove containers + volumes (⚠️ deletes database data)**:
+```bash
+docker-compose down -v
+```
+
+**Restart containers**:
+```bash
+docker-compose restart
+```
+
+**View running containers**:
+```bash
+docker-compose ps
+```
+
+**View logs**:
+```bash
+# View all logs
+docker-compose logs -f
+
+# View logs for specific service
+docker-compose logs -f app
+docker-compose logs -f db
+```
+
 ## 🐳 Docker Configuration
 
 ### Development Environment (`docker-compose.yml`)
