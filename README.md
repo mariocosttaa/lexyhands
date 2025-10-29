@@ -179,8 +179,10 @@ php seed.php
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Docker and Docker Compose
-- Git
+- Docker and Docker Compose installed
+- Git installed
+- At least 2GB free disk space
+- Ports 8080, 8081, and 3306 available
 
 ### Quick Start
 
