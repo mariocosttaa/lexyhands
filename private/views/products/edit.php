@@ -127,8 +127,9 @@
                                                 <?php } ?>
                                             </select>
                                         </div>
-
-                                    <?php } else { ?>
+                                    <?php 
+                                        } // end foreach
+                                    } else { ?>
                                         <div class="row price-row" data-row-id="1">
                                             <div class="col-md-4 mb-2">
                                                 <label for="totalPrice1" class="form-label">Preço Total</label>
