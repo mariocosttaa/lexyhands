@@ -539,3 +539,9 @@
 {"timestamp":"2025-10-29 15:26:13","level":"ERROR","method":"GET","uri":"/","ip":"127.0.0.1","message":"PHP Error [2]: Undefined property: stdClass::$image in /var/www/html/public/views/home/index.php on line 56"}
 {"timestamp":"2025-10-29 15:26:13","level":"ERROR","method":"GET","uri":"/","ip":"127.0.0.1","message":"PHP Error [2]: Undefined property: stdClass::$image in /var/www/html/public/views/home/index.php on line 56"}
 {"timestamp":"2025-10-29 15:26:13","level":"ERROR","method":"GET","uri":"/","ip":"127.0.0.1","message":"PHP Error [2]: Undefined property: stdClass::$image in /var/www/html/public/views/home/index.php on line 56"}
+{"timestamp":"2025-10-29 15:26:43","level":"ERROR","method":"GET","uri":"/","ip":"127.0.0.1","message":"PHP Error [2]: Undefined property: stdClass::$image in /var/www/html/public/views/home/index.php on line 56"}
+{"timestamp":"2025-10-29 15:26:43","level":"ERROR","method":"GET","uri":"/","ip":"127.0.0.1","message":"PHP Error [2]: Undefined property: stdClass::$image in /var/www/html/public/views/home/index.php on line 56"}
+{"timestamp":"2025-10-29 15:26:43","level":"ERROR","method":"GET","uri":"/","ip":"127.0.0.1","message":"PHP Error [2]: Undefined property: stdClass::$image in /var/www/html/public/views/home/index.php on line 56"}
+{"timestamp":"2025-10-29 15:27:15","level":"ERROR","method":"GET","uri":"/","ip":"127.0.0.1","message":"PHP Error [2]: Undefined property: stdClass::$image in /var/www/html/public/views/home/index.php on line 56"}
+{"timestamp":"2025-10-29 15:27:15","level":"ERROR","method":"GET","uri":"/","ip":"127.0.0.1","message":"PHP Error [2]: Undefined property: stdClass::$image in /var/www/html/public/views/home/index.php on line 56"}
+{"timestamp":"2025-10-29 15:27:15","level":"ERROR","method":"GET","uri":"/","ip":"127.0.0.1","message":"PHP Error [2]: Undefined property: stdClass::$image in /var/www/html/public/views/home/index.php on line 56"}

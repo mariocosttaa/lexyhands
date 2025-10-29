@@ -69,11 +69,15 @@
                                         <img src="/<?php echo $settings->site_logo ?>" width="200" height="50" style="object-fit: cover; border-radius: 8px;" alt="Logo atual">
                                     </div>
                                 <?php } ?>
-                                <div class="input-group">
-                                    <input type="file" id="site_logo" name="site_logo[]" class="form-control" accept="image/jpeg,image/jpg,image/png">
-                                    <label class="input-group-text btn btn-primary-soft" for="site_logo" style="cursor: pointer; margin: 0;">
-                                        <i class="bi bi-upload me-1"></i> Escolher Ficheiro
-                                    </label>
+                                <div class="logo-upload-container position-relative" style="min-height: 150px; border: 2px dashed var(--border-dark); border-radius: 12px; overflow: hidden; cursor: pointer;">
+                                    <input type="file" id="site_logo" name="site_logo[]" class="position-absolute w-100 h-100 opacity-0" style="cursor: pointer; z-index: 10;" accept="image/jpeg,image/jpg,image/png">
+                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center position-absolute" style="min-height: 150px; pointer-events: none; z-index: 1;">
+                                        <div class="text-center p-4">
+                                            <i class="bi bi-cloud-upload display-5 mb-2 text-primary"></i>
+                                            <p class="text-muted mb-0">Clique para selecionar ou arraste o logotipo aqui</p>
+                                            <small class="text-muted">PNG, JPG ou JPEG (max. 5MB)</small>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -84,11 +88,15 @@
                                         <img src="/<?php echo $settings->site_logo_dark ?>" width="200" height="50" style="object-fit: cover; border-radius: 8px;" alt="Logo dark atual">
                                     </div>
                                 <?php } ?>
-                                <div class="input-group">
-                                    <input type="file" id="site_logo_dark" name="site_logo_dark[]" class="form-control" accept="image/jpeg,image/jpg,image/png">
-                                    <label class="input-group-text btn btn-primary-soft" for="site_logo_dark" style="cursor: pointer; margin: 0;">
-                                        <i class="bi bi-upload me-1"></i> Escolher Ficheiro
-                                    </label>
+                                <div class="logo-upload-container position-relative" style="min-height: 150px; border: 2px dashed var(--border-dark); border-radius: 12px; overflow: hidden; cursor: pointer;">
+                                    <input type="file" id="site_logo_dark" name="site_logo_dark[]" class="position-absolute w-100 h-100 opacity-0" style="cursor: pointer; z-index: 10;" accept="image/jpeg,image/jpg,image/png">
+                                    <div class="w-100 h-100 d-flex align-items-center justify-content-center position-absolute" style="min-height: 150px; pointer-events: none; z-index: 1;">
+                                        <div class="text-center p-4">
+                                            <i class="bi bi-cloud-upload display-5 mb-2 text-primary"></i>
+                                            <p class="text-muted mb-0">Clique para selecionar ou arraste o logotipo aqui</p>
+                                            <small class="text-muted">PNG, JPG ou JPEG (max. 5MB)</small>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
