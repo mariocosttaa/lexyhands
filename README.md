@@ -133,7 +133,13 @@ lexyhands/
 ### Migrations (`database/migrations/`)
 Database schema versioning and updates:
 
-**Using Docker (recommended)**:
+**Easy way (recommended)**:
+```bash
+./migrate
+```
+> Wrapper script that automatically runs migrations inside Docker. Checks and starts containers if needed.
+
+**Using Docker directly**:
 ```bash
 docker-compose exec app php migrate.php
 ```
@@ -151,14 +157,23 @@ php migrate.php
 ### Seeders (`database/seeders/`)
 Populate database with initial data:
 
-**Using Docker (recommended)**:
+**Easy way (recommended)**:
+```bash
+./seed
+./seed --refresh  # Clear tables before seeding
+```
+> Wrapper script that automatically runs seeders inside Docker. Use `--refresh` flag to clear tables first.
+
+**Using Docker directly**:
 ```bash
 docker-compose exec app php seed.php
+docker-compose exec app php seed.php --refresh  # Clear tables first
 ```
 
 **Manual command (without Docker)**:
 ```bash
 php seed.php
+php seed.php --refresh  # Clear tables first
 ```
 
 **Requirements for manual execution**:
@@ -213,7 +228,13 @@ php seed.php
 
 4. **Run database migrations**
 
-   **Using Docker** (recommended):
+   **Easy way** (recommended):
+   ```bash
+   ./migrate
+   ```
+   > This wrapper script automatically runs migrations inside Docker. It checks if containers are running and starts them if needed.
+
+   **Using Docker directly**:
    ```bash
    docker-compose exec app php migrate.php
    ```
@@ -226,7 +247,13 @@ php seed.php
 
 5. **Seed the database**
 
-   **Using Docker** (recommended):
+   **Easy way** (recommended):
+   ```bash
+   ./seed
+   ```
+   > This wrapper script automatically runs seeders inside Docker. Use `./seed --refresh` to clear tables first.
+   
+   **Using Docker directly**:
    ```bash
    docker-compose exec app php seed.php
    ```
