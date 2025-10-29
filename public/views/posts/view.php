@@ -41,7 +41,10 @@
 
                     <div class="blog-details__content">
                         <ul class="list-unstyled blog-details__meta">
-                            <li><a href="news-details.html"><i class="fas fa-user-circle"></i> <?php echo getUser(id: $post->user_id)->names ?></a> </li>
+                            <li><a href="news-details.html"><i class="fas fa-user-circle"></i> <?php 
+                                $author = getUser(id: $post->author_id ?? null);
+                                echo $author ? ($author->name . ' ' . $author->surname) : 'LexyHands';
+                            ?></a> </li>
                             <li><a href="news-details.html"><i class="fas fa-comments"></i> 
                                 <?php 
                                     if($post->countComments > 1) echo $post->countComments . ' Comentários'; 
@@ -67,25 +70,28 @@
                     </div>
                     <?php } ?>
 
-                    <?php if (!empty(getUser(id: $post->user_id)->twitter) || !empty(getUser(id: $post->user_id)->facebook) || !empty(getUser(id: $post->user_id)->pinterest) || !empty(getUser(id: $post->user_id)->instagram)) { ?>
+                    <?php 
+                    $author = getUser(id: $post->author_id ?? null);
+                    if ($author && (!empty($author->twitter ?? null) || !empty($author->facebook ?? null) || !empty($author->pinterest ?? null) || !empty($author->instagram ?? null))) { 
+                    ?>
                     <div class="blog-details__social-list mb-4"> 
-                        <?php if (!empty(getUser(id: $post->user_id)->x)) { ?>
-                            <a href="<?php echo getUser(id: $post->user_id)->x ?>" target="_blank">
+                        <?php if (!empty($author->x ?? null)) { ?>
+                            <a href="<?php echo $author->x ?>" target="_blank">
                                 <i class="fab fa-twitter"></i>
                             </a>
                         <?php } ?>
-                        <?php if (!empty(getUser(id: $post->user_id)->facebook)) { ?>
-                            <a href="<?php echo getUser(id: $post->user_id)->facebook ?>" target="_blank">
+                        <?php if (!empty($author->facebook ?? null)) { ?>
+                            <a href="<?php echo $author->facebook ?>" target="_blank">
                                 <i class="fab fa-facebook"></i>
                             </a>
                         <?php } ?>
-                        <?php if (!empty(getUser(id: $post->user_id)->pinterest)) { ?>
-                            <a href="<?php echo getUser(id: $post->user_id)->pinterest ?>" target="_blank">
+                        <?php if (!empty($author->pinterest ?? null)) { ?>
+                            <a href="<?php echo $author->pinterest ?>" target="_blank">
                                 <i class="fab fa-pinterest-p"></i>
                             </a>
                         <?php } ?>
-                        <?php if (!empty(getUser(id: $post->user_id)->instagram)) { ?>
-                            <a href="<?php echo getUser(id: $post->user_id)->instagram ?>" target="_blank">
+                        <?php if (!empty($author->instagram ?? null)) { ?>
+                            <a href="<?php echo $author->instagram ?>" target="_blank">
                                 <i class="fab fa-instagram"></i>
                             </a>
                         <?php } ?>
@@ -122,7 +128,8 @@
                         <?php if(!empty($post->comments)) { 
                             foreach($post->comments as $comment) { 
                                 $comment = (object) $comment;
-                                $user = getUser(id: $comment->user_id);
+                                $user = getUser(id: $comment->user_id ?? null);
+                                if (!$user) continue; // Skip if no user found
                                 ?>
                             <div class="comment-one__single">
                                 <div class="comment-one__image"> 
@@ -189,7 +196,8 @@
                         <ul class="sidebar__post-list list-unstyled">
                             <?php foreach($lastPosts as $lastPost) { 
                                     $lastPost = (object) $lastPost;  
-                                    $user = getUser(id: $lastPost->user_id);
+                                    $user = getUser(id: $lastPost->author_id ?? null);
+                                    if (!$user) $user = (object)['name' => 'LexyHands', 'surname' => ''];
 
                                     if(!empty($lastPost->images)) {
                                         $lastPost->images = json_decode(json: $lastPost->images, associative: true);
@@ -202,7 +210,7 @@
                                         $lastPost->images = [];
                                       }
                                       
-                                    $lasPostLink = "/../posts/".$lastPost->identificator."/" .date('d-m-Y', strtotime($lastPost->date)) ."/". $lastPost->id;  
+                                    $lasPostLink = "/posts/".$lastPost->identificator."/" .date('d-m-Y', strtotime($lastPost->date)) ."/". $lastPost->id;  
                                  ?>
                                 <li>
                                     <?php if(!empty($lastPost->images)) { ?>

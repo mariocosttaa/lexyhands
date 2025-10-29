@@ -28,12 +28,12 @@
                             <div class="service-block">
                                 <div class="inner-box">
                                     <div class="image-box">
-                                        <div class="bg-image" style="background-image:url(<?php echo $service->image ?>);"></div>
+                                        <div class="bg-image" style="background-image:url(<?php echo $service->featured_image ?? '/assets/images/default-service.jpg' ?>);"></div>
                                         <div class="bg-image-two" style="background-image:url(/assets/images/resource/service1-2.png);"></div>
                                     </div>
                                     <div class="content-box">
                                         <figure class="icon mb-0"><img src="/assets/images/icons/theme-icon8.png" alt="Image"></figure>
-                                        <h4 class="title"><a href="./service/<?php echo $service->slug_name ?>"><?php echo $service->name ?></a></h4>
+                                        <h4 class="title"><a href="/service/<?php echo $service->identificator ?>"><?php echo $service->name ?></a></h4>
                                     </div>
                                 </div>
                             </div>

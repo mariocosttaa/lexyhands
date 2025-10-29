@@ -29,7 +29,7 @@ class Users extends ModelHelper {
         return parent::SQL_EASY_SELECT('users', where: ['id' => $id], limit: null, order: null, object: true);
     }
 
-    public static function getByUserId(int $user_id, ?bool $forceHave = true): mixed {
+    public static function getByUserId($user_id, ?bool $forceHave = true): mixed {
         if(empty($user_id)) return false;
         $result =  parent::SQL_EASY_SELECT(table: 'users', where: ['user_id' => $user_id], limit: null, order: null, object: true);
         $result = self::addToUserObject(result: $result, forceHave: $forceHave);
@@ -45,7 +45,9 @@ class Users extends ModelHelper {
     private static function addToUserObject($result, ?bool $forceHave = true): object|false {
         if($result) {
             $result->names = $result->name . ' ' . $result->surname;
-            $result->role = Roles::getbyId(id: $result->role);
+            if (isset($result->role_id)) {
+                $result->role = Roles::getbyId(id: $result->role_id);
+            }
         } else if($forceHave && !$result) {
             $result = [];
             $result = (object) $result;
