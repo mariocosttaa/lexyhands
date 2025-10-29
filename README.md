@@ -273,6 +273,23 @@ docker-compose logs -f db
 - **phpMyAdmin**: Database management
 - **Ports**: 8080 (web), 8081 (phpMyAdmin), 3306 (MySQL)
 
+### File Synchronization
+O projeto está configurado com **volume bind mount** que sincroniza automaticamente os arquivos entre o container Docker e o host:
+
+- **Arquivos criados/modificados no container** → Automaticamente refletidos no host
+- **Arquivos criados/modificados no host** → Automaticamente disponíveis no container
+- **Sincronização em tempo real** - Não é necessário usar `docker-compose exec`
+
+**Diretórios sincronizados**:
+- Todo o diretório do projeto (`.`) está montado em `/var/www/html` no container
+- Logs, cache, uploads e todos os arquivos da aplicação são sincronizados automaticamente
+
+**Exemplo prático**:
+- Criar um arquivo no container: `echo "test" > /var/www/html/test.txt`
+- O arquivo aparecerá imediatamente em `./test.txt` no host
+- Criar um arquivo no host: `echo "test" > test.txt`
+- O arquivo estará imediatamente disponível em `/var/www/html/test.txt` no container
+
 ### Production Environment (`docker-compose.prod.yml`)
 - **Web Server**: Nginx reverse proxy
 - **PHP Application**: PHP-FPM

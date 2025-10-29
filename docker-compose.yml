@@ -24,7 +24,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - .:/var/www/html
+      # Bind mount: sincroniza arquivos entre host e container em tempo real
+      - .:/var/www/html:cached
       - ./docker/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
     working_dir: /var/www/html
     depends_on:
@@ -36,6 +37,9 @@ services:
       - DB_USER=lexyhands
       - DB_PASSWORD=lexyhands123
       - APP_DEBUG=true
+      # Garantir que arquivos criados no container sejam sincronizados
+      - USER_ID=1000
+      - GROUP_ID=1000
     networks:
       - lexyhands_network
 
