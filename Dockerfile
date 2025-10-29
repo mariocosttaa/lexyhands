@@ -36,7 +36,11 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 COPY . .
 
 # Regenerate autoloader after copying all files to ensure PSR-4 mappings are correct
-RUN composer dump-autoload --optimize --no-dev
+# This ensures Router and all App\ classes are properly mapped
+RUN composer dump-autoload --optimize --no-dev --classmap-authoritative || composer dump-autoload --optimize --no-dev
+
+# Verify Router class can be found (helps debug autoloader issues)
+RUN php -r "require 'vendor/autoload.php'; if (!class_exists('App\Services\Router')) { echo 'ERROR: Router class not found!\n'; exit(1); } echo 'Router class found successfully\n';"
 
 # Set proper permissions
 RUN chown -R www-data:www-data /var/www/html
