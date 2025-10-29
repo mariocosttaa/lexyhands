@@ -155,7 +155,7 @@ class Layout  extends ServiceHelper
             --->
             
             <!--- System Helps --->
-            <script src="/assets/default/js/helpers/modal-url-param.js"></script>
+            <!-- <script src="/assets/default/js/helpers/modal-url-param.js"></script> -->
             ';
         echo $scripts;
     }

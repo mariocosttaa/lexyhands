@@ -48,7 +48,7 @@ $settings = $sql->select(table: 'settings', where: null, limit: 1, order: null, 
       <div class="main-box">
         <?php if ($settings->show_logo == true && $settings->site_logo !== null) { ?>
           <div class="logo-box">
-            <div class="logo"><a href="/projects/lexyhands"><img src="/../public/assets/images/logo.png" alt="Logo"></a></div>
+            <div class="logo"><a href="/"><img src="/assets/images/logo.png" alt="Logo"></a></div>
           </div>
         <?php } else { ?>
           <div class="logo-box">
@@ -110,7 +110,7 @@ $settings = $sql->select(table: 'settings', where: null, limit: 1, order: null, 
       <div class="upper-box">
 
         <?php if ($settings->show_logo == true && $settings->site_logo !== null) { ?>
-          <div class="nav-logo"><a href="/projects/lexyhands"><img src="/../public/assets/images/logo-2.png" alt=""></a></div>
+          <div class="nav-logo"><a href="/"><img src="/assets/images/logo-2.png" alt=""></a></div>
         <?php } else { ?>
           <div class="nav-logo"><a href="/projects/lexyhands"><?php echo $settings->site_name ?></a></div>
         <?php } ?>
@@ -158,7 +158,7 @@ $settings = $sql->select(table: 'settings', where: null, limit: 1, order: null, 
       <div class="inner-container">
         <!--Logo-->
         <div class="logo">
-          <a href="/../"><img src="/../public/assets/images/logo.png" alt=""></a>
+          <a href="/"><img src="/assets/images/logo.png" alt=""></a>
         </div>
 
         <!--Right Col-->

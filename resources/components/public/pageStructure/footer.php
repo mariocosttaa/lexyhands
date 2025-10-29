@@ -1,6 +1,6 @@
   <!-- Main Footer -->
   <footer class="main-footer footer-style-two">
-    <div class="bg bg-image" style="background-image:url(/../public/assets/images/background/bg-footer1.jpg);"></div>
+    <div class="bg bg-image" style="background-image:url(/assets/images/background/bg-footer1.jpg);"></div>
 
     <!--Widgets Section-->
     <div class="widgets-section">
@@ -15,7 +15,7 @@
 
             <?php if ($settings->show_logo == true && $settings->site_logo !== null) { ?>
               <div class="logo">
-                <a href="/projects/lexyhands"><img src="/../public/assets/images/logo.png" alt=""></a>
+                <a href="/"><img src="/assets/images/logo.png" alt=""></a>
               </div>
             <?php } else { ?>
               <div class="logo">
