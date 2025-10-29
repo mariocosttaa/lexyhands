@@ -81,6 +81,15 @@ apache2-foreground
 
 This ensures Apache serves from `/var/www/html/public` (where `public/index.php` is located) instead of the root directory.
 
+### Autoloader Fix
+If you encounter `Class "App\Services\Router" not found` errors:
+1. The Dockerfile automatically regenerates the autoloader after copying files
+2. The build process verifies Router class exists before finishing
+3. If build fails with Router verification error, check that:
+   - `app/services/Router.php` exists in the repository
+   - `composer.json` has correct PSR-4 mappings: `"App\\": "app/"`
+   - No files are being excluded by `.dockerignore` that shouldn't be
+
 ### Healthcheck (Optional)
 Add to Dockerfile:
 ```dockerfile
