@@ -1,25 +1,25 @@
 {
     "autoload": {
-      "psr-4": {
-        "App\\": "App/"
-      },
-      "files": [
-            "App/Config/Global.php",
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "app/config/Global.php",
 
-            "App/Helpers/General/errorReporting.php",
-            "App/Helpers/General/getComponent.php",
-            "App/Helpers/General/CurrencyOrganizer.php",
-            "App/Helpers/General/url.php",
-            
-            "App/Helpers/Services/UserDateTime.php",
-            "App/Helpers/Services/SlugGenerator.php",
-            "App/Helpers/Services/Money.php",
+            "app/helpers/general/errorReporting.php",
+            "app/helpers/general/getComponent.php",
+            "app/helpers/general/CurrencyOrganizer.php",
+            "app/helpers/general/url.php",
 
-            "App/Helpers/Models/Users.php",
-            "App/Helpers/Models/Products.php",
-            "App/Helpers/Models/currencies.php",
+            "app/helpers/services/UserDateTime.php",
+            "app/helpers/services/SlugGenerator.php",
+            "app/helpers/services/Money.php",
 
-            "App/Helpers/Controllers/Posts.php"
+            "app/helpers/models/Users.php",
+            "app/helpers/models/Products.php",
+            "app/helpers/models/currencies.php",
+
+            "app/helpers/controllers/Posts.php"
         ]
     },
     "require": {

@@ -28,7 +28,7 @@ class Database
         $this->host = $_ENV['DB_HOST']; // Valor padrão se a variável não existir
         $this->database = $_ENV['DB_NAME']; // Valor padrão se a variável não existir
         $this->username = $_ENV['DB_USER']; // Se não existir, ficará vazio
-        $this->password = $_ENV['DB_PASS']; // Se não existir, ficará vazio
+        $this->password = $_ENV['DB_PASSWORD']; // Se não existir, ficará vazio
         $this->port = $_ENV['DB_PORT'] ?? 3306; // Porta padrão MySQL
     }
 

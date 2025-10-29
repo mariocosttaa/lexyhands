@@ -4,6 +4,7 @@ namespace App\Services;
 
 use PDO;
 use PDOException;
+use App\Config\Database;
 
 class Migration
 {
@@ -12,7 +13,7 @@ class Migration
 
     public function __construct()
     {
-        $this->pdo = Database::getInstance()->getConnection();
+        $this->pdo = Database::conn();
         $this->createMigrationsTable();
     }
 
@@ -48,16 +49,12 @@ class Migration
             try {
                 echo "Running migration: {$migration}\n";
                 
-                $this->pdo->beginTransaction();
-                
                 $this->runMigration($migration);
                 $this->recordMigration($migration, $batch);
                 
-                $this->pdo->commit();
                 echo "✅ Migration {$migration} completed successfully\n";
                 
             } catch (PDOException $e) {
-                $this->pdo->rollBack();
                 echo "❌ Migration {$migration} failed: " . $e->getMessage() . "\n";
                 throw $e;
             }
@@ -68,7 +65,7 @@ class Migration
 
     private function getPendingMigrations(): array
     {
-        $migrationsDir = __DIR__ . '/../database/migrations/';
+        $migrationsDir = __DIR__ . '/../../database/migrations/';
         $files = glob($migrationsDir . '*.php');
         
         $migrations = [];
@@ -92,7 +89,7 @@ class Migration
 
     private function runMigration(string $migration): void
     {
-        $migrationFile = __DIR__ . '/../database/migrations/' . $migration . '.php';
+        $migrationFile = __DIR__ . '/../../database/migrations/' . $migration . '.php';
         
         if (!file_exists($migrationFile)) {
             throw new \Exception("Migration file not found: {$migrationFile}");
@@ -112,10 +109,15 @@ class Migration
 
     private function getMigrationClassName(string $migration): string
     {
+        // Extract class name from migration filename
+        // e.g., "2024_01_01_000000_create_users_table" -> "CreateUsersTable"
         $parts = explode('_', $migration);
-        $className = '';
         
-        foreach ($parts as $part) {
+        // Skip the date parts (first 4 parts: 2024, 01, 01, 000000)
+        $classParts = array_slice($parts, 4);
+        
+        $className = '';
+        foreach ($classParts as $part) {
             $className .= ucfirst($part);
         }
         
@@ -171,7 +173,7 @@ class Migration
 
     private function rollbackMigration(string $migration): void
     {
-        $migrationFile = __DIR__ . '/../database/migrations/' . $migration . '.php';
+        $migrationFile = __DIR__ . '/../../database/migrations/' . $migration . '.php';
         
         if (!file_exists($migrationFile)) {
             throw new \Exception("Migration file not found: {$migrationFile}");

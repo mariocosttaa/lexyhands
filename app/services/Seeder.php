@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Database\Seeders\DatabaseSeeder;
+use App\Config\Database;
 
 class Seeder
 {
@@ -40,7 +41,7 @@ class Seeder
             'settings'
         ];
         
-        $pdo = Database::getInstance()->getConnection();
+        $pdo = Database::conn();
         
         // Disable foreign key checks
         $pdo->exec('SET FOREIGN_KEY_CHECKS = 0');

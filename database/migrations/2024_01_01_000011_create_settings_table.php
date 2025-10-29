@@ -33,12 +33,12 @@ class CreateSettingsTable
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
         ";
         
-        SqlEasy::getInstance()->query($sql);
+        (new SqlEasy())->conn()->exec($sql);
     }
 
     public function down(): void
     {
         $sql = "DROP TABLE IF EXISTS settings";
-        SqlEasy::getInstance()->query($sql);
+        (new SqlEasy())->conn()->exec($sql);
     }
 }
