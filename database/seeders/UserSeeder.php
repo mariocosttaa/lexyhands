@@ -34,7 +34,17 @@ class UserSeeder
         ];
 
         foreach ($roles as $role) {
-            $this->sqlEasy->insert('roles', $role);
+            try {
+                $this->sqlEasy->insert('roles', $role);
+            } catch (\PDOException $e) {
+                // Ignore duplicate entry errors (SQLSTATE code is string "23000")
+                $errorCode = (string)$e->getCode();
+                $isDuplicate = ($errorCode === '23000' || strpos($e->getMessage(), 'Duplicate entry') !== false);
+                if (!$isDuplicate) {
+                    throw $e;
+                }
+                // Silently ignore duplicate entries
+            }
         }
 
         // Seed users
@@ -64,7 +74,17 @@ class UserSeeder
         ];
 
         foreach ($users as $user) {
-            $this->sqlEasy->insert('users', $user);
+            try {
+                $this->sqlEasy->insert('users', $user);
+            } catch (\PDOException $e) {
+                // Ignore duplicate entry errors (SQLSTATE code is string "23000")
+                $errorCode = (string)$e->getCode();
+                $isDuplicate = ($errorCode === '23000' || strpos($e->getMessage(), 'Duplicate entry') !== false);
+                if (!$isDuplicate) {
+                    throw $e;
+                }
+                // Silently ignore duplicate entries
+            }
         }
         
         echo "✅ Users and roles seeded\n";

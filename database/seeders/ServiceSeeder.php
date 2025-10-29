@@ -60,7 +60,18 @@ class ServiceSeeder
         ];
 
         foreach ($services as $service) {
-            $this->sqlEasy->insert('services', $service);
+            try {
+                $this->sqlEasy->insert('services', $service);
+            } catch (\PDOException $e) {
+                // Ignore duplicate entry errors (SQLSTATE code is string "23000")
+                // Check error code or message for duplicate entry
+                $errorCode = (string)$e->getCode();
+                $isDuplicate = ($errorCode === '23000' || strpos($e->getMessage(), 'Duplicate entry') !== false);
+                if (!$isDuplicate) {
+                    throw $e;
+                }
+                // Silently ignore duplicate entries
+            }
         }
         
         echo "✅ Services seeded\n";
