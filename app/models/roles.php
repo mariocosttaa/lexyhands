@@ -28,4 +28,9 @@ class Roles extends ModelHelper
         return parent::SQL_EASY_SELECT('roles', where: ['id' => $id], limit: null, order: null, object: true);
     }
 
+    public static function getByRoleId($role_id): mixed {
+        if(empty($role_id)) return false;
+        return parent::SQL_EASY_SELECT('roles', where: ['role_id' => $role_id], limit: null, order: null, object: true);
+    }
+
 }

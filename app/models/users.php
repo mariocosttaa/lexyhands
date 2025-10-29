@@ -46,7 +46,7 @@ class Users extends ModelHelper {
         if($result) {
             $result->names = $result->name . ' ' . $result->surname;
             if (isset($result->role_id)) {
-                $result->role = Roles::getbyId(id: $result->role_id);
+                $result->role = Roles::getByRoleId(role_id: $result->role_id);
             }
         } else if($forceHave && !$result) {
             $result = [];

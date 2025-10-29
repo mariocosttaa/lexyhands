@@ -138,11 +138,11 @@
                     <div class="dropdown header-dropdown me-3">
                         <button class="btn btn-link d-flex align-items-center text-decoration-none" data-bs-toggle="dropdown">
                             <div class="avatar-circle me-2 d-flex align-items-center justify-content-center">
-                                <span class="text-white fw-bold"><?php echo getInitials($main->user->name, $main->user->surname) ?></span>
+                                <span class="text-white fw-bold"><?php echo getInitials($main->user->name ?? '', $main->user->surname ?? '') ?></span>
                             </div>
                             <div class="d-none d-md-block text-start">
-                                <div class="fw-bold" style="color: inherit"><?php echo $main->user->names ?></div>
-                                <div class="small text-muted"><?php echo $main->user->role->name ?></div>
+                                <div class="fw-bold" style="color: inherit"><?php echo $main->user->names ?? 'User' ?></div>
+                                <div class="small text-muted"><?php echo (isset($main->user->role) && is_object($main->user->role) && isset($main->user->role->name)) ? $main->user->role->name : 'No Role' ?></div>
                             </div>
                             <i class="bi bi-chevron-down ms-2"></i>
                         </button>
