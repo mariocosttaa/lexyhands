@@ -132,17 +132,40 @@ lexyhands/
 
 ### Migrations (`database/migrations/`)
 Database schema versioning and updates:
+
+**Using Docker (recommended)**:
 ```bash
-# Run migrations
 docker-compose exec app php migrate.php
 ```
 
+**Manual command (without Docker)**:
+```bash
+php migrate.php
+```
+
+**Requirements for manual execution**:
+- PHP 8.1+ installed locally
+- Database credentials configured in `app/config/Database.php`
+- Database server running and accessible
+
 ### Seeders (`database/seeders/`)
 Populate database with initial data:
+
+**Using Docker (recommended)**:
 ```bash
-# Run seeders
 docker-compose exec app php seed.php
 ```
+
+**Manual command (without Docker)**:
+```bash
+php seed.php
+```
+
+**Requirements for manual execution**:
+- PHP 8.1+ installed locally
+- Database credentials configured in `app/config/Database.php`
+- Migrations must be run first
+- Database server running and accessible
 
 **Seeded Data Includes**:
 - **Users**: Admin (ADM001) and Editor (EDT001) accounts
@@ -173,13 +196,27 @@ docker-compose exec app php seed.php
    ```
 
 3. **Run database migrations**
+
+   **Using Docker**:
    ```bash
    docker-compose exec app php migrate.php
    ```
+   
+   **Manual (without Docker)**:
+   ```bash
+   php migrate.php
+   ```
 
 4. **Seed the database**
+
+   **Using Docker**:
    ```bash
    docker-compose exec app php seed.php
+   ```
+   
+   **Manual (without Docker)**:
+   ```bash
+   php seed.php
    ```
 
 5. **Access the application**
