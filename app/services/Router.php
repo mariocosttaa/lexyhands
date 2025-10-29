@@ -18,9 +18,9 @@ class Router
         $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../'); // Caminho correto para a raiz do projeto
         $dotenv->load();
 
-        $this->currentUri = rtrim($_SERVER['REQUEST_URI'], '/');
+        $this->currentUri = rtrim($_SERVER['REQUEST_URI'] ?? '/', '/');
 
-        if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false && $_ENV['APP_ENV'] === 'local') {
+        if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'localhost') !== false && ($_ENV['APP_ENV'] ?? '') === 'local') {
             $baseUri = '/projects/lexyhands';
             if (strpos($this->currentUri, $baseUri) === 0) {
                 $this->currentUri = substr($this->currentUri, strlen($baseUri));
@@ -48,11 +48,16 @@ class Router
     {
         // Obtém a URI sem a query string
         $uri = strtok($this->currentUri, '?') ?: '/';
-        $httpMethod = $_SERVER['REQUEST_METHOD'];
+        $httpMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
         $statusCode = 200;
         $error = null;
     
         try {
+            // Check if routes exist for this HTTP method
+            if (!isset($this->routes[$httpMethod])) {
+                throw new \Exception("No routes defined for method: $httpMethod");
+            }
+            
             foreach ($this->routes[$httpMethod] as $routeUri => $route) {
                 // Normalize empty route to match root
                 $normalizedRouteUri = $routeUri === '' ? '/' : $routeUri;
