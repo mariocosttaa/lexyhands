@@ -23,15 +23,20 @@ RUN a2enmod rewrite
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy composer files
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Copy composer files first
 COPY composer.json composer.lock ./
 
-# Install Composer dependencies
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install --no-dev --optimize-autoloader
+# Install Composer dependencies (generates initial autoloader)
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Copy application files
 COPY . .
+
+# Regenerate autoloader after copying all files to ensure PSR-4 mappings are correct
+RUN composer dump-autoload --optimize --no-dev
 
 # Set proper permissions
 RUN chown -R www-data:www-data /var/www/html
