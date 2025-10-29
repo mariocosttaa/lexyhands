@@ -14,8 +14,11 @@ class FileUpload
     public function __construct(?string $uploadDir = null)
     {
         if ($uploadDir) {
+            // Get document root, fallback to /var/www/html if not set (Docker environment)
+            $documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? '/var/www/html';
+            
             // Transforma o diretório fornecido em um caminho absoluto
-            $this->uploadDir = rtrim($_SERVER['DOCUMENT_ROOT'] . '/' . $uploadDir, '/') . '/';
+            $this->uploadDir = rtrim($documentRoot . '/' . $uploadDir, '/') . '/';
 
             // Cria o diretório de upload, se não existir
             if (!is_dir($this->uploadDir)) {
@@ -26,8 +29,11 @@ class FileUpload
 
     public function remove(string $relativePath): bool
     {
-        // Adiciona o $_SERVER['DOCUMENT_ROOT'] ao caminho para obter o caminho absoluto
-        $absolutePath = $_SERVER['DOCUMENT_ROOT'] . '/' . ltrim($relativePath, '/');
+        // Get document root, fallback to /var/www/html if not set (Docker environment)
+        $documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? '/var/www/html';
+        
+        // Adiciona o document root ao caminho para obter o caminho absoluto
+        $absolutePath = $documentRoot . '/' . ltrim($relativePath, '/');
 
         // Verifica se o arquivo existe
         if (!file_exists($absolutePath)) {
@@ -149,8 +155,11 @@ class FileUpload
             return null;
         }
 
+        // Get document root, fallback to /var/www/html if not set (Docker environment)
+        $documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? '/var/www/html';
+        
         // Retorna o caminho relativo em relação à pasta pública
-        return ltrim(string: str_replace($_SERVER['DOCUMENT_ROOT'], replace: '', subject: $filePath), characters: '/');
+        return ltrim(string: str_replace($documentRoot, replace: '', subject: $filePath), characters: '/');
     }
 
 
