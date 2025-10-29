@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\Services as Services;
 use App\Models\Products as Products;
 use App\Models\Posts as Posts;
+use App\Models\Settings as Settings;
 
 class HomeController extends ControllerHelper
 {
@@ -13,6 +14,7 @@ class HomeController extends ControllerHelper
             'services' => Services::getAll(order: 'id DESC', limit: 4),
             'products' => Products::getAll(order: 'id DESC'),
             'posts' => Posts::getAll(order: 'id DESC', limit: 3 ),
+            'settings' => Settings::get(),
         ]);
         
     }

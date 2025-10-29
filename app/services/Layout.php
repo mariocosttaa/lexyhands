@@ -81,7 +81,7 @@ class Layout  extends ServiceHelper
                     }
                 } else {
                     self::defaultJs(); //incluir css padrao do layout
-                    include_once "resources/components/$type/pageStructure/navbar.php";
+                    include_once parent::ROOT_PATH() . "/resources/components/$type/pageStructure/navbar.php";
                 }
             }
 
@@ -133,9 +133,9 @@ class Layout  extends ServiceHelper
     private static function defaultCss() {
         $styles = '
             <!-- System Default Cs -->
-            <link rel="stylesheet" media="screen" href="/../public/default/boxicons/css/boxicons.min.css">
+            <link rel="stylesheet" media="screen" href="/default/boxicons/css/boxicons.min.css">
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-            <link href="/../public/default/icons.min.css" rel="stylesheet" type="text/css" />
+            <link href="/default/icons.min.css" rel="stylesheet" type="text/css" />
         ';
         echo $styles;
     }
@@ -143,19 +143,19 @@ class Layout  extends ServiceHelper
     private static function defaultJs() {
         $scripts = '
             <!-- System Default Js -->
-            <script src="/../public/default/jquery-3.6.0.min.js"></script>
+            <script src="/default/jquery-3.6.0.min.js"></script>
 
             <!-- SweetAlert JavaScript e Css -->
-            <script src="/../public/default/services/sweetalert2/dist/sweetalert2.all.min.js"></script>
+            <script src="/default/services/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
-            <script src="/../public/default/system-dinamicAlerts.js"></script>
+            <script src="/default/system-dinamicAlerts.js"></script>
             
             <!---
-            <script src="/../public/default/system.form.filter.js"></script>
+            <script src="/default/system.form.filter.js"></script>
             --->
             
             <!--- System Helps --->
-            <script src="public/assets/default/js/helpers/modal-url-param.js"></script>
+            <script src="/assets/default/js/helpers/modal-url-param.js"></script>
             ';
         echo $scripts;
     }

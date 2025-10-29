@@ -62,7 +62,7 @@
                                                                                       echo $i;
                                                                                     } ?>.png" alt="Image"></figure>
                             <h4 class="title"><a
-                                    href="/../service/<?php echo $service->slug_name ?>"><?php echo $service->name ?></a></h4>
+                                    href="/service/<?php echo $service->identificator ?>"><?php echo $service->name ?></a></h4>
                             <div class="text"><?php echo $service->description ?></div>
                         </div>
                     </div>

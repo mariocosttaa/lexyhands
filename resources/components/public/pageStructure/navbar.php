@@ -18,8 +18,8 @@ $settings = $sql->select(table: 'settings', where: null, limit: 1, order: null, 
           <!-- Info List -->
           <ul class="list-style-one">
             <li>
-              <?php if ($settings->email) { ?>
-                <a href="mailto:<?php echo $settings->email ?>"><?php echo $settings->email ?></a>
+              <?php if (isset($settings) && isset($settings->contact_email)) { ?>
+                <a href="mailto:<?php echo $settings->contact_email ?>"><?php echo $settings->contact_email ?></a>
               <?php } ?>
             </li>
           </ul>
