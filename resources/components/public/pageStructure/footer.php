@@ -99,41 +99,70 @@
 <!-- Scroll To Top -->
 <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
 
-<script data-cfasync="false" src="/../public/assets/js/email-decode.min.js"></script><script src="/../public/assets/js/jquery.js"></script> 
+<script data-cfasync="false" src="/assets/js/email-decode.min.js"></script><script src="/assets/js/jquery.js"></script> 
 
 
 <!--Revolution Slider-->
-<script src="/../public/assets/js/plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
-<script src="/../public/assets/js/plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
-<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.actions.min.js"></script>
-<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
-<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
-<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.migration.min.js"></script>
-<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
-<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
-<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-<script src="/../public/assets/js/plugins/revolution/js/extensions/revolution.extension.video.min.js"></script>
-<script src="/../public/assets/js/main-slider-script.js"></script>
+<script src="/assets/js/plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
+<script src="/assets/js/plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
+<script src="/assets/js/plugins/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+<script src="/assets/js/plugins/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+<script src="/assets/js/plugins/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+<script src="/assets/js/plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+<script src="/assets/js/plugins/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+<script src="/assets/js/plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+<script src="/assets/js/plugins/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+<script src="/assets/js/plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+<script src="/assets/js/plugins/revolution/js/extensions/revolution.extension.video.min.js"></script>
+<script src="/assets/js/main-slider-script.js"></script>
 <!--Revolution Slider-->
 
-<script src="/../public/assets/js/popper.min.js"></script>
-<script src="/../public/assets/js/bootstrap.min.js"></script>
-<script src="/../public/assets/js/jquery.fancybox.js"></script>
-<script src="/../public/assets/js/jquery-ui.js"></script>
-<script src="/../public/assets/js/mixitup.js"></script>
-<script src="/../public/assets/js/gsap.min.js"></script>
-<script src="/../public/assets/js/ScrollTrigger.min.js"></script>
-<script src="/../public/assets/js/splitType.js"></script>
-<script src="/../public/assets/js/wow.js"></script>
-<script src="/../public/assets/js/select2.min.js"></script>
-<script src="/../public/assets/js/appear.js"></script>
-<script src="/../public/assets/js/swiper.min.js"></script>
-<script src="/../public/assets/js/owl.js"></script>
-<script src="/../public/assets/js/script.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/jquery-ui.js"></script>
+<script src="/assets/js/mixitup.js"></script>
+<script src="/assets/js/gsap.min.js"></script>
+<script src="/assets/js/ScrollTrigger.min.js"></script>
+<script src="/assets/js/splitType.js"></script>
+<script src="/assets/js/wow.js"></script>
+<script src="/assets/js/select2.min.js"></script>
+<script src="/assets/js/appear.js"></script>
+<script src="/assets/js/swiper.min.js"></script>
+<script src="/assets/js/owl.js"></script>
+<script src="/assets/js/script.js"></script>
 <!-- form submit -->
-<script src="/../public/assets/js/jquery.validate.min.js"></script>
-<script src="/../public/assets/js/jquery.form.min.js"></script>
+<script src="/assets/js/jquery.validate.min.js"></script>
+<script src="/assets/js/jquery.form.min.js"></script>
 
+<script>
+// Fallback to hide preloader if main script doesn't load
+(function() {
+    function hidePreloader() {
+        var preloader = document.querySelector('.preloader');
+        if (preloader) {
+            preloader.style.display = 'none';
+        }
+    }
+    
+    // Try to hide after page load
+    if (document.readyState === 'complete') {
+        setTimeout(hidePreloader, 500);
+    } else {
+        window.addEventListener('load', function() {
+            setTimeout(hidePreloader, 500);
+        });
+    }
+    
+    // Also hide after script.js loads (if it loads)
+    if (window.jQuery) {
+        setTimeout(function() {
+            if (jQuery && jQuery('.preloader').length) {
+                jQuery('.preloader').fadeOut(500);
+            }
+        }, 200);
+    }
+})();
+</script>
 
 </body></html>

@@ -22,5 +22,5 @@
 <div class="page-wrapper">
     
   <!-- Preloader -->
-  <div class="preloader1"></div>
+  <div class="preloader"></div>
 
